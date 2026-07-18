@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Music SEO Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome cho icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-youtube"></i> YouTube Music SEO Tool</h1>
+            <p>Tạo Timestamp, SEO Mô tả, Hashtag & Tag tự động với Gemini AI</p>
+        </header>
+
+        <div class="api-key-section">
+            <label for="geminiApiKey"><i class="fas fa-key"></i> Google Gemini API Key:</label>
+            <input type="password" id="geminiApiKey" placeholder="Nhập API Key của bạn (Bắt buộc để dùng AI)...">
+            <small>Lấy API Key miễn phí tại <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>.</small>
+        </div>
+
+        <div class="main-grid">
+            <!-- Cột trái: Đầu vào -->
+            <div class="panel input-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-list-ol"></i> Danh sách bài hát</h2>
+                    <span id="songCount" class="badge">0 bài</span>
+                </div>
+                <p class="hint">Nhập theo định dạng: <code>Tên bài hát - 03:45</code> hoặc <code>Tên bài hát 03:45</code></p>
+                <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Đừng làm trái tim anh đau - 04:30&#10;Chạy ngay đi 04:15&#10;Nơi này có anh - 04:20"></textarea>
+                
+                <div class="action-buttons">
+                    <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Timestamp & SEO (AI)</button>
+                    <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Chỉ tính Timestamp</button>
+                </div>
+            </div>
+
+            <!-- Cột phải: Kết quả -->
+            <div class="panel output-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-check-circle"></i> Kết quả SEO</h2>
+                    <div class="export-actions">
+                        <button id="copyAllBtn" class="btn-icon" title="Copy Toàn Bộ"><i class="fas fa-copy"></i></button>
+                        <button id="exportTxtBtn" class="btn-icon" title="Xuất TXT"><i class="fas fa-file-alt"></i></button>
+                        <button id="exportDocxBtn" class="btn-icon" title="Xuất DOCX"><i class="fas fa-file-word"></i></button>
+                    </div>
+                </div>
+
+                <div class="loader" id="loader">
+                    <i class="fas fa-spinner fa-spin"></i> AI đang viết nội dung, vui lòng đợi...
+                </div>
+
+                <div class="output-content" id="outputContent">
+                    <div class="output-section">
+                        <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
+                        <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
+                    </div>
+
+                    <div class="output-section">
+                        <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
+                        <textarea id="outTimestamps" readonly placeholder="00:00 Bài hát 1..."></textarea>
+                    </div>
+
+                    <div class="output-section">
+                        <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
+                        <textarea id="outHashtags" readonly placeholder="#NhacTre #TopTrending..."></textarea>
+                    </div>
+
+                    <div class="output-section">
+                        <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
+                        <textarea id="outTags" readonly placeholder="nhạc trẻ, top trending, bài hát hay nhất..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

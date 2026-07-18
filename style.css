@@ -1,0 +1,215 @@
+:root {
+    --bg-color: #0f1115;
+    --panel-bg: #1a1d24;
+    --primary-color: #ff0000;
+    --primary-hover: #cc0000;
+    --secondary-color: #2b303b;
+    --secondary-hover: #373e4a;
+    --text-main: #ffffff;
+    --text-muted: #8b92a5;
+    --border-color: #2b303b;
+    --success-color: #00e676;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+header p { color: var(--text-muted); }
+
+.api-key-section {
+    background: var(--panel-bg);
+    padding: 15px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.api-key-section input {
+    flex: 1;
+    min-width: 250px;
+    padding: 10px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: white;
+    border-radius: 6px;
+    font-family: monospace;
+}
+
+.api-key-section a { color: var(--primary-color); text-decoration: none; }
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-header h2 { font-size: 1.2rem; display: flex; align-items: center; gap: 8px;}
+
+.badge {
+    background: var(--secondary-color);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+#tracklistInput { height: 400px; flex: 1; }
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    flex: 2;
+}
+
+.btn-primary:hover { background: var(--primary-hover); }
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+    flex: 1;
+}
+
+.btn-secondary:hover { background: var(--secondary-hover); }
+
+.export-actions { display: flex; gap: 8px; }
+
+.btn-icon {
+    background: var(--secondary-color);
+    color: white;
+    padding: 8px 12px;
+    font-size: 1.1rem;
+}
+
+.btn-icon:hover { background: var(--primary-color); }
+
+.output-section { margin-bottom: 15px; }
+.output-section h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#outDescription { height: 100px; }
+#outTimestamps { height: 150px; font-family: monospace;}
+#outHashtags { height: 60px; }
+#outTags { height: 60px; }
+
+.loader {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: var(--secondary-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    #tracklistInput { height: 300px; }
+    .action-buttons { flex-direction: column; }
+}
