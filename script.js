@@ -103,10 +103,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prompt = `Bạn là một chuyên gia SEO YouTube. Tôi có một video âm nhạc gồm danh sách các bài hát sau: ${songs.join(', ')}.
         
-Yêu cầu bạn tạo nội dung SEO mới, hấp dẫn, không trùng lặp các lần trước. Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
+Yêu cầu bạn tạo nội dung SEO mới, hấp dẫn, có chứa các icon thu hút người đọc và được trình bày giống như ví dụ sau:
+
+🎧 [Tên bài hát đầu tiên hoặc Tên list nhạc] – Bản phối [Thể loại] sôi động với giai điệu cuốn hút, tiết tấu bắt tai cùng những đoạn bass mạnh mẽ, mang đến bầu không khí bùng nổ và đầy cảm xúc. Đây là bản remix lý tưởng dành cho những ai yêu thích âm nhạc năng lượng, giúp khuấy động mọi khoảnh khắc từ thư giãn đến những cuộc vui.
+
+🔥 Tăng âm lượng, đeo tai nghe hoặc mở trên hệ thống loa chất lượng để cảm nhận trọn vẹn từng nhịp bass và giai điệu đầy mê hoặc.
+
+❤️ Nếu bạn yêu thích video này, đừng quên Like 👍 • Chia sẻ 📤 • Đăng ký 🔔 kênh của tôi để luôn cập nhật những bản nhạc, playlist và video âm nhạc mới nhất.
+
+🎼 Thể loại: [Thể loại nhạc]
+🎶 Phong cách: [Các phong cách nhạc]
+🎧 Trải nghiệm tốt nhất: Nghe bằng tai nghe hoặc loa chất lượng để tận hưởng âm thanh sống động.
+
+✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn.
+
+Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
-  "description": "Đoạn mô tả video hấp dẫn, tự nhiên, chứa từ khóa (khoảng 3-4 câu).",
-  "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng (ví dụ: #NhacTre #TopTrending)",
+  "description": "Đoạn mô tả video được định dạng hấp dẫn với các icon như ví dụ ở trên, thay thế các thông tin trong ngoặc vuông cho phù hợp với danh sách bài hát.",
+  "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
   "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
 }`;
 
