@@ -115,7 +115,7 @@ Yêu cầu bạn tạo nội dung SEO mới, hấp dẫn, có chứa các icon t
 🎶 Phong cách: [Các phong cách nhạc]
 🎧 Trải nghiệm tốt nhất: Nghe bằng tai nghe hoặc loa chất lượng để tận hưởng âm thanh sống động.
 
-✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn.
+✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn. Tất cả các tài nguyên AI tạo ra đều được sử dụng trong phạm vi minh họa nội dung (Fair Use). Nếu có bất kỳ vấn đề nào liên quan đến bản quyền, xin vui lòng liên hệ trực tiếp với chúng tôi qua email.
 
 Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
