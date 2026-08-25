@@ -119,7 +119,7 @@ Yêu cầu bạn tạo nội dung SEO mới, hấp dẫn, có chứa các icon t
 
 Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
-  "description": "Đoạn mô tả video được định dạng hấp dẫn với các icon như ví dụ ở trên, thay thế các thông tin trong ngoặc vuông cho phù hợp với danh sách bài hát.",
+  "description": "Đoạn mô tả video được định dạng hấp dẫn với các icon như ví dụ ở trên, thay thế các thông tin trong ngoặc vuông. YÊU CẦU ĐẶC BIỆT: TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).",
   "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
   "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
 }`;
