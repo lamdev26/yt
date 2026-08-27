@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${pad(m)}:${pad(s)}`;
     }
 
-    // Logic tính toán Timestamps
+    // Logic tính toán Timestamps (Đã thêm random icon)
     function processTimestamps() {
         const lines = tracklistInput.value.split('\n');
         let currentSeconds = 0;
@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Regex tìm thời lượng định dạng MM:SS hoặc HH:MM:SS ở cuối hoặc trong chuỗi
         const timeRegex = /(?:(\d{1,2}):)?(\d{1,2}):(\d{1,2})/;
+
+        // Danh sách các icon để random (Bạn có thể thêm bớt tùy thích)
+        const musicIcons = ['🎵', '🎶', '🎧', '💿', '✨', '🔥', '🎸', '🎹', '🎤'];
 
         lines.forEach(line => {
             const match = line.match(timeRegex);
@@ -51,11 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const seconds = parseInt(match[3]);
                 const durationInSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
-                // Tách tên bài hát (loại bỏ phần thời gian và các ký tự thừa như '-', '|')
+                // Tách tên bài hát (loại bỏ phần thời gian và các ký tự thừa)
                 let title = line.replace(match[0], '').replace(/^[-|:\s]+|[-|:\s]+$/g, '').trim();
                 
-                // Lưu timestamp cho bài này
-                result.push(`${formatTime(currentSeconds)} ${title}`);
+                // Bốc ngẫu nhiên 1 icon từ mảng musicIcons
+                const randomIcon = musicIcons[Math.floor(Math.random() * musicIcons.length)];
+                
+                // Lưu timestamp cho bài này (chèn icon ngẫu nhiên vào giữa)
+                result.push(`${formatTime(currentSeconds)} ${randomIcon} ${title}`);
                 songNames.push(title);
 
                 // Cộng dồn thời gian cho bài tiếp theo
@@ -79,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Tạo Timestamp & AI SEO
+    // Tạo Timestamp & AI SEO (Đã tối ưu Prompt chuẩn SEO)
     document.getElementById('generateBtn').addEventListener('click', async () => {
         const apiKey = apiKeyInput.value.trim();
         if (!apiKey) {
@@ -101,27 +107,37 @@ document.addEventListener('DOMContentLoaded', () => {
         outputContent.style.display = 'none';
         loader.style.display = 'block';
 
-        const prompt = `Bạn là một chuyên gia SEO YouTube. Tôi có một video âm nhạc gồm danh sách các bài hát sau: ${songs.join(', ')}.
+        const prompt = `Bạn là một chuyên gia SEO YouTube và Copywriter đỉnh cao. Tôi có một video âm nhạc với danh sách các bài hát sau: ${songs.join(', ')}.
         
-Yêu cầu bạn tạo nội dung SEO mới, hấp dẫn, có chứa các icon thu hút người đọc và được trình bày giống như ví dụ sau:
+Nhiệm vụ của bạn là viết một phần mô tả video (description) thật lôi cuốn, chuẩn SEO để giữ chân người xem và tối ưu hóa thuật toán tìm kiếm của YouTube. 
 
-🎧 [Tên bài hát đầu tiên hoặc Tên list nhạc] – Bản phối [Thể loại] sôi động với giai điệu cuốn hút, tiết tấu bắt tai cùng những đoạn bass mạnh mẽ, mang đến bầu không khí bùng nổ và đầy cảm xúc. Đây là bản remix lý tưởng dành cho những ai yêu thích âm nhạc năng lượng, giúp khuấy động mọi khoảnh khắc từ thư giãn đến những cuộc vui.
+Hãy áp dụng các nguyên tắc sau:
+1. 3 Dòng Đầu Tiên (Cực kỳ quan trọng): Viết 1-2 câu "Hook" (câu mồi) thật giật gân, hấp dẫn và CHỨA TỪ KHÓA CHÍNH (tên bài hát nổi bật nhất hoặc thể loại nhạc).
+2. Kêu gọi hành động (CTA) mạnh mẽ: Khuyến khích người xem Like, Đăng ký kênh và đặc biệt là KÊU GỌI BÌNH LUẬN (VD: "Bạn thích bài hát nào nhất trong playlist này? Comment cho mình biết nhé!").
+3. Chèn từ khóa tự nhiên: Lồng ghép khéo léo các từ khóa mà người dùng hay tìm kiếm về thể loại nhạc này vào đoạn văn bản.
+4. Trình bày thoáng, dễ đọc, sử dụng emoji phù hợp (không lạm dụng).
 
-🔥 Tăng âm lượng, đeo tai nghe hoặc mở trên hệ thống loa chất lượng để cảm nhận trọn vẹn từng nhịp bass và giai điệu đầy mê hoặc.
+Hãy trình bày theo cấu trúc ví dụ sau:
 
-❤️ Nếu bạn yêu thích video này, đừng quên Like 👍 • Chia sẻ 📤 • Đăng ký 🔔 kênh của tôi để luôn cập nhật những bản nhạc, playlist và video âm nhạc mới nhất.
+🔥 [Câu Hook cực cuốn hút chứa từ khóa chính, ví dụ: "Chìm đắm trong không gian âm nhạc cực chill với những bản hit..." hoặc "Bùng nổ năng lượng với siêu phẩm remix..."]
 
-🎼 Thể loại: [Thể loại nhạc]
-🎶 Phong cách: [Các phong cách nhạc]
-🎧 Trải nghiệm tốt nhất: Nghe bằng tai nghe hoặc loa chất lượng để tận hưởng âm thanh sống động.
+🎧 Chào mừng bạn đến với playlist [Tên chủ đề/Thể loại nhạc]. Bản phối này là sự kết hợp hoàn hảo giữa những giai điệu cuốn hút, tiết tấu bắt tai và âm bass cực căng. Dù bạn đang cần năng lượng để làm việc, chạy bộ hay "quẩy" cùng bạn bè, đây chính là không gian âm nhạc dành cho bạn!
 
-✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn. Tất cả các tài nguyên AI tạo ra đều được sử dụng trong phạm vi minh họa nội dung (Fair Use). Nếu có bất kỳ vấn đề nào liên quan đến bản quyền, xin vui lòng liên hệ trực tiếp với chúng tôi qua email.
+👇 Cùng thưởng thức và cho mình biết: BẠN THÍCH BÀI HÁT NÀO NHẤT TRONG PLAYLIST NÀY? Để lại bình luận phía dưới nhé!
 
-Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
+❤️ Đừng quên LIKE 👍, CHIA SẺ 📤 và ĐĂNG KÝ 🔔 kênh để không bỏ lỡ những siêu phẩm âm nhạc mới nhất! Sự ủng hộ của bạn là động lực to lớn giúp kênh phát triển.
+
+🎼 Thể loại: [Tên thể loại nhạc]
+🎶 Không gian âm nhạc: [Mood nhạc, ví dụ: Thư giãn, Năng lượng, Chữa lành...]
+🎧 Trải nghiệm tốt nhất: Đeo tai nghe hoặc mở loa chất lượng cao để cảm nhận trọn vẹn từng nhịp Bass!
+
+✨ Bản quyền & Fair Use: Hình ảnh và hiệu ứng trong video được hỗ trợ bởi công nghệ AI, mang đến trải nghiệm nghe nhìn sinh động. Các tài nguyên được sử dụng hợp lý nhằm mục đích minh họa. Nếu có vấn đề về bản quyền, vui lòng liên hệ trực tiếp qua email, chúng tôi sẽ xử lý ngay lập tức.
+
+Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`\`json, CHỈ trả về nguyên gốc JSON):
 {
-  "description": "Đoạn mô tả video được định dạng hấp dẫn với các icon như ví dụ ở trên, thay thế các thông tin trong ngoặc vuông. YÊU CẦU ĐẶC BIỆT: TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).",
-  "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
-  "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
+  "description": "Đoạn mô tả video được định dạng hấp dẫn theo cấu trúc trên. TUYỆT ĐỐI KHÔNG dùng ký tự markdown như **, *, _ để bôi đậm/in nghiêng, chỉ dùng văn bản thường và emoji.",
+  "hashtags": "Tạo 5-8 hashtag tối ưu SEO, viết liền không dấu, có dấu # ở trước, cách nhau bởi khoảng trắng. Gồm: 1 hashtag tên kênh/đặc trưng, 2 hashtag tên bài hát hot nhất, 2 hashtag thể loại nhạc (VD: #NhacTre #RemixHayNhat #TopTrending).",
+  "tags": "Tạo tối đa 15 thẻ tag cực chuẩn SEO, cách nhau bởi dấu phẩy. Bao gồm: các từ khóa dài (long-tail keywords) mà người dùng hay gõ tìm kiếm, tên bài hát (có dấu và không dấu), thể loại nhạc (VD: nhạc trẻ mới nhất, nhac tre remix, lofi chill, tổng hợp nhạc hay...)"
 }`;
 
         try {
@@ -130,7 +146,7 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { temperature: 0.8 } // Tăng nhẹ temp để AI sáng tạo đa dạng hơn mỗi lần
+                    generationConfig: { temperature: 0.8 } 
                 })
             });
 
@@ -162,23 +178,15 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         }
     });
 
-    // Lấy toàn bộ nội dung đã tạo
+    // Lấy toàn bộ nội dung đã tạo (Đã bỏ dải phân cách ===)
     function getFullOutput() {
-        return `========================================\n` +
-               `MÔ TẢ VIDEO\n` +
-               `========================================\n` +
+        return `[MÔ TẢ VIDEO]\n` +
                `${outDescription.value}\n\n` +
-               `========================================\n` +
-               `TIMESTAMPS\n` +
-               `========================================\n` +
+               `[TIMESTAMPS]\n` +
                `${outTimestamps.value}\n\n` +
-               `========================================\n` +
-               `HASHTAGS\n` +
-               `========================================\n` +
+               `[HASHTAGS]\n` +
                `${outHashtags.value}\n\n` +
-               `========================================\n` +
-               `TAGS\n` +
-               `========================================\n` +
+               `[TAGS]\n` +
                `${outTags.value}`;
     }
 
