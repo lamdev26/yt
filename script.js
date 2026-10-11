@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const outDescription = document.getElementById('outDescription');
     const outHashtags = document.getElementById('outHashtags');
     const outTags = document.getElementById('outTags');
+    const outTitle1 = document.getElementById('outTitle1');
+    const outTitle2 = document.getElementById('outTitle2');
+    const outTitle3 = document.getElementById('outTitle3');
+    const countTitle1 = document.getElementById('countTitle1');
+    const countTitle2 = document.getElementById('countTitle2');
+    const countTitle3 = document.getElementById('countTitle3');
     const loader = document.getElementById('loader');
     const outputContent = document.getElementById('outputContent');
     const apiKeyInput = document.getElementById('geminiApiKey');
@@ -21,6 +27,95 @@ document.addEventListener('DOMContentLoaded', () => {
         songCount.innerText = `${lines.length} bài`;
     });
 
+    // Helper: Cập nhật đếm ký tự cho tiêu đề
+    function updateCharCount(inputEl, counterEl) {
+        if (!inputEl || !counterEl) return;
+        const len = inputEl.value.length;
+        counterEl.innerText = `${len}/100 ký tự`;
+        if (len > 100) {
+            counterEl.style.color = '#ff4757';
+        } else if (len >= 55 && len <= 85) {
+            counterEl.style.color = 'var(--success-color)';
+        } else {
+            counterEl.style.color = 'var(--text-muted)';
+        }
+    }
+
+    function updateAllTitleCounts() {
+        updateCharCount(outTitle1, countTitle1);
+        updateCharCount(outTitle2, countTitle2);
+        updateCharCount(outTitle3, countTitle3);
+    }
+
+    [outTitle1, outTitle2, outTitle3].forEach((input, idx) => {
+        const counter = [countTitle1, countTitle2, countTitle3][idx];
+        if (input && counter) {
+            input.addEventListener('input', () => updateCharCount(input, counter));
+        }
+    });
+
+    // Sự kiện sao chép từng tiêu đề
+    document.querySelectorAll('.btn-copy-single').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const targetId = btn.getAttribute('data-target');
+            const targetInput = document.getElementById(targetId);
+            if (!targetInput || !targetInput.value.trim()) {
+                alert('Chưa có tiêu đề để sao chép!');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(targetInput.value.trim());
+                const originalHtml = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> <span>Đã chép!</span>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHtml;
+                }, 2000);
+            } catch (err) {
+                targetInput.select();
+                document.execCommand('copy');
+                alert('Đã sao chép tiêu đề thành công!');
+            }
+        });
+    });
+
+    // Tạo tiêu đề mẫu dự phòng (khi chỉ tính timestamp hoặc chưa gọi AI)
+    function generateDefaultTitles(songNames) {
+        if (!songNames || songNames.length === 0) return;
+        const s1 = songNames[0];
+        const s2 = songNames.length > 1 ? songNames[1] : '';
+        const s3 = songNames.length > 2 ? songNames[2] : '';
+        const currentYear = new Date().getFullYear();
+
+        const t1 = `🔥 ${s1} - Tuyển Tập Nhạc Trẻ Hot Tik Tok Triệu View Mới Nhất ${currentYear}`;
+        const t2 = s2
+            ? `🎧 Nghe Là Nghiện | ${s1} - ${s2} Remix Bass Cực Căng Cuốn Hút`
+            : `🎧 Nghe Là Nghiện | ${s1} Bản Remix Bass Cực Căng Gây Sốt`;
+        const sample = [s1, s2, s3].filter(Boolean).join(', ');
+        const t3 = `✨ BXH Nhạc Tuyển Chọn Hay Nhất | ${sample} (Top Trending)`;
+
+        outTitle1.value = t1;
+        outTitle2.value = t2;
+        outTitle3.value = t3;
+        updateAllTitleCounts();
+    }
+
+    // Tạo mô tả mẫu biến tấu theo bài hát (khi chỉ tính timestamp)
+    function generateDefaultDescription(songNames) {
+        if (!songNames || songNames.length === 0) return '';
+        const s1 = songNames[0];
+        const otherSongs = songNames.slice(1, 4).join(', ');
+        const currentYear = new Date().getFullYear();
+        return `🎧 ${s1} – Bản phối âm nhạc sôi động với giai điệu cuốn hút, tiết tấu bắt tai cùng những đoạn bass mạnh mẽ, mang đến bầu không khí bùng nổ và đầy cảm xúc. Đây là tuyển tập lý tưởng dành cho những ai yêu thích âm nhạc năng lượng (${s1}${otherSongs ? ', ' + otherSongs : ''}), giúp khuấy động mọi khoảnh khắc từ thư giãn đến những cuộc vui.\n\n` +
+               `🔥 Tăng âm lượng, đeo tai nghe hoặc mở trên hệ thống loa chất lượng để cảm nhận trọn vẹn từng nhịp bass và giai điệu đầy mê hoặc.\n\n` +
+               `❤️ Nếu bạn yêu thích video này, đừng quên Like 👍 • Chia sẻ 📤 • Đăng ký 🔔 kênh của tôi để luôn cập nhật những bản nhạc, playlist và video âm nhạc mới nhất.\n\n` +
+               `🎼 Thể loại: Nhạc Trẻ Hot Trend ${currentYear}\n` +
+               `🎶 Phong cách: Bắt tai, lôi cuốn, gây nghiện\n` +
+               `🎧 Trải nghiệm tốt nhất: Nghe bằng tai nghe hoặc loa chất lượng để tận hưởng âm thanh sống động.\n\n` +
+               `✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn.`;
+    }
+
     // Helper: Chuyển đổi giây sang định dạng MM:SS hoặc HH:MM:SS
     function formatTime(totalSeconds) {
         const h = Math.floor(totalSeconds / 3600);
@@ -32,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${pad(m)}:${pad(s)}`;
     }
 
-    // Logic tính toán Timestamps (Đã thêm random icon)
+    // Logic tính toán Timestamps
     function processTimestamps() {
         const lines = tracklistInput.value.split('\n');
         let currentSeconds = 0;
@@ -41,9 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Regex tìm thời lượng định dạng MM:SS hoặc HH:MM:SS ở cuối hoặc trong chuỗi
         const timeRegex = /(?:(\d{1,2}):)?(\d{1,2}):(\d{1,2})/;
-
-        // Danh sách các icon để random (Bạn có thể thêm bớt tùy thích)
-        const musicIcons = ['🎵', '🎶', '🎧', '💿', '✨', '🔥', '🎸', '🎹', '🎤'];
 
         lines.forEach(line => {
             const match = line.match(timeRegex);
@@ -54,14 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const seconds = parseInt(match[3]);
                 const durationInSeconds = (hours * 3600) + (minutes * 60) + seconds;
 
-                // Tách tên bài hát (loại bỏ phần thời gian và các ký tự thừa)
+                // Tách tên bài hát (loại bỏ phần thời gian và các ký tự thừa như '-', '|')
                 let title = line.replace(match[0], '').replace(/^[-|:\s]+|[-|:\s]+$/g, '').trim();
                 
-                // Bốc ngẫu nhiên 1 icon từ mảng musicIcons
-                const randomIcon = musicIcons[Math.floor(Math.random() * musicIcons.length)];
-                
-                // Lưu timestamp cho bài này (chèn icon ngẫu nhiên vào giữa)
-                result.push(`${formatTime(currentSeconds)} ${randomIcon} ${title}`);
+                // Lưu timestamp cho bài này
+                result.push(`${formatTime(currentSeconds)} ${title}`);
                 songNames.push(title);
 
                 // Cộng dồn thời gian cho bài tiếp theo
@@ -82,10 +171,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const songs = processTimestamps();
         if (!songs) {
             alert('Không tìm thấy bài hát nào hoặc sai định dạng thời gian. Vui lòng kiểm tra lại!');
+            return;
         }
+        generateDefaultTitles(songs);
+        outDescription.value = generateDefaultDescription(songs);
+        outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #NhacTre #TopTrending';
+        outTags.value = songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất';
     });
 
-    // Tạo Timestamp & AI SEO (Đã tối ưu Prompt chuẩn SEO)
+    // Tạo Timestamp & AI SEO
     document.getElementById('generateBtn').addEventListener('click', async () => {
         const apiKey = apiKeyInput.value.trim();
         if (!apiKey) {
@@ -107,37 +201,46 @@ document.addEventListener('DOMContentLoaded', () => {
         outputContent.style.display = 'none';
         loader.style.display = 'block';
 
-        const prompt = `Bạn là một chuyên gia SEO YouTube và Copywriter đỉnh cao. Tôi có một video âm nhạc với danh sách các bài hát sau: ${songs.join(', ')}.
-        
-Nhiệm vụ của bạn là viết một phần mô tả video (description) thật lôi cuốn, chuẩn SEO để giữ chân người xem và tối ưu hóa thuật toán tìm kiếm của YouTube. 
+        const currentYear = new Date().getFullYear();
+        const firstSong = songs[0];
+        const highlightSongs = songs.slice(0, 5).join(', ');
 
-Hãy áp dụng các nguyên tắc sau:
-1. 3 Dòng Đầu Tiên (Cực kỳ quan trọng): Viết 1-2 câu "Hook" (câu mồi) thật giật gân, hấp dẫn và CHỨA TỪ KHÓA CHÍNH (tên bài hát nổi bật nhất hoặc thể loại nhạc).
-2. Kêu gọi hành động (CTA) mạnh mẽ: Khuyến khích người xem Like, Đăng ký kênh và đặc biệt là KÊU GỌI BÌNH LUẬN (VD: "Bạn thích bài hát nào nhất trong playlist này? Comment cho mình biết nhé!").
-3. Chèn từ khóa tự nhiên: Lồng ghép khéo léo các từ khóa mà người dùng hay tìm kiếm về thể loại nhạc này vào đoạn văn bản.
-4. Trình bày thoáng, dễ đọc, sử dụng emoji phù hợp (không lạm dụng).
+        const prompt = `Bạn là một chuyên gia sáng tạo nội dung âm nhạc và SEO YouTube hàng đầu.
+Tôi có một video âm nhạc gồm danh sách các bài hát sau: ${songs.join(', ')}.
 
-Hãy trình bày theo cấu trúc ví dụ sau:
+Yêu cầu bạn phân tích kỹ danh sách bài hát trên để tạo nội dung SEO tối ưu nhất giúp video tiếp cận lượng tìm kiếm tự nhiên cực lớn trên YouTube (YouTube Search) và tăng tối đa tỷ lệ nhấp chuột (High CTR):
 
-🔥 [Câu Hook cực cuốn hút chứa từ khóa chính, ví dụ: "Chìm đắm trong không gian âm nhạc cực chill với những bản hit..." hoặc "Bùng nổ năng lượng với siêu phẩm remix..."]
+1. Tạo 3 TIÊU ĐỀ HOT (độ dài lý tưởng 60 - 85 ký tự, không vượt quá 100 ký tự, có emoji bắt mắt, viết hoa điểm nhấn, chứa từ khóa hot):
+- title1 (Xu Hướng & Trending Hot): Đón đầu xu hướng, kết hợp tên bài hát hot nhất (${firstSong}) + từ khóa xu hướng âm nhạc hot (Ví dụ: [Tên bài hot] - Tuyển Tập Nhạc Trẻ Hot Tik Tok Triệu View Mới Nhất ${currentYear}).
+- title2 (Kích Thích Tò Mò & High CTR): Giật tít cảm xúc mạnh, cuốn hút người nghe nhấp vào ngay (Ví dụ: Nghe Là Nghiện - [Tên bài] Bản Remix Bass Cực Căng Gây Sốt).
+- title3 (Chuẩn Tìm Kiếm YouTube Search): Tối đa hóa từ khóa tìm kiếm tự nhiên của khán giả, chứa tên các bài hát chính kèm cụm từ người nghe hay gõ tìm kiếm.
 
-🎧 Chào mừng bạn đến với playlist [Tên chủ đề/Thể loại nhạc]. Bản phối này là sự kết hợp hoàn hảo giữa những giai điệu cuốn hút, tiết tấu bắt tai và âm bass cực căng. Dù bạn đang cần năng lượng để làm việc, chạy bộ hay "quẩy" cùng bạn bè, đây chính là không gian âm nhạc dành cho bạn!
+2. Tạo MÔ TẢ (Description) BIẾN TẤU SÁNG TẠO - TUYỆT ĐỐI KHÔNG RẬP KHUÔN:
+- QUY TẮC CỐT LÕI: Luôn biến tấu sáng tạo, không rập khuôn hay sao chép nguyên văn mẫu. Hãy dựa trực tiếp vào tiêu đề bài hát đầu tiên (${firstSong}) và phong cách các bài hát trong danh sách (${highlightSongs}) để viết mô tả sống động, phù hợp chính xác với thể loại (Remix sôi động, Pop Ballad, Lofi Chill, Vinahouse...). Mỗi lần sinh nội dung phải có cách dùng từ, ví von và nhịp điệu câu văn mới mẻ.
+- Cấu trúc trình bày hấp dẫn với các icon thu hút:
 
-👇 Cùng thưởng thức và cho mình biết: BẠN THÍCH BÀI HÁT NÀO NHẤT TRONG PLAYLIST NÀY? Để lại bình luận phía dưới nhé!
+🎧 [Tên bài hát đầu tiên: ${firstSong} hoặc Tên playlist] – [Đoạn văn biến tấu linh hoạt theo tên và phong cách bài hát: miêu tả bản phối âm nhạc, tiết tấu bắt tai, giai điệu cuốn hút, những đoạn drop/bass hoặc giai điệu sâu lắng, mang đến bầu không khí đầy cảm xúc và là lựa chọn lý tưởng để tận hưởng từ thư giãn đến những cuộc vui bùng nổ].
 
-❤️ Đừng quên LIKE 👍, CHIA SẺ 📤 và ĐĂNG KÝ 🔔 kênh để không bỏ lỡ những siêu phẩm âm nhạc mới nhất! Sự ủng hộ của bạn là động lực to lớn giúp kênh phát triển.
+🔥 Tăng âm lượng, đeo tai nghe hoặc mở trên hệ thống loa chất lượng để cảm nhận trọn vẹn từng nhịp bass và giai điệu đầy mê hoặc.
 
-🎼 Thể loại: [Tên thể loại nhạc]
-🎶 Không gian âm nhạc: [Mood nhạc, ví dụ: Thư giãn, Năng lượng, Chữa lành...]
-🎧 Trải nghiệm tốt nhất: Đeo tai nghe hoặc mở loa chất lượng cao để cảm nhận trọn vẹn từng nhịp Bass!
+❤️ Nếu bạn yêu thích video này, đừng quên Like 👍 • Chia sẻ 📤 • Đăng ký 🔔 kênh của tôi để luôn cập nhật những bản nhạc, playlist và video âm nhạc mới nhất.
 
-✨ Bản quyền & Fair Use: Hình ảnh và hiệu ứng trong video được hỗ trợ bởi công nghệ AI, mang đến trải nghiệm nghe nhìn sinh động. Các tài nguyên được sử dụng hợp lý nhằm mục đích minh họa. Nếu có vấn đề về bản quyền, vui lòng liên hệ trực tiếp qua email, chúng tôi sẽ xử lý ngay lập tức.
+🎼 Thể loại: [Thể loại nhạc tự động xác định theo bài hát]
+🎶 Phong cách: [Phong cách âm nhạc tương ứng]
+🎧 Trải nghiệm tốt nhất: Nghe bằng tai nghe hoặc loa chất lượng để tận hưởng âm thanh sống động.
 
-Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`\`json, CHỈ trả về nguyên gốc JSON):
+✨ Lưu ý: Hình ảnh minh họa, thumbnail và hiệu ứng sóng nhạc trong video được thiết kế với sự hỗ trợ của công nghệ AI hiện đại, góp phần mang đến trải nghiệm nghe nhìn sinh động và hấp dẫn hơn.
+
+YÊU CẦU ĐẶC BIỆT:
+- TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).
+- Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
-  "description": "Đoạn mô tả video được định dạng hấp dẫn theo cấu trúc trên. TUYỆT ĐỐI KHÔNG dùng ký tự markdown như **, *, _ để bôi đậm/in nghiêng, chỉ dùng văn bản thường và emoji.",
-  "hashtags": "Tạo 5-8 hashtag tối ưu SEO, viết liền không dấu, có dấu # ở trước, cách nhau bởi khoảng trắng. Gồm: 1 hashtag tên kênh/đặc trưng, 2 hashtag tên bài hát hot nhất, 2 hashtag thể loại nhạc (VD: #NhacTre #RemixHayNhat #TopTrending).",
-  "tags": "Tạo tối đa 15 thẻ tag cực chuẩn SEO, cách nhau bởi dấu phẩy. Bao gồm: các từ khóa dài (long-tail keywords) mà người dùng hay gõ tìm kiếm, tên bài hát (có dấu và không dấu), thể loại nhạc (VD: nhạc trẻ mới nhất, nhac tre remix, lofi chill, tổng hợp nhạc hay...)"
+  "title1": "Tiêu đề 1 xu hướng & trending...",
+  "title2": "Tiêu đề 2 kích thích tò mò high CTR...",
+  "title3": "Tiêu đề 3 chuẩn tìm kiếm YouTube SEO...",
+  "description": "Đoạn mô tả hoàn chỉnh được biến tấu sáng tạo theo phong cách và tên bài hát...",
+  "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
+  "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
 }`;
 
         try {
@@ -146,7 +249,7 @@ Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { temperature: 0.8 } 
+                    generationConfig: { temperature: 0.85 } // Tăng nhẹ temp để AI sáng tạo đa dạng hơn mỗi lần
                 })
             });
 
@@ -163,6 +266,21 @@ Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`
             
             const seoData = JSON.parse(aiText);
 
+            // Làm sạch chuỗi tiêu đề
+            const cleanTitle = (val) => {
+                if (!val) return '';
+                return String(val).replace(/^["'\d\.\-\s]+/, '').replace(/["']+$/, '').trim();
+            };
+
+            const t1 = cleanTitle(seoData.title1 || (Array.isArray(seoData.titles) ? seoData.titles[0] : ''));
+            const t2 = cleanTitle(seoData.title2 || (Array.isArray(seoData.titles) ? seoData.titles[1] : ''));
+            const t3 = cleanTitle(seoData.title3 || (Array.isArray(seoData.titles) ? seoData.titles[2] : ''));
+
+            outTitle1.value = t1;
+            outTitle2.value = t2;
+            outTitle3.value = t3;
+            updateAllTitleCounts();
+
             // Cập nhật giao diện
             outDescription.value = seoData.description || '';
             outHashtags.value = seoData.hashtags || '';
@@ -178,15 +296,23 @@ Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`
         }
     });
 
-    // Lấy toàn bộ nội dung đã tạo (Đã bỏ dải phân cách ===)
+    // Lấy toàn bộ nội dung đã tạo
     function getFullOutput() {
-        return `[MÔ TẢ VIDEO]\n` +
+        let titlesBlock = '';
+        if (outTitle1.value || outTitle2.value || outTitle3.value) {
+            titlesBlock = `TIÊU ĐỀ GỢI Ý:\n` +
+                          `1. ${outTitle1.value}\n` +
+                          `2. ${outTitle2.value}\n` +
+                          `3. ${outTitle3.value}\n\n`;
+        }
+        return titlesBlock +
+               `MÔ TẢ VIDEO:\n` +
                `${outDescription.value}\n\n` +
-               `[TIMESTAMPS]\n` +
+               `TIMESTAMPS:\n` +
                `${outTimestamps.value}\n\n` +
-               `[HASHTAGS]\n` +
+               `HASHTAGS:\n` +
                `${outHashtags.value}\n\n` +
-               `[TAGS]\n` +
+               `TAGS:\n` +
                `${outTags.value}`;
     }
 
@@ -217,7 +343,14 @@ Trả về kết quả ĐÚNG định dạng JSON sau (KHÔNG kèm markdown \`\`
     document.getElementById('exportDocxBtn').addEventListener('click', () => {
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>YouTube SEO</title></head><body>";
         const footer = "</body></html>";
+        const titlesDocx = (outTitle1.value || outTitle2.value || outTitle3.value) ? `
+            <h2>GỢI Ý TIÊU ĐỀ SEO YOUTUBE</h2>
+            <p><strong>1. Trending Hot:</strong> ${outTitle1.value}</p>
+            <p><strong>2. High CTR:</strong> ${outTitle2.value}</p>
+            <p><strong>3. YouTube SEO Search:</strong> ${outTitle3.value}</p>
+        ` : '';
         const content = `
+            ${titlesDocx}
             <h2>MÔ TẢ VIDEO</h2><p>${outDescription.value.replace(/\n/g, '<br>')}</p>
             <h2>TIMESTAMPS</h2><p>${outTimestamps.value.replace(/\n/g, '<br>')}</p>
             <h2>HASHTAGS</h2><p>${outHashtags.value}</p>
