@@ -3,7 +3,8 @@
 Công cụ All-in-one thiết kế riêng cho các Creator làm nội dung âm nhạc trên YouTube. Giúp bạn tự động tính toán Timestamps (lên đến hàng trăm bài hát), và sử dụng **Google Gemini AI** để tạo ra bộ Mô tả, Hashtag và Tag siêu chuẩn SEO.
 
 ## 🌟 Tính năng
-- **Giao diện:** Dark Mode chuẩn ứng dụng chuyên nghiệp, reponsive toàn diện.
+- **Giao diện:** Dark Mode chuẩn ứng dụng chuyên nghiệp, responsive toàn diện.
+- **Top 3 Tiêu đề SEO Hot:** Tự động tạo 3 phương án tiêu đề tối ưu theo 3 phong cách (Xu Hướng & Trending, Kích thích tò mò High CTR, Chuẩn tìm kiếm YouTube Search) kèm nút **Copy 1-click** riêng cho từng tiêu đề và bộ đếm ký tự chuẩn YouTube.
 - **Auto Timestamp:** Tự động bắt thời gian và cộng dồn liên tục. Chỉ cần dán `Tên bài - 04:30`.
 - **Tích hợp AI (Gemini):** Tự sinh Mô tả hấp dẫn, không trùng lặp sau mỗi lần nhấn nút.
 - **Tự tạo Hashtag & Tag:** Tối ưu hóa chuẩn SEO thuật toán YouTube.
