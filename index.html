@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Music SEO Tool</title>
@@ -15,7 +14,7 @@
     <div class="container">
         <header>
             <h1><i class="fab fa-youtube"></i> YouTube Music SEO Tool</h1>
-            <p>Tạo Timestamp, SEO Mô tả, Hashtag & Tag tự động với Gemini AI</p>
+            <p>Tạo Tiêu đề SEO Hot, Timestamp, Mô tả, Hashtag & Tag tự động với Gemini AI</p>
         </header>
 
         <div class="api-key-section">
@@ -56,6 +55,57 @@
                 </div>
 
                 <div class="output-content" id="outputContent">
+                    <!-- Phần Gợi ý Tiêu đề SEO Hot -->
+                    <div class="output-section titles-section">
+                        <div class="section-title-wrap">
+                            <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi ý Tiêu đề SEO Hot (Tối ưu tìm kiếm YouTube)</h3>
+                            <span class="section-hint">3 phong cách tiêu đề - Bấm Copy để lấy tiêu đề ưng ý</span>
+                        </div>
+                        <div class="titles-grid">
+                            <!-- Tiêu đề 1 -->
+                            <div class="title-card">
+                                <div class="title-card-header">
+                                    <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot</span>
+                                    <span class="char-count" id="countTitle1">0/100 ký tự</span>
+                                </div>
+                                <div class="title-box">
+                                    <input type="text" id="outTitle1" placeholder="Tiêu đề Trending sẽ xuất hiện ở đây..." spellcheck="false">
+                                    <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
+                                        <i class="fas fa-copy"></i> <span>Copy</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tiêu đề 2 -->
+                            <div class="title-card">
+                                <div class="title-card-header">
+                                    <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò (High CTR)</span>
+                                    <span class="char-count" id="countTitle2">0/100 ký tự</span>
+                                </div>
+                                <div class="title-box">
+                                    <input type="text" id="outTitle2" placeholder="Tiêu đề High CTR sẽ xuất hiện ở đây..." spellcheck="false">
+                                    <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
+                                        <i class="fas fa-copy"></i> <span>Copy</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tiêu đề 3 -->
+                            <div class="title-card">
+                                <div class="title-card-header">
+                                    <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search</span>
+                                    <span class="char-count" id="countTitle3">0/100 ký tự</span>
+                                </div>
+                                <div class="title-box">
+                                    <input type="text" id="outTitle3" placeholder="Tiêu đề Chuẩn SEO Tìm Kiếm sẽ xuất hiện ở đây..." spellcheck="false">
+                                    <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
+                                        <i class="fas fa-copy"></i> <span>Copy</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="output-section">
                         <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
                         <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
