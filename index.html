@@ -23,107 +23,249 @@
             <small>Lấy API Key miễn phí tại <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>.</small>
         </div>
 
-        <div class="main-grid">
-            <!-- Cột trái: Đầu vào -->
-            <div class="panel input-panel">
-                <div class="panel-header">
-                    <h2><i class="fas fa-list-ol"></i> Danh sách bài hát</h2>
-                    <span id="songCount" class="badge">0 bài</span>
+        <!-- THANH CHUYỂN TAB -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="tab-youtube">
+                <i class="fab fa-youtube"></i> <span>YouTube Music SEO</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-suno">
+                <i class="fas fa-music"></i> <span>Suno AI Studio (Lời & Prompt)</span>
+                <span class="tab-badge">MỚI</span>
+            </button>
+        </nav>
+
+        <!-- TAB 1: YOUTUBE MUSIC SEO -->
+        <div id="tab-youtube" class="tab-pane active">
+            <div class="main-grid">
+                <!-- Cột trái: Đầu vào -->
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-list-ol"></i> Danh sách bài hát</h2>
+                        <span id="songCount" class="badge">0 bài</span>
+                    </div>
+                    <p class="hint">Nhập theo định dạng: <code>Tên bài hát - 03:45</code> hoặc <code>Tên bài hát 03:45</code></p>
+                    <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Đừng làm trái tim anh đau - 04:30&#10;Chạy ngay đi 04:15&#10;Nơi này có anh - 04:20"></textarea>
+                    
+                    <div class="action-buttons">
+                        <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Timestamp & SEO (AI)</button>
+                        <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Chỉ tính Timestamp</button>
+                    </div>
                 </div>
-                <p class="hint">Nhập theo định dạng: <code>Tên bài hát - 03:45</code> hoặc <code>Tên bài hát 03:45</code></p>
-                <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Đừng làm trái tim anh đau - 04:30&#10;Chạy ngay đi 04:15&#10;Nơi này có anh - 04:20"></textarea>
-                
-                <div class="action-buttons">
-                    <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Timestamp & SEO (AI)</button>
-                    <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Chỉ tính Timestamp</button>
+
+                <!-- Cột phải: Kết quả -->
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-check-circle"></i> Kết quả SEO</h2>
+                        <div class="export-actions">
+                            <button id="copyAllBtn" class="btn-icon" title="Copy Toàn Bộ"><i class="fas fa-copy"></i></button>
+                            <button id="exportTxtBtn" class="btn-icon" title="Xuất TXT"><i class="fas fa-file-alt"></i></button>
+                            <button id="exportDocxBtn" class="btn-icon" title="Xuất DOCX"><i class="fas fa-file-word"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="loader" id="loader">
+                        <i class="fas fa-spinner fa-spin"></i> AI đang viết nội dung, vui lòng đợi...
+                    </div>
+
+                    <div class="output-content" id="outputContent">
+                        <!-- Phần Gợi ý Tiêu đề SEO Hot -->
+                        <div class="output-section titles-section">
+                            <div class="section-title-wrap">
+                                <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi ý Tiêu đề SEO Hot (Tối ưu tìm kiếm YouTube)</h3>
+                                <span class="section-hint">3 phong cách tiêu đề - Bấm Copy để lấy tiêu đề ưng ý</span>
+                            </div>
+                            <div class="titles-grid">
+                                <!-- Tiêu đề 1 -->
+                                <div class="title-card">
+                                    <div class="title-card-header">
+                                        <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot</span>
+                                        <span class="char-count" id="countTitle1">0/100 ký tự</span>
+                                    </div>
+                                    <div class="title-box">
+                                        <input type="text" id="outTitle1" placeholder="Tiêu đề Trending sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
+                                            <i class="fas fa-copy"></i> <span>Copy</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Tiêu đề 2 -->
+                                <div class="title-card">
+                                    <div class="title-card-header">
+                                        <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò (High CTR)</span>
+                                        <span class="char-count" id="countTitle2">0/100 ký tự</span>
+                                    </div>
+                                    <div class="title-box">
+                                        <input type="text" id="outTitle2" placeholder="Tiêu đề High CTR sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
+                                            <i class="fas fa-copy"></i> <span>Copy</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Tiêu đề 3 -->
+                                <div class="title-card">
+                                    <div class="title-card-header">
+                                        <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search</span>
+                                        <span class="char-count" id="countTitle3">0/100 ký tự</span>
+                                    </div>
+                                    <div class="title-box">
+                                        <input type="text" id="outTitle3" placeholder="Tiêu đề Chuẩn SEO Tìm Kiếm sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
+                                            <i class="fas fa-copy"></i> <span>Copy</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
+                            <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
+                        </div>
+
+                        <div class="output-section">
+                            <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
+                            <textarea id="outTimestamps" readonly placeholder="00:00 Bài hát 1..."></textarea>
+                        </div>
+
+                        <div class="output-section">
+                            <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
+                            <textarea id="outHashtags" readonly placeholder="#NhacTre #TopTrending..."></textarea>
+                        </div>
+
+                        <div class="output-section">
+                            <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
+                            <textarea id="outTags" readonly placeholder="nhạc trẻ, top trending, bài hát hay nhất..."></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Cột phải: Kết quả -->
-            <div class="panel output-panel">
-                <div class="panel-header">
-                    <h2><i class="fas fa-check-circle"></i> Kết quả SEO</h2>
-                    <div class="export-actions">
-                        <button id="copyAllBtn" class="btn-icon" title="Copy Toàn Bộ"><i class="fas fa-copy"></i></button>
-                        <button id="exportTxtBtn" class="btn-icon" title="Xuất TXT"><i class="fas fa-file-alt"></i></button>
-                        <button id="exportDocxBtn" class="btn-icon" title="Xuất DOCX"><i class="fas fa-file-word"></i></button>
+        <!-- TAB 2: SUNO AI STUDIO (TẠO LỜI & PROMPT) -->
+        <div id="tab-suno" class="tab-pane">
+            <div class="main-grid">
+                <!-- Cột trái: Thiết lập & Ý tưởng -->
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-sliders-h"></i> Thiết lập Suno AI</h2>
+                        <span class="badge">Suno v3.5 / v4 Ready</span>
                     </div>
-                </div>
 
-                <div class="loader" id="loader">
-                    <i class="fas fa-spinner fa-spin"></i> AI đang viết nội dung, vui lòng đợi...
-                </div>
-
-                <div class="output-content" id="outputContent">
-                    <!-- Phần Gợi ý Tiêu đề SEO Hot -->
-                    <div class="output-section titles-section">
-                        <div class="section-title-wrap">
-                            <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi ý Tiêu đề SEO Hot (Tối ưu tìm kiếm YouTube)</h3>
-                            <span class="section-hint">3 phong cách tiêu đề - Bấm Copy để lấy tiêu đề ưng ý</span>
+                    <!-- Lựa chọn 3 thể loại gợi ý -->
+                    <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 3 thể loại gợi ý:</label>
+                    <div class="style-selector">
+                        <!-- Style 1 -->
+                        <div class="style-card" data-style="1">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-bolt"></i> Thể loại 1: Rap Pop x Jersey Club x Afrobeat</span>
+                                <span class="bpm-badge">128 BPM</span>
+                            </div>
+                            <p class="style-summary">Jersey bounce nẩy, Afrobeat groove, beat drops chuyển đoạn bùng nổ, funky bass, duet nam-nữ ngọt ngào hoặc melodic rap.</p>
                         </div>
-                        <div class="titles-grid">
-                            <!-- Tiêu đề 1 -->
-                            <div class="title-card">
-                                <div class="title-card-header">
-                                    <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot</span>
-                                    <span class="char-count" id="countTitle1">0/100 ký tự</span>
-                                </div>
-                                <div class="title-box">
-                                    <input type="text" id="outTitle1" placeholder="Tiêu đề Trending sẽ xuất hiện ở đây..." spellcheck="false">
-                                    <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
-                                        <i class="fas fa-copy"></i> <span>Copy</span>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <!-- Tiêu đề 2 -->
-                            <div class="title-card">
-                                <div class="title-card-header">
-                                    <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò (High CTR)</span>
-                                    <span class="char-count" id="countTitle2">0/100 ký tự</span>
-                                </div>
-                                <div class="title-box">
-                                    <input type="text" id="outTitle2" placeholder="Tiêu đề High CTR sẽ xuất hiện ở đây..." spellcheck="false">
-                                    <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
-                                        <i class="fas fa-copy"></i> <span>Copy</span>
-                                    </button>
-                                </div>
+                        <!-- Style 2 -->
+                        <div class="style-card selected" data-style="2">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-fire"></i> Thể loại 2: Vinahouse x Big Room EDM</span>
+                                <span class="bpm-badge">140 BPM</span>
                             </div>
+                            <p class="style-summary">Peak-time festival, vocal nam ấm khàn sâu sắc, 3 drops bass cuộn cực căng, hook đắt giá bùng nổ cảm xúc.</p>
+                        </div>
 
-                            <!-- Tiêu đề 3 -->
-                            <div class="title-card">
-                                <div class="title-card-header">
-                                    <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search</span>
-                                    <span class="char-count" id="countTitle3">0/100 ký tự</span>
-                                </div>
-                                <div class="title-box">
-                                    <input type="text" id="outTitle3" placeholder="Tiêu đề Chuẩn SEO Tìm Kiếm sẽ xuất hiện ở đây..." spellcheck="false">
-                                    <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
-                                        <i class="fas fa-copy"></i> <span>Copy</span>
-                                    </button>
-                                </div>
+                        <!-- Style 3 -->
+                        <div class="style-card" data-style="3">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-heart"></i> Thể loại 3: Emotional Pop Ballad x Orchestral</span>
+                                <span class="bpm-badge">82 BPM</span>
                             </div>
+                            <p class="style-summary">Piano da diết, dàn dây strings cao trào, ca từ sâu sắc chạm đáy tâm can, day dứt, chân thành và nghẹn ngào.</p>
                         </div>
                     </div>
 
-                    <div class="output-section">
-                        <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
-                        <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
+                    <!-- Ô nhập Chủ đề / Cảm xúc -->
+                    <div class="form-group">
+                        <label for="sunoTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc bài hát (Sâu sắc, không hời hợt):</label>
+                        <textarea id="sunoTopic" placeholder="Ví dụ: Tình yêu chân thành bền bỉ bất chấp năm tháng đổi thay, dù xa cách hay giông bão vẫn một lòng hướng về nhau..."></textarea>
                     </div>
 
-                    <div class="output-section">
-                        <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
-                        <textarea id="outTimestamps" readonly placeholder="00:00 Bài hát 1..."></textarea>
+                    <!-- Gợi ý nhanh chủ đề -->
+                    <div class="quick-tags">
+                        <span class="tag-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
+                        <span class="tag-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
+                        <span class="tag-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
+                        <span class="tag-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
+                        <span class="tag-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
                     </div>
 
-                    <div class="output-section">
-                        <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
-                        <textarea id="outHashtags" readonly placeholder="#NhacTre #TopTrending..."></textarea>
+                    <!-- Ô nhập Hook chính -->
+                    <div class="form-group">
+                        <label for="sunoHook"><i class="fas fa-quote-left"></i> Câu Hook cốt lõi / Điểm nhấn (Tùy chọn):</label>
+                        <input type="text" id="sunoHook" placeholder="Ví dụ: Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.">
                     </div>
 
-                    <div class="output-section">
-                        <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
-                        <textarea id="outTags" readonly placeholder="nhạc trẻ, top trending, bài hát hay nhất..."></textarea>
+                    <div class="action-buttons">
+                        <button id="generateSunoBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Lời & Prompt Suno (AI)</button>
+                        <button id="sampleSunoBtn" class="btn-secondary"><i class="fas fa-lightbulb"></i> Mẫu Chuẩn Sẵn</button>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Kết quả Lời & Prompt -->
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-music"></i> Kết quả Suno AI</h2>
+                        <div class="export-actions">
+                            <button id="copyAllSunoBtn" class="btn-icon" title="Sao chép toàn bộ (Prompt + Lời)"><i class="fas fa-copy"></i></button>
+                            <button id="exportSunoTxtBtn" class="btn-icon" title="Xuất file TXT"><i class="fas fa-file-alt"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="loader" id="sunoLoader">
+                        <i class="fas fa-spinner fa-spin"></i> AI đang sáng tác ca từ sâu sắc và tối ưu prompt Suno...
+                    </div>
+
+                    <div class="output-content" id="sunoOutputContent">
+                        <!-- Tên bài hát đề xuất -->
+                        <div class="output-section">
+                            <div class="title-card-header">
+                                <span class="badge-title badge-ctr"><i class="fas fa-tag"></i> Tên bài hát gợi ý</span>
+                            </div>
+                            <div class="title-box">
+                                <input type="text" id="outSunoTitle" placeholder="Tên bài hát sẽ xuất hiện ở đây...">
+                                <button type="button" class="btn-copy-single" data-target="outSunoTitle" title="Sao chép tên bài hát">
+                                    <i class="fas fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Ô Prompt Style (800 - 920 ký tự) -->
+                        <div class="output-section">
+                            <div class="style-header-wrap">
+                                <h3><i class="fas fa-sliders-h"></i> Style of Music (Prompt Suno AI)</h3>
+                                <span id="styleCharCount" class="char-count char-status valid">0 / 920 ký tự (Chuẩn: 800 - 920)</span>
+                            </div>
+                            <div class="output-box-wrap">
+                                <textarea id="outSunoStyle" placeholder="Prompt phong cách âm nhạc (800 - 920 ký tự) sẽ hiển thị ở đây..."></textarea>
+                                <button type="button" class="btn-copy-box" data-target="outSunoStyle">
+                                    <i class="fas fa-copy"></i> <span>Sao chép Prompt Style</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Ô Lyrics (Lời bài hát có chiều sâu) -->
+                        <div class="output-section">
+                            <div class="style-header-wrap">
+                                <h3><i class="fas fa-align-left"></i> Lyrics (Lời bài hát sâu sắc, đúng cấu trúc Suno)</h3>
+                                <span class="badge"><i class="fas fa-check"></i> Đầy đủ [Verse], [Chorus], [Drop]</span>
+                            </div>
+                            <div class="output-box-wrap">
+                                <textarea id="outSunoLyrics" placeholder="Lời bài hát sâu sắc đúng tâm trạng sẽ hiển thị ở đây..."></textarea>
+                                <button type="button" class="btn-copy-box" data-target="outSunoLyrics">
+                                    <i class="fas fa-copy"></i> <span>Sao chép Lời Nhạc</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
