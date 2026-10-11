@@ -365,4 +365,457 @@ YÊU CẦU ĐẶC BIỆT:
         a.click();
         URL.revokeObjectURL(url);
     });
+
+    // ==========================================
+    // CHUYỂN TAB (YouTube SEO <-> Suno AI Studio)
+    // ==========================================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.getAttribute('data-tab');
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const targetPane = document.getElementById(targetTab);
+            if (targetPane) targetPane.classList.add('active');
+        });
+    });
+
+    // ==========================================
+    // SUNO AI STUDIO LOGIC & PRESETS
+    // ==========================================
+    const SUNO_PRESETS = {
+        1: {
+            id: 1,
+            name: "Rap Pop x Jersey Club x Afrobeat",
+            bpm: 128,
+            title: "Khiêu Vũ Dưới Ngàn Sao",
+            style: "Rap Pop with Jersey Club x Afrobeat production, 128 BPM bouncy Jersey bounce, beat drops and building-up transitions, funky bass, heavy sub bass, bright synths, soft sweet high female vocals, natural male melodic rap, playful female rap, energetic male-female duet hooks. African log drum accents, syncopated bed squeak percussion, punchy Jersey kick triplets, smooth melodic guitar riffs, lush atmospheric vocal pads, snappy clap patterns. Dynamic contrast between intimate melodic rap verses and explosive anthemic chorus drops. Theme: playful romantic chemistry, youthful energy, late-night vibes. Wide stereo panning, deep clean 808 glide, pristine upfront vocal mix, radio-ready commercial master. NO monotone rap, NO mumble, NO muddy low-end, NO robotic vocal tuning, NO low quality, NO flat drop, NO slow tempo.",
+            lyrics: `[Intro - Soft Female Vocals]
+(Bouncy rhythm, African log drum softly fading in)
+Nói nghe nè...
+Anh có chắc là bên em suốt đời không?
+
+[Verse 1 - Melodic Rap Male]
+128 nhịp đập hòa vào tiếng đàn đêm nay
+Anh không quen vẽ tương lai bằng những lời đầu môi có cánh
+Nhưng nếu thế giới ngoài kia làm em thấy chênh vênh lạnh lẽo
+Cứ bước về phía anh, vòng tay này chẳng hề buông lơi.
+
+[Verse 1 - Playful Rap Female]
+Em đâu cần những lời hoa mỹ xa xôi
+Chỉ cần anh giữ đúng những điều anh nói
+Phố thị xô bồ, người đến rồi lại đi
+Nếu anh là bến đỗ, em chẳng tiếc thanh xuân trao người.
+
+[Pre-Chorus - Duet]
+Từng ánh mắt chạm nhau giữa phố đêm lung linh
+Nhịp Jersey rộn vang khơi bừng lên ánh sáng
+Đừng ngập ngừng nữa, hãy giữ chặt tay nhau...
+
+[Chorus - Energetic Hook Duet]
+Ta cùng khiêu vũ dưới bầu trời đầy sao
+Bao âu lo gửi vào làn gió cao
+Nhịp bass dập dồn, tim hòa chung một điệu
+Yêu là chân thành, không toan tính chi li!
+
+[Drop]
+(Jersey bounce rhythm - Funky bass - 808 glide drops)
+
+[Verse 2 - Melodic Rap Male & Female ad-libs]
+Đường đời vạn lối, ta tìm thấy nhau giữa muôn ngàn trắc trở
+Không phải tình cờ, mà là duyên nợ đã định từ lâu
+Em là giai điệu ngọt ngào nhất trong bản phối đời anh
+Mỗi sớm mai thức dậy có em là bình yên trọn vẹn.
+
+[Bridge - Soft Melodic Harmony]
+Dù mai này bão giông hay nắng tắt
+Dù tháng năm có phủ bụi thời gian
+Lời hẹn ước chân thành hôm nay
+Sẽ cùng ta đi đến cuối con đường...
+
+[Chorus - Duet Climax]
+Ta cùng khiêu vũ dưới bầu trời đầy sao
+Bao âu lo gửi vào làn gió cao
+Nhịp bass dập dồn, tim hòa chung một điệu
+Yêu là chân thành, không toan tính chi li!
+
+[Drop - Outro]
+(Bouncy Jersey triplets, ad-libs, fade out)
+Mãi bên nhau nhé anh...
+Ừ, mãi bên nhau em!`
+        },
+        2: {
+            id: 2,
+            name: "Vietnamese Vinahouse x Big Room EDM",
+            bpm: 140,
+            title: "Riêng Tình Anh Chẳng Đổi Thay",
+            style: "Vietnamese Vinahouse x Big Room EDM x Electro House, 140 BPM, peak-time festival. Warm mature slightly husky male vocal, deep, sincere, emotional and powerful. START WITH VOCAL HOOK, NO LONG INTRO. Main hook: “Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.” First explosive drop around 0:16. Theme: unwavering love despite time, distance, hardship and changes in life. Emotional piano, warm pads, cinematic strings, intimate verses, huge build-ups. Hard punchy kick, massive rolling bass, deep sub bass, aggressive supersaw, bright catchy synth lead, fast percussion, vocal chops and explosive drops. 3 drops, each harder than previous. Final drop emotional, euphoric and memorable. Wide stereo, massive bass, clean loud professional master. NO female vocal, NO duet, NO ballad, NO slow, NO acoustic, NO chill, NO weak drop.",
+            lyrics: `[Intro - Vocal Hook]
+Ngoài kia mọi thứ đổi thay
+Riêng tình anh... chẳng đổi thay!
+
+[Drop]
+(Bass rolling, supersaw lead, explosive punch)
+
+[Verse 1]
+Thành phố lên đèn giấu những vết thương chưa lành
+Dòng người vội vã lướt qua như cơn gió lạnh
+Bao lời hứa hẹn theo thời gian cũng phai tàn
+Chỉ có bóng hình em mãi vẹn nguyên trong anh.
+
+[Pre-Chorus]
+Dù đường đời chông chênh ngàn bão tố
+Dù cách xa hay thử thách muôn trùng
+Một nhịp đập nơi lồng ngực này
+Vẫn chỉ gọi tên một người duy nhất...
+
+[Chorus]
+Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay!
+Dù cho năm tháng có trôi, bạc trắng cả mái đầu này.
+Bao nhiêu giông bão cuộc đời anh xin nhận lấy
+Chỉ mong nụ cười em vẫn vẹn nguyên từng ngày!
+
+[Drop]
+(Explosive Vinahouse Drop - Massive bass rolling - Vocal chops)
+
+[Verse 2]
+Có những đêm dài lặng nhìn mưa rơi bên thềm
+Tự hỏi duyên trời sao nỡ thử thách đôi tim
+Nhưng nếu yêu thương là ngọn lửa trong tim
+Thì bão giông nào dập tắt được niềm tin?
+
+[Chorus]
+Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay!
+Dù cho năm tháng có trôi, bạc trắng cả mái đầu này.
+Bao nhiêu giông bão cuộc đời anh xin nhận lấy
+Chỉ mong nụ cười em vẫn vẹn nguyên từng ngày!
+
+[Bridge]
+Thời gian có thể xóa nhòa vạn vật
+Vật đổi sao dời, biển hóa nương dâu
+Nhưng khắc ghi một chữ TÌNH trong dạ
+Thì ngàn kiếp sau vẫn chẳng thể phai màu!
+
+[Drop - Final Climax]
+(Maximum Energy Peak Drop - Euphoric Synths & Heavy Bass)
+
+[Outro]
+Ngoài kia dẫu đổi thay...
+Tình anh... vẫn vẹn nguyên.
+[Fade Out]`
+        },
+        3: {
+            id: 3,
+            name: "Emotional Pop Ballad x Cinematic Orchestral",
+            bpm: 82,
+            title: "Nếu Có Kiếp Sau",
+            style: "Vietnamese Emotional Pop Ballad x Cinematic Orchestral x Modern R&B, 82 BPM, deep heartfelt tearjerker. Deep soulful and expressive male vocal, intimate breathing, raw heartfelt emotion, soaring passionate chest voice on emotional climax. Nostalgic grand piano chords, delicate acoustic guitar fingerpicking, lush warm cinematic string section, soaring cello leads, gentle heartbeat kick, deep subtle analog bass, orchestral crescendo build-up. Intimate storytelling verses, powerful cathartic chorus, tearful bridge with full strings, gentle fading piano outro. Theme: eternal devotion, bittersweet memories, silent sacrifice, unconditional love. Wide panoramic stereo, pristine high-end clarity, warm analog master. NO EDM, NO fast tempo, NO harsh autotune, NO dance beat, NO aggressive synth, NO female vocal, NO weak chorus.",
+            lyrics: `[Intro - Piano Solo]
+(Delicate upright piano with soft atmospheric string pads)
+
+[Verse 1]
+Góc quán quen giờ chỉ còn mình anh với tách cà phê nguội
+Nhìn lá rơi bên thềm, tự hỏi em ở nơi xa có bình yên?
+Người ta thường bảo thời gian là liều thuốc chữa lành mọi vết thương
+Sao vết thương nhớ em, càng trôi đi lại càng đau nhói?
+
+[Verse 2]
+Có những nỗi buồn chẳng biết tỏ cùng ai
+Chỉ biết giấu vào sâu thẳm tiếng thở dài
+Cảm ơn em vì đã từng ghé qua năm tháng ấy
+Cho anh biết thế nào là trọn vẹn một tình yêu...
+
+[Pre-Chorus]
+Dẫu biết duyên mỏng, phận chẳng thành đôi
+Dẫu biết hai ta giờ như hai đường thẳng song song
+Nhưng trái tim này chưa từng một lần hối tiếc
+Vì đã yêu em bằng tất cả những gì anh có...
+
+[Chorus]
+Nếu có kiếp sau, xin được tìm thấy em sớm hơn
+Để chở che em qua những ngày giông bão cuộc đời
+Đừng khóc nữa em ơi, hãy cười lên và hạnh phúc
+Dẫu người đi cùng em đến cuối con đường... chẳng phải là anh!
+
+[Interlude - Soaring Cello & Violins]
+
+[Bridge]
+Mưa vẫn rơi như khóc thay cho chuyện tình lỡ dở
+Từng nốt nhạc trầm buồn xé toạc màn đêm
+Chúc em một đời an yên bên người mới
+Phần đớn đau này, anh xin nhận hết về mình...
+
+[Chorus - Climax Full Strings & Vocal Emotion]
+Nếu có kiếp sau, xin được tìm thấy em sớm hơn
+Để chở che em qua những ngày giông bão cuộc đời
+Đừng khóc nữa em ơi, hãy cười lên và hạnh phúc
+Dẫu người đi cùng em đến cuối con đường... chẳng phải là anh!
+
+[Outro - Gentle Piano fading out]
+Tạm biệt người anh yêu nhất...
+Hẹn em ở một kiếp khác, bình yên hơn.
+[Fade Out]`
+        }
+    };
+
+    let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
+    const styleCards = document.querySelectorAll('.style-card');
+    const sunoTopic = document.getElementById('sunoTopic');
+    const sunoHook = document.getElementById('sunoHook');
+    const outSunoStyle = document.getElementById('outSunoStyle');
+    const styleCharCount = document.getElementById('styleCharCount');
+    const outSunoLyrics = document.getElementById('outSunoLyrics');
+    const outSunoTitle = document.getElementById('outSunoTitle');
+    const sunoLoader = document.getElementById('sunoLoader');
+    const sunoOutputContent = document.getElementById('sunoOutputContent');
+
+    // Chọn thể loại card
+    styleCards.forEach(card => {
+        card.addEventListener('click', () => {
+            styleCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            currentSunoStyleId = parseInt(card.getAttribute('data-style'));
+        });
+    });
+
+    // Chọn nhanh gợi ý chủ đề
+    document.querySelectorAll('.tag-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const topicText = chip.getAttribute('data-topic');
+            if (sunoTopic.value.trim() === '') {
+                sunoTopic.value = topicText;
+            } else {
+                sunoTopic.value += ', ' + topicText;
+            }
+        });
+    });
+
+    // Helper: Định dạng và kiểm soát độ dài Prompt Style BẮT BUỘC 800 - 920 ký tự
+    function formatSunoStylePrompt(rawPrompt, styleId) {
+        if (!rawPrompt || rawPrompt.trim() === '') {
+            return SUNO_PRESETS[styleId]?.style || '';
+        }
+        let p = rawPrompt.replace(/\s+/g, ' ').trim();
+        
+        // Nếu dài hơn 920 ký tự: cắt tại dấu phẩy hoặc chấm gần nhất trước 920
+        if (p.length > 920) {
+            let sub = p.substring(0, 918);
+            let lastComma = sub.lastIndexOf(',');
+            let lastDot = sub.lastIndexOf('.');
+            let cut = Math.max(lastComma, lastDot);
+            if (cut > 800) {
+                p = sub.substring(0, cut).trim();
+                if (!p.endsWith('.')) p += '.';
+            } else {
+                p = sub.trim() + '.';
+            }
+        }
+        
+        // Nếu ngắn hơn 800 ký tự: đệm thêm các tag sản xuất âm thanh phòng thu chất lượng cao
+        const fillers = [
+            ', wide panoramic stereo field',
+            ', pristine high-end vocal clarity',
+            ', analog console warmth',
+            ', punchy dynamic transient control',
+            ', studio acoustic room treatment',
+            ', balanced frequency spectrum',
+            ', broadcast-ready commercial master',
+            ', NO clipping, NO audio distortion, NO muddy frequencies, NO robotic artifacts, NO flat dynamics'
+        ];
+        let idx = 0;
+        while (p.length < 800 && idx < fillers.length) {
+            if (p.endsWith('.')) p = p.slice(0, -1);
+            p += fillers[idx];
+            idx++;
+        }
+        if (!p.endsWith('.')) p += '.';
+        
+        // Kiểm tra lại cận trên
+        if (p.length > 920) {
+            let sub = p.substring(0, 918);
+            let lastComma = sub.lastIndexOf(',');
+            if (lastComma > 800) {
+                p = sub.substring(0, lastComma).trim() + '.';
+            }
+        }
+        
+        return p;
+    }
+
+    // Đếm ký tự Live cho ô Style Prompt (chuẩn 800 - 920)
+    function updateSunoStyleCount() {
+        if (!outSunoStyle || !styleCharCount) return;
+        const len = outSunoStyle.value.length;
+        styleCharCount.innerText = `${len} / 920 ký tự (Chuẩn: 800 - 920)`;
+        if (len >= 800 && len <= 920) {
+            styleCharCount.className = 'char-count char-status valid';
+        } else {
+            styleCharCount.className = 'char-count char-status invalid';
+        }
+    }
+    if (outSunoStyle) {
+        outSunoStyle.addEventListener('input', updateSunoStyleCount);
+    }
+
+    // Bấm Mẫu Chuẩn Sẵn (Offline Preset)
+    document.getElementById('sampleSunoBtn').addEventListener('click', () => {
+        const preset = SUNO_PRESETS[currentSunoStyleId] || SUNO_PRESETS[2];
+        outSunoTitle.value = preset.title;
+        outSunoStyle.value = preset.style;
+        outSunoLyrics.value = preset.lyrics;
+        updateSunoStyleCount();
+    });
+
+    // Tạo Lời & Prompt Suno AI (gọi Gemini)
+    document.getElementById('generateSunoBtn').addEventListener('click', async () => {
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) {
+            alert('Vui lòng nhập Google Gemini API Key để sử dụng tính năng AI.');
+            apiKeyInput.focus();
+            return;
+        }
+        localStorage.setItem('geminiApiKey', apiKey);
+
+        const preset = SUNO_PRESETS[currentSunoStyleId] || SUNO_PRESETS[2];
+        const topic = sunoTopic.value.trim();
+        const hook = sunoHook.value.trim();
+
+        // Hiện Loader
+        sunoOutputContent.style.display = 'none';
+        sunoLoader.style.display = 'block';
+
+        const prompt = `Bạn là một nhạc sĩ sáng tác ca khúc hàng đầu Việt Nam và là chuyên gia Suno AI Prompt Engineering đỉnh cao.
+
+YÊU CẦU NHIỆM VỤ:
+1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU:
+- Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
+- Chủ đề & Cảm xúc: ${topic || 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay'}
+- Điểm nhấn / Câu Hook: ${hook || (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : '')}
+- YÊU CẦU CA TỪ CỐT LÕI: "NÂNG CẤP LỜI NHẠC CÂU TỪ SÂU ĐÚNG TÂM TRẠNG, TUYỆT ĐỐI KHÔNG HỜI HỢT".
+  + Ca từ phải thấm đẫm cảm xúc, giàu tính tự sự, triết lý nhân sinh và hình ảnh thơ ca đẹp, chạm tới trái tim người nghe.
+  + Tuyệt đối không dùng ca từ sáo rỗng, hời hợt, vô nghĩa hay ghép từ vụng về.
+  + Gieo vần điệu chuẩn xác (vần chân, vần lưng, vần đôi/ba), câu chữ gãy gọn, giàu nhạc tính.
+  + Cấu trúc bài hát chuyên nghiệp cho Suno AI với các thẻ meta:
+    [Intro]
+    [Verse 1]
+    [Pre-Chorus]
+    [Chorus]
+    ${currentSunoStyleId !== 3 ? '[Drop]' : '[Interlude]'}
+    [Verse 2]
+    [Chorus]
+    [Bridge] (Đoạn cao trào chuyển biến cảm xúc mạnh mẽ nhất)
+    ${currentSunoStyleId !== 3 ? '[Drop - Final Climax]' : '[Chorus - Climax]'}
+    [Outro]
+
+2. TẠO PROMPT STYLE (Style of Music) TIẾNG ANH CHO SUNO AI:
+- ĐẶC BIỆT CHÚ Ý ĐỘ DÀI: BẮT BUỘC TỪ 800 KÝ TỰ VÀ KHÔNG QUÁ 920 KÝ TỰ (Khoảng 830 - 890 ký tự là tối ưu).
+- Dựa trên phong cách kỹ thuật sau:
+  ${preset.style}
+- Tùy chỉnh chi tiết phong cách trên sao cho hòa quyện với chủ đề (${topic || 'unwavering love'}) và câu hook (${hook || ''}), giữ vững BPM, nhạc cụ, vocal timbre, build-up, drop, mastering và negative tags (NO ...).
+- BẮT BUỘC đếm và đảm bảo chuỗi prompt style tiếng Anh có tổng độ dài ký tự nằm trong khoảng từ 800 đến 920 ký tự.
+
+3. ĐẶT TÊN BÀI HÁT (Title): Ngắn gọn, cuốn hút, hợp tâm trạng.
+
+Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
+{
+  "title": "Tên bài hát",
+  "style": "Prompt Style tiếng Anh từ 800 đến 920 ký tự...",
+  "lyrics": "Lời bài hát hoàn chỉnh với các thẻ [Intro], [Verse], [Chorus]..."
+}`;
+
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: 0.85 }
+                })
+            });
+
+            const data = await response.json();
+            if (data.error) {
+                throw new Error(data.error.message);
+            }
+
+            let aiText = data.candidates[0].content.parts[0].text;
+            aiText = aiText.replace(/```json/g, '').replace(/```/g, '').trim();
+            const sunoData = JSON.parse(aiText);
+
+            outSunoTitle.value = sunoData.title || preset.title;
+            outSunoStyle.value = formatSunoStylePrompt(sunoData.style, currentSunoStyleId);
+            outSunoLyrics.value = sunoData.lyrics || preset.lyrics;
+            updateSunoStyleCount();
+
+        } catch (error) {
+            alert('Lỗi khi gọi AI tạo nhạc Suno: ' + error.message);
+            console.error(error);
+        } finally {
+            sunoLoader.style.display = 'none';
+            sunoOutputContent.style.display = 'block';
+        }
+    });
+
+    // Copy cho các nút trong Suno AI (Prompt Style & Lyrics)
+    document.querySelectorAll('.btn-copy-box').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const targetId = btn.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl || !targetEl.value.trim()) {
+                alert('Chưa có nội dung để sao chép!');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(targetEl.value.trim());
+                const originalHtml = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> <span>Đã chép!</span>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHtml;
+                }, 2000);
+            } catch (err) {
+                targetEl.select();
+                document.execCommand('copy');
+                alert('Đã sao chép nội dung thành công!');
+            }
+        });
+    });
+
+    // Copy toàn bộ Suno AI
+    document.getElementById('copyAllSunoBtn').addEventListener('click', async () => {
+        const text = `TÊN BÀI HÁT:\n${outSunoTitle.value}\n\n` +
+                     `STYLE OF MUSIC (SUNO AI):\n${outSunoStyle.value}\n\n` +
+                     `LYRICS (LỜI BÀI HÁT):\n${outSunoLyrics.value}`;
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('Đã copy toàn bộ kết quả Suno AI thành công!');
+        } catch (err) {
+            alert('Lỗi copy: ' + err);
+        }
+    });
+
+    // Xuất file TXT Suno AI
+    document.getElementById('exportSunoTxtBtn').addEventListener('click', () => {
+        const text = `TÊN BÀI HÁT:\n${outSunoTitle.value}\n\n` +
+                     `STYLE OF MUSIC (SUNO AI - ${outSunoStyle.value.length} KÝ TỰ):\n${outSunoStyle.value}\n\n` +
+                     `LYRICS (LỜI BÀI HÁT):\n${outSunoLyrics.value}`;
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${outSunoTitle.value || 'Suno_Song'}_Prompt_Lyrics.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // Khởi tạo mặc định cho tab Suno AI
+    const defaultPreset = SUNO_PRESETS[2];
+    outSunoTitle.value = defaultPreset.title;
+    outSunoStyle.value = defaultPreset.style;
+    outSunoLyrics.value = defaultPreset.lyrics;
+    updateSunoStyleCount();
 });
