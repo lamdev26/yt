@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const outDescription = document.getElementById('outDescription');
     const outHashtags = document.getElementById('outHashtags');
     const outTags = document.getElementById('outTags');
+    const tagsCount = document.getElementById('tagsCount');
     const outTitle1 = document.getElementById('outTitle1');
     const outTitle2 = document.getElementById('outTitle2');
     const outTitle3 = document.getElementById('outTitle3');
@@ -45,6 +46,29 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCharCount(outTitle1, countTitle1);
         updateCharCount(outTitle2, countTitle2);
         updateCharCount(outTitle3, countTitle3);
+    }
+
+    // Helper: Cập nhật đếm ký tự cho Tags (YouTube tối đa 450 ký tự)
+    function updateTagsCount() {
+        if (!outTags || !tagsCount) return;
+        const len = outTags.value.length;
+        tagsCount.innerText = `${len}/450 ký tự`;
+        if (len > 450) {
+            tagsCount.style.color = '#ff4757';
+            tagsCount.style.fontWeight = 'bold';
+        } else if (len >= 300) {
+            tagsCount.style.color = 'var(--success-color)';
+            tagsCount.style.fontWeight = 'normal';
+        } else {
+            tagsCount.style.color = 'var(--text-muted)';
+            tagsCount.style.fontWeight = 'normal';
+        }
+    }
+
+    if (outTags) {
+        outTags.addEventListener('input', () => {
+            updateTagsCount();
+        });
     }
 
     [outTitle1, outTitle2, outTitle3].forEach((input, idx) => {
@@ -112,6 +136,31 @@ document.addEventListener('DOMContentLoaded', () => {
             str = str.substring(0, 99).trim();
         }
         return str;
+    }
+
+    // Helper: Định dạng Tags YouTube tối đa 450 ký tự (chuẩn SEO YouTube, tránh lỗi khi paste vào YouTube Studio)
+    function formatYouTubeTags(rawTags) {
+        if (!rawTags) return '';
+        let str = String(rawTags).replace(/[\r\n]+/g, ' ').trim();
+        // Chuẩn hóa dấu phẩy và khoảng trắng thừa
+        str = str.replace(/\s*,\s*/g, ', ');
+        str = str.replace(/,\s*,+/g, ', ').replace(/\s+/g, ' ');
+        // Bỏ dấu phẩy ở đầu/cuối nếu có
+        str = str.replace(/^,\s*/, '').replace(/,\s*$/, '').trim();
+
+        if (str.length <= 450) {
+            return str;
+        }
+
+        // Cắt bớt sao cho <= 450 ký tự tại vị trí dấu phẩy hợp lệ gần nhất
+        let truncated = str.substring(0, 450);
+        const lastComma = truncated.lastIndexOf(',');
+        if (lastComma > 0) {
+            truncated = truncated.substring(0, lastComma).trim();
+        } else {
+            truncated = truncated.trim();
+        }
+        return truncated;
     }
 
     // Tạo tiêu đề mẫu dự phòng (khi chỉ tính timestamp hoặc chưa gọi AI)
@@ -213,7 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
         generateDefaultTitles(songs);
         outDescription.value = generateDefaultDescription(songs);
         outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #NhacTre #TopTrending';
-        outTags.value = songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất';
+        outTags.value = formatYouTubeTags(songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất');
+        updateTagsCount();
     });
 
     // Tạo Timestamp & AI SEO
@@ -281,6 +331,7 @@ QUY TẮC CỐT LÕI BẮT BUỘC:
 
 YÊU CẦU ĐẶC BIỆT:
 - TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).
+- THẺ TAG (tags): Tổng độ dài của chuỗi thẻ tag phân cách bởi dấu phẩy BẮT BUỘC TỐI ĐA 450 KÝ TỰ (YouTube giới hạn 500 ký tự, nên phải dưới 450 ký tự để không bao giờ bị lỗi khi paste vào YouTube Studio). Chọn lọc các từ khóa SEO đắt giá nhất.
 - Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
   "title1": "LK: TIÊU ĐỀ 1 IN HOA 100% KHÔNG ICON Ở ĐẦU...",
@@ -288,7 +339,7 @@ YÊU CẦU ĐẶC BIỆT:
   "title3": "NONSTOP: TIÊU ĐỀ 3 IN HOA 100% KHÔNG ICON Ở ĐẦU...",
   "description": "Đoạn mô tả hoàn chỉnh được biến tấu sáng tạo theo phong cách và tên bài hát...",
   "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
-  "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
+  "tags": "Danh sách thẻ tag cách nhau bởi dấu phẩy, CHỌN LỌC TỐI ĐA 450 KÝ TỰ (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
 }`;
 
         try {
@@ -322,7 +373,8 @@ YÊU CẦU ĐẶC BIỆT:
             // Cập nhật giao diện
             outDescription.value = seoData.description || '';
             outHashtags.value = seoData.hashtags || '';
-            outTags.value = seoData.tags || '';
+            outTags.value = formatYouTubeTags(seoData.tags || '');
+            updateTagsCount();
 
         } catch (error) {
             alert('Lỗi khi gọi AI: ' + error.message);
