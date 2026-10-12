@@ -50,17 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
     [outTitle1, outTitle2, outTitle3].forEach((input, idx) => {
         const counter = [countTitle1, countTitle2, countTitle3][idx];
         if (input && counter) {
-            input.addEventListener('input', () => updateCharCount(input, counter));
+            input.addEventListener('input', () => {
+                input.value = input.value.toLocaleUpperCase('vi-VN');
+                updateCharCount(input, counter);
+            });
         }
     });
 
-    // Sự kiện sao chép từng tiêu đề
-    document.querySelectorAll('.btn-copy-single').forEach(btn => {
+    // Sự kiện sao chép 1-click cho tất cả các nút copy riêng lẻ (Tiêu đề, Mô tả, Timestamps, Hashtags, Tags)
+    document.querySelectorAll('.btn-copy-single, .btn-copy-section').forEach(btn => {
         btn.addEventListener('click', async () => {
             const targetId = btn.getAttribute('data-target');
             const targetInput = document.getElementById(targetId);
             if (!targetInput || !targetInput.value.trim()) {
-                alert('Chưa có tiêu đề để sao chép!');
+                alert('Chưa có nội dung để sao chép!');
                 return;
             }
             try {
@@ -75,10 +78,41 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {
                 targetInput.select();
                 document.execCommand('copy');
-                alert('Đã sao chép tiêu đề thành công!');
+                alert('Đã sao chép nội dung thành công!');
             }
         });
     });
+
+    // Helper: Định dạng tiêu đề CHỮ IN HOA 100%, KHÔNG ICON Ở ĐẦU, có tiền tố chuẩn (LK:, BXH:, NONSTOP:)
+    function formatUppercaseTitle(titleStr, defaultPrefix = 'LK:') {
+        if (!titleStr) return '';
+        let str = String(titleStr).trim();
+        
+        // 1. Loại bỏ tất cả emoji/icon hoặc ký tự đặc biệt ở ĐẦU chuỗi
+        str = str.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s\-_|:•★🔥⚡🎧🎶✨]+/u, '').trim();
+        // Loại bỏ số thứ tự 1., 2., 3. hoặc dấu ngoặc kép ở đầu/cuối
+        str = str.replace(/^["'\d\.\-\s]+/, '').replace(/["']+$/, '').trim();
+        // Tiếp tục loại bỏ icon nếu AI trả về dạng "1. 🔥 Tên bài"
+        str = str.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s\-_|:•★🔥⚡🎧🎶✨]+/u, '').trim();
+        
+        // 2. Chuyển toàn bộ chuỗi sang IN HOA 100% tiếng Việt
+        str = str.toLocaleUpperCase('vi-VN');
+        
+        // 3. Kiểm tra tiền tố chuẩn ở đầu (LK:, BXH:, NONSTOP:, TOP:, ALBUM:)
+        const prefixRegex = /^(LK|BXH|TOP|NONSTOP|ALBUM|REMIX)\s*:/i;
+        if (!prefixRegex.test(str)) {
+            str = `${defaultPrefix} ${str}`;
+        } else {
+            str = str.replace(prefixRegex, (match, p1) => `${p1.toUpperCase()}:`);
+        }
+        
+        // 4. Đảm bảo toàn bộ chữ in hoa 100% và không vượt quá 100 ký tự
+        str = str.toLocaleUpperCase('vi-VN').trim();
+        if (str.length > 100) {
+            str = str.substring(0, 99).trim();
+        }
+        return str;
+    }
 
     // Tạo tiêu đề mẫu dự phòng (khi chỉ tính timestamp hoặc chưa gọi AI)
     function generateDefaultTitles(songNames) {
@@ -88,16 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const s3 = songNames.length > 2 ? songNames[2] : '';
         const currentYear = new Date().getFullYear();
 
-        const t1 = `🔥 ${s1} - Tuyển Tập Nhạc Trẻ Hot Tik Tok Triệu View Mới Nhất ${currentYear}`;
-        const t2 = s2
-            ? `🎧 Nghe Là Nghiện | ${s1} - ${s2} Remix Bass Cực Căng Cuốn Hút`
-            : `🎧 Nghe Là Nghiện | ${s1} Bản Remix Bass Cực Căng Gây Sốt`;
-        const sample = [s1, s2, s3].filter(Boolean).join(', ');
-        const t3 = `✨ BXH Nhạc Tuyển Chọn Hay Nhất | ${sample} (Top Trending)`;
+        const s1Upper = s1.toLocaleUpperCase('vi-VN');
+        const s2Upper = s2 ? s2.toLocaleUpperCase('vi-VN') : '';
+        const sampleUpper = [s1, s2, s3].filter(Boolean).map(s => s.toLocaleUpperCase('vi-VN')).join(', ');
 
-        outTitle1.value = t1;
-        outTitle2.value = t2;
-        outTitle3.value = t3;
+        const t1 = `LK: ${s1Upper} - TUYỂN TẬP NHẠC TRẺ HOT TIK TOK TRIỆU VIEW MỚI NHẤT ${currentYear}`;
+        const t2 = s2
+            ? `BXH: BẢNG XẾP HẠNG NHẠC REMIX BASS CỰC CĂNG ĐỐN TIM - ${s1Upper} X ${s2Upper}`
+            : `BXH: BẢNG XẾP HẠNG NHẠC REMIX GÂY NGHIỆN - ${s1Upper} BASS CỰC CĂNG`;
+        const t3 = `NONSTOP: LIÊN KHÚC REMIX HAY NHẤT TRIỆU VIEW - ${sampleUpper}`;
+
+        outTitle1.value = formatUppercaseTitle(t1, 'LK:');
+        outTitle2.value = formatUppercaseTitle(t2, 'BXH:');
+        outTitle3.value = formatUppercaseTitle(t3, 'NONSTOP:');
         updateAllTitleCounts();
     }
 
@@ -210,10 +247,21 @@ Tôi có một video âm nhạc gồm danh sách các bài hát sau: ${songs.joi
 
 Yêu cầu bạn phân tích kỹ danh sách bài hát trên để tạo nội dung SEO tối ưu nhất giúp video tiếp cận lượng tìm kiếm tự nhiên cực lớn trên YouTube (YouTube Search) và tăng tối đa tỷ lệ nhấp chuột (High CTR):
 
-1. Tạo 3 TIÊU ĐỀ HOT (độ dài lý tưởng 60 - 85 ký tự, không vượt quá 100 ký tự, có emoji bắt mắt, viết hoa điểm nhấn, chứa từ khóa hot):
-- title1 (Xu Hướng & Trending Hot): Đón đầu xu hướng, kết hợp tên bài hát hot nhất (${firstSong}) + từ khóa xu hướng âm nhạc hot (Ví dụ: [Tên bài hot] - Tuyển Tập Nhạc Trẻ Hot Tik Tok Triệu View Mới Nhất ${currentYear}).
-- title2 (Kích Thích Tò Mò & High CTR): Giật tít cảm xúc mạnh, cuốn hút người nghe nhấp vào ngay (Ví dụ: Nghe Là Nghiện - [Tên bài] Bản Remix Bass Cực Căng Gây Sốt).
-- title3 (Chuẩn Tìm Kiếm YouTube Search): Tối đa hóa từ khóa tìm kiếm tự nhiên của khán giả, chứa tên các bài hát chính kèm cụm từ người nghe hay gõ tìm kiếm.
+1. TẠO 3 TIÊU ĐỀ YOUTUBE HOT (ĐỘ DÀI LÝ TƯỞNG 60 - 85 KÝ TỰ, TỐI ĐA 100 KÝ TỰ):
+QUY TẮC CỐT LÕI BẮT BUỘC:
+- TOÀN BỘ TIÊU ĐỀ BẮT BUỘC PHẢI VIẾT HOA 100% (CHỮ IN HOA TOÀN BỘ TIẾNG VIỆT).
+- KÝ TỰ ĐẦU TIÊN CỦA TIÊU ĐỀ TUYỆT ĐỐI KHÔNG ĐƯỢC CHỨA BẤT KỲ ICON / EMOJI NÀO!
+- BẮT BUỘC BẮT ĐẦU BẰNG CÁC TIỀN TỐ VIẾT TẮT PHỔ BIẾN TRÊN YOUTUBE:
+  + "LK:" (viết tắt của Liên Khúc)
+  + "BXH:" (viết tắt của Bảng Xếp Hạng)
+  + "NONSTOP:" hoặc "TOP:"
+  (Ví dụ: LK: THƯƠNG EM REMIX - TUYỂN TẬP NHẠC TRẺ HOT TIK TOK 2026)
+  (Ví dụ: BXH: BẢNG XẾP HẠNG NHẠC REMIX BASS CỰC CĂNG ĐỐN TIM)
+  (Ví dụ: NONSTOP: LIÊN KHÚC REMIX HAY NHẤT TRIỆU VIEW)
+
+- title1 (Xu Hướng & Trending Hot): Bắt đầu bằng "LK:", kết hợp tên bài hát hot nhất (${firstSong.toUpperCase()}) + từ khóa xu hướng âm nhạc hot. VIẾT HOA 100%, TUYỆT ĐỐI KHÔNG ICON Ở ĐẦU.
+- title2 (Kích Thích Tò Mò & High CTR): Bắt đầu bằng "BXH:", giật tít cảm xúc mạnh (NGHE LÀ PHÊ, BASS CỰC CĂNG, ĐỐN TIM, GÂY NGHIỆN...). VIẾT HOA 100%, TUYỆT ĐỐI KHÔNG ICON Ở ĐẦU.
+- title3 (Chuẩn Tìm Kiếm YouTube Search): Bắt đầu bằng "NONSTOP:" hoặc "LK:", tối đa hóa từ khóa tìm kiếm tự nhiên, chứa tên các bài hát chính kèm cụm từ khán giả hay gõ tìm kiếm. VIẾT HOA 100%, TUYỆT ĐỐI KHÔNG ICON Ở ĐẦU.
 
 2. Tạo MÔ TẢ (Description) BIẾN TẤU SÁNG TẠO - TUYỆT ĐỐI KHÔNG RẬP KHUÔN:
 - QUY TẮC CỐT LÕI: Luôn biến tấu sáng tạo, không rập khuôn hay sao chép nguyên văn mẫu. Hãy dựa trực tiếp vào tiêu đề bài hát đầu tiên (${firstSong}) và phong cách các bài hát trong danh sách (${highlightSongs}) để viết mô tả sống động, phù hợp chính xác với thể loại (Remix sôi động, Pop Ballad, Lofi Chill, Vinahouse...). Mỗi lần sinh nội dung phải có cách dùng từ, ví von và nhịp điệu câu văn mới mẻ.
@@ -235,9 +283,9 @@ YÊU CẦU ĐẶC BIỆT:
 - TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).
 - Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
-  "title1": "Tiêu đề 1 xu hướng & trending...",
-  "title2": "Tiêu đề 2 kích thích tò mò high CTR...",
-  "title3": "Tiêu đề 3 chuẩn tìm kiếm YouTube SEO...",
+  "title1": "LK: TIÊU ĐỀ 1 IN HOA 100% KHÔNG ICON Ở ĐẦU...",
+  "title2": "BXH: TIÊU ĐỀ 2 IN HOA 100% KHÔNG ICON Ở ĐẦU...",
+  "title3": "NONSTOP: TIÊU ĐỀ 3 IN HOA 100% KHÔNG ICON Ở ĐẦU...",
   "description": "Đoạn mô tả hoàn chỉnh được biến tấu sáng tạo theo phong cách và tên bài hát...",
   "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
   "tags": "Danh sách thẻ tag, cách nhau bởi dấu phẩy (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
@@ -266,19 +314,9 @@ YÊU CẦU ĐẶC BIỆT:
             
             const seoData = JSON.parse(aiText);
 
-            // Làm sạch chuỗi tiêu đề
-            const cleanTitle = (val) => {
-                if (!val) return '';
-                return String(val).replace(/^["'\d\.\-\s]+/, '').replace(/["']+$/, '').trim();
-            };
-
-            const t1 = cleanTitle(seoData.title1 || (Array.isArray(seoData.titles) ? seoData.titles[0] : ''));
-            const t2 = cleanTitle(seoData.title2 || (Array.isArray(seoData.titles) ? seoData.titles[1] : ''));
-            const t3 = cleanTitle(seoData.title3 || (Array.isArray(seoData.titles) ? seoData.titles[2] : ''));
-
-            outTitle1.value = t1;
-            outTitle2.value = t2;
-            outTitle3.value = t3;
+            outTitle1.value = formatUppercaseTitle(seoData.title1 || (Array.isArray(seoData.titles) ? seoData.titles[0] : ''), 'LK:');
+            outTitle2.value = formatUppercaseTitle(seoData.title2 || (Array.isArray(seoData.titles) ? seoData.titles[1] : ''), 'BXH:');
+            outTitle3.value = formatUppercaseTitle(seoData.title3 || (Array.isArray(seoData.titles) ? seoData.titles[2] : ''), 'NONSTOP:');
             updateAllTitleCounts();
 
             // Cập nhật giao diện
