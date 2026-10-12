@@ -78,11 +78,11 @@
                                 <!-- Tiêu đề 1 -->
                                 <div class="title-card">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot</span>
+                                        <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot (LK:)</span>
                                         <span class="char-count" id="countTitle1">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle1" placeholder="Tiêu đề Trending sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <input type="text" id="outTitle1" placeholder="LK: TÊN BÀI HÁT - TUYỂN TẬP NHẠC TRẺ HOT TIK TOK MỚI NHẤT..." spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
@@ -92,11 +92,11 @@
                                 <!-- Tiêu đề 2 -->
                                 <div class="title-card">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò (High CTR)</span>
+                                        <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò (BXH:)</span>
                                         <span class="char-count" id="countTitle2">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle2" placeholder="Tiêu đề High CTR sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <input type="text" id="outTitle2" placeholder="BXH: BẢNG XẾP HẠNG NHẠC REMIX BASS CỰC CĂNG ĐỐN TIM..." spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
@@ -106,11 +106,11 @@
                                 <!-- Tiêu đề 3 -->
                                 <div class="title-card">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search</span>
+                                        <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search (NONSTOP:)</span>
                                         <span class="char-count" id="countTitle3">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle3" placeholder="Tiêu đề Chuẩn SEO Tìm Kiếm sẽ xuất hiện ở đây..." spellcheck="false">
+                                        <input type="text" id="outTitle3" placeholder="NONSTOP: LIÊN KHÚC REMIX HAY NHẤT TRIỆU VIEW..." spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
@@ -120,22 +120,42 @@
                         </div>
 
                         <div class="output-section">
-                            <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
+                            <div class="section-header-row">
+                                <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
+                                <button type="button" class="btn-copy-section" data-target="outDescription" title="Sao chép Mô tả">
+                                    <i class="fas fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
                             <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
                         </div>
 
                         <div class="output-section">
-                            <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
+                            <div class="section-header-row">
+                                <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
+                                <button type="button" class="btn-copy-section" data-target="outTimestamps" title="Sao chép Timestamps">
+                                    <i class="fas fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
                             <textarea id="outTimestamps" readonly placeholder="00:00 Bài hát 1..."></textarea>
                         </div>
 
                         <div class="output-section">
-                            <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
+                            <div class="section-header-row">
+                                <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
+                                <button type="button" class="btn-copy-section" data-target="outHashtags" title="Sao chép Hashtags">
+                                    <i class="fas fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
                             <textarea id="outHashtags" readonly placeholder="#NhacTre #TopTrending..."></textarea>
                         </div>
 
                         <div class="output-section">
-                            <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
+                            <div class="section-header-row">
+                                <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
+                                <button type="button" class="btn-copy-section" data-target="outTags" title="Sao chép Tags">
+                                    <i class="fas fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
                             <textarea id="outTags" readonly placeholder="nhạc trẻ, top trending, bài hát hay nhất..."></textarea>
                         </div>
                     </div>
