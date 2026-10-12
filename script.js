@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const countTitle3 = document.getElementById('countTitle3');
     const loader = document.getElementById('loader');
     const outputContent = document.getElementById('outputContent');
+    const emptyOutput = document.getElementById('emptyOutput');
+    const seoExportActions = document.getElementById('seoExportActions');
     const apiKeyInput = document.getElementById('geminiApiKey');
 
     // Khôi phục API Key từ LocalStorage nếu có
@@ -264,6 +266,12 @@ document.addEventListener('DOMContentLoaded', () => {
         outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #NhacTre #TopTrending';
         outTags.value = formatYouTubeTags(songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất');
         updateTagsCount();
+
+        // Ẩn trạng thái rỗng và hiển thị kết quả
+        if (emptyOutput) emptyOutput.style.display = 'none';
+        loader.style.display = 'none';
+        outputContent.style.display = 'block';
+        if (seoExportActions) seoExportActions.style.display = 'flex';
     });
 
     // Tạo Timestamp & AI SEO
@@ -284,9 +292,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Hiện Loader
+        // Ẩn trạng thái rỗng và kết quả cũ, hiện Loader
+        if (emptyOutput) emptyOutput.style.display = 'none';
         outputContent.style.display = 'none';
         loader.style.display = 'block';
+        if (seoExportActions) seoExportActions.style.display = 'none';
 
         const currentYear = new Date().getFullYear();
         const firstSong = songs[0];
@@ -382,7 +392,12 @@ YÊU CẦU ĐẶC BIỆT:
         } finally {
             // Tắt Loader
             loader.style.display = 'none';
-            outputContent.style.display = 'block';
+            if (outTitle1.value || outDescription.value) {
+                outputContent.style.display = 'block';
+                if (seoExportActions) seoExportActions.style.display = 'flex';
+            } else {
+                if (emptyOutput) emptyOutput.style.display = 'flex';
+            }
         }
     });
 
@@ -408,6 +423,10 @@ YÊU CẦU ĐẶC BIỆT:
 
     // 1-Click Copy
     document.getElementById('copyAllBtn').addEventListener('click', async () => {
+        if (!outDescription.value && !outTimestamps.value && !outTitle1.value) {
+            alert('Chưa có nội dung kết quả để sao chép!');
+            return;
+        }
         const text = getFullOutput();
         try {
             await navigator.clipboard.writeText(text);
@@ -419,6 +438,10 @@ YÊU CẦU ĐẶC BIỆT:
 
     // Xuất file TXT
     document.getElementById('exportTxtBtn').addEventListener('click', () => {
+        if (!outDescription.value && !outTimestamps.value && !outTitle1.value) {
+            alert('Chưa có nội dung kết quả để xuất file!');
+            return;
+        }
         const text = getFullOutput();
         const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
@@ -431,6 +454,10 @@ YÊU CẦU ĐẶC BIỆT:
 
     // Xuất file DOCX (Sử dụng cách bọc HTML đơn giản vào file .doc)
     document.getElementById('exportDocxBtn').addEventListener('click', () => {
+        if (!outDescription.value && !outTimestamps.value && !outTitle1.value) {
+            alert('Chưa có nội dung kết quả để xuất DOCX!');
+            return;
+        }
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>YouTube SEO</title></head><body>";
         const footer = "</body></html>";
         const titlesDocx = (outTitle1.value || outTitle2.value || outTitle3.value) ? `
@@ -661,6 +688,8 @@ Hẹn em ở một kiếp khác, bình yên hơn.
     const outSunoTitle = document.getElementById('outSunoTitle');
     const sunoLoader = document.getElementById('sunoLoader');
     const sunoOutputContent = document.getElementById('sunoOutputContent');
+    const sunoEmptyOutput = document.getElementById('sunoEmptyOutput');
+    const sunoExportActions = document.getElementById('sunoExportActions');
 
     // Chọn thể loại card
     styleCards.forEach(card => {
@@ -757,6 +786,12 @@ Hẹn em ở một kiếp khác, bình yên hơn.
         outSunoStyle.value = preset.style;
         outSunoLyrics.value = preset.lyrics;
         updateSunoStyleCount();
+
+        // Ẩn empty state và hiển thị kết quả
+        if (sunoEmptyOutput) sunoEmptyOutput.style.display = 'none';
+        sunoLoader.style.display = 'none';
+        sunoOutputContent.style.display = 'block';
+        if (sunoExportActions) sunoExportActions.style.display = 'flex';
     });
 
     // Tạo Lời & Prompt Suno AI (gọi Gemini)
@@ -773,9 +808,11 @@ Hẹn em ở một kiếp khác, bình yên hơn.
         const topic = sunoTopic.value.trim();
         const hook = sunoHook.value.trim();
 
-        // Hiện Loader
+        // Ẩn trạng thái rỗng và kết quả cũ, hiện Loader
+        if (sunoEmptyOutput) sunoEmptyOutput.style.display = 'none';
         sunoOutputContent.style.display = 'none';
         sunoLoader.style.display = 'block';
+        if (sunoExportActions) sunoExportActions.style.display = 'none';
 
         const prompt = `Bạn là một nhạc sĩ sáng tác ca khúc hàng đầu Việt Nam và là chuyên gia Suno AI Prompt Engineering đỉnh cao.
 
@@ -845,7 +882,12 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
             console.error(error);
         } finally {
             sunoLoader.style.display = 'none';
-            sunoOutputContent.style.display = 'block';
+            if (outSunoTitle.value || outSunoLyrics.value) {
+                sunoOutputContent.style.display = 'block';
+                if (sunoExportActions) sunoExportActions.style.display = 'flex';
+            } else {
+                if (sunoEmptyOutput) sunoEmptyOutput.style.display = 'flex';
+            }
         }
     });
 
@@ -877,6 +919,10 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
 
     // Copy toàn bộ Suno AI
     document.getElementById('copyAllSunoBtn').addEventListener('click', async () => {
+        if (!outSunoTitle.value && !outSunoStyle.value && !outSunoLyrics.value) {
+            alert('Chưa có nội dung kết quả Suno AI để sao chép!');
+            return;
+        }
         const text = `TÊN BÀI HÁT:\n${outSunoTitle.value}\n\n` +
                      `STYLE OF MUSIC (SUNO AI):\n${outSunoStyle.value}\n\n` +
                      `LYRICS (LỜI BÀI HÁT):\n${outSunoLyrics.value}`;
@@ -890,6 +936,10 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
 
     // Xuất file TXT Suno AI
     document.getElementById('exportSunoTxtBtn').addEventListener('click', () => {
+        if (!outSunoTitle.value && !outSunoStyle.value && !outSunoLyrics.value) {
+            alert('Chưa có nội dung kết quả Suno AI để xuất file!');
+            return;
+        }
         const text = `TÊN BÀI HÁT:\n${outSunoTitle.value}\n\n` +
                      `STYLE OF MUSIC (SUNO AI - ${outSunoStyle.value.length} KÝ TỰ):\n${outSunoStyle.value}\n\n` +
                      `LYRICS (LỜI BÀI HÁT):\n${outSunoLyrics.value}`;
@@ -902,10 +952,37 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         URL.revokeObjectURL(url);
     });
 
-    // Khởi tạo mặc định cho tab Suno AI
-    const defaultPreset = SUNO_PRESETS[2];
-    outSunoTitle.value = defaultPreset.title;
-    outSunoStyle.value = defaultPreset.style;
-    outSunoLyrics.value = defaultPreset.lyrics;
-    updateSunoStyleCount();
+    // Hàm reset sạch toàn bộ kết quả khi F5 hoặc tải lại trang
+    function resetAllOutputs() {
+        // Tab 1 (YouTube SEO)
+        if (outTitle1) outTitle1.value = '';
+        if (outTitle2) outTitle2.value = '';
+        if (outTitle3) outTitle3.value = '';
+        if (outDescription) outDescription.value = '';
+        if (outTimestamps) outTimestamps.value = '';
+        if (outHashtags) outHashtags.value = '';
+        if (outTags) outTags.value = '';
+        if (totalDurationEl) totalDurationEl.innerText = '00:00';
+        updateAllTitleCounts();
+        updateTagsCount();
+        
+        if (outputContent) outputContent.style.display = 'none';
+        if (loader) loader.style.display = 'none';
+        if (emptyOutput) emptyOutput.style.display = 'flex';
+        if (seoExportActions) seoExportActions.style.display = 'none';
+
+        // Tab 2 (Suno AI Studio)
+        if (outSunoTitle) outSunoTitle.value = '';
+        if (outSunoStyle) outSunoStyle.value = '';
+        if (outSunoLyrics) outSunoLyrics.value = '';
+        updateSunoStyleCount();
+        
+        if (sunoOutputContent) sunoOutputContent.style.display = 'none';
+        if (sunoLoader) sunoLoader.style.display = 'none';
+        if (sunoEmptyOutput) sunoEmptyOutput.style.display = 'flex';
+        if (sunoExportActions) sunoExportActions.style.display = 'none';
+    }
+
+    // Luôn reset sạch kết quả khi tải trang / F5 để đảm bảo bài tạo ra luôn mới và chính xác
+    resetAllOutputs();
 });
