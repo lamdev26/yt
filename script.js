@@ -680,6 +680,7 @@ Hẹn em ở một kiếp khác, bình yên hơn.
 
     let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
     const styleCards = document.querySelectorAll('.style-card');
+    const sunoInputTitle = document.getElementById('sunoInputTitle');
     const sunoTopic = document.getElementById('sunoTopic');
     const sunoHook = document.getElementById('sunoHook');
     const outSunoStyle = document.getElementById('outSunoStyle');
@@ -700,14 +701,26 @@ Hẹn em ở một kiếp khác, bình yên hơn.
         });
     });
 
+    // Chọn nhanh gợi ý tiêu đề bài hát
+    document.querySelectorAll('.title-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const titleText = chip.getAttribute('data-title');
+            if (sunoInputTitle && titleText) {
+                sunoInputTitle.value = titleText;
+            }
+        });
+    });
+
     // Chọn nhanh gợi ý chủ đề
-    document.querySelectorAll('.tag-chip').forEach(chip => {
+    document.querySelectorAll('.tag-chip[data-topic]').forEach(chip => {
         chip.addEventListener('click', () => {
             const topicText = chip.getAttribute('data-topic');
-            if (sunoTopic.value.trim() === '') {
-                sunoTopic.value = topicText;
-            } else {
-                sunoTopic.value += ', ' + topicText;
+            if (topicText) {
+                if (sunoTopic.value.trim() === '') {
+                    sunoTopic.value = topicText;
+                } else {
+                    sunoTopic.value += ', ' + topicText;
+                }
             }
         });
     });
@@ -782,6 +795,7 @@ Hẹn em ở một kiếp khác, bình yên hơn.
     // Bấm Mẫu Chuẩn Sẵn (Offline Preset)
     document.getElementById('sampleSunoBtn').addEventListener('click', () => {
         const preset = SUNO_PRESETS[currentSunoStyleId] || SUNO_PRESETS[2];
+        if (sunoInputTitle) sunoInputTitle.value = preset.title;
         outSunoTitle.value = preset.title;
         outSunoStyle.value = preset.style;
         outSunoLyrics.value = preset.lyrics;
@@ -805,6 +819,7 @@ Hẹn em ở một kiếp khác, bình yên hơn.
         localStorage.setItem('geminiApiKey', apiKey);
 
         const preset = SUNO_PRESETS[currentSunoStyleId] || SUNO_PRESETS[2];
+        const inputTitle = sunoInputTitle ? sunoInputTitle.value.trim() : '';
         const topic = sunoTopic.value.trim();
         const hook = sunoHook.value.trim();
 
@@ -816,12 +831,20 @@ Hẹn em ở một kiếp khác, bình yên hơn.
 
         const prompt = `Bạn là một nhạc sĩ sáng tác ca khúc hàng đầu Việt Nam và là chuyên gia Suno AI Prompt Engineering đỉnh cao.
 
-YÊU CẦU NHIỆM VỤ:
-1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU:
+THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
+${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (YÊU CẦU QUAN TRỌNG NHẤT: BẮT BUỘC BÁM SÁT TIÊU ĐỀ NÀY LÀM LINH HỒN CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
 - Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
-- Chủ đề & Cảm xúc: ${topic || 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay'}
-- Điểm nhấn / Câu Hook: ${hook || (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : '')}
-- YÊU CẦU CA TỪ CỐT LÕI: "NÂNG CẤP LỜI NHẠC CÂU TỪ SÂU ĐÚNG TÂM TRẠNG, TUYỆT ĐỐI KHÔNG HỜI HỢT".
+- Chủ đề & Cảm xúc: ${topic || (inputTitle ? `Khai thác sâu sắc câu chuyện và cảm xúc xoay quanh tiêu đề "${inputTitle}"` : 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay')}
+- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : ''))}
+
+YÊU CẦU NHIỆM VỤ CỐT LÕI:
+1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU & BÁM SÁT TIÊU ĐỀ:
+${inputTitle ? `⭐ QUY TẮC BẮT BUỘC VỀ TIÊU ĐỀ "${inputTitle}":
+- Tiêu đề "${inputTitle}" chính là "linh hồn", đề tài và tư tưởng xuyên suốt của bài hát.
+- Toàn bộ lời bài hát, cốt truyện, diễn biến tâm trạng từ [Verse 1], [Pre-Chorus], [Chorus], [Verse 2] đến [Bridge] PHẢI XOAY QUANH VÀ GIẢI NGHĨA SÂU SẮC CHO TIÊU ĐỀ "${inputTitle}".
+- TỪ KHÓA / CỤM TỪ TIÊU ĐỀ "${inputTitle}" PHẢI ĐƯỢC XUẤT HIỆN TRỰC TIẾP, ĐẮT GIÁ TRONG ĐOẠN [Chorus] (Điệp khúc) hoặc câu [Hook] tạo điểm nhấn bùng nổ, gieo vào tâm trí người nghe giai điệu và ca từ không thể nào quên!
+- Từng câu từng chữ phải ăn khớp và bám sát ngữ cảnh của tiêu đề "${inputTitle}", tuyệt đối không viết chung chung, mơ hồ hay lạc đề.` : '- Hãy tự đặt một tiêu đề thật đắt giá, và sáng tác lời bài hát xoay quanh tiêu đề đó.'}
+- YÊU CẦU CA TỪ: "NÂNG CẤP LỜI NHẠC CÂU TỪ SÂU ĐÚNG TÂM TRẠNG, TUYỆT ĐỐI KHÔNG HỜI HỢT".
   + Ca từ phải thấm đẫm cảm xúc, giàu tính tự sự, triết lý nhân sinh và hình ảnh thơ ca đẹp, chạm tới trái tim người nghe.
   + Tuyệt đối không dùng ca từ sáo rỗng, hời hợt, vô nghĩa hay ghép từ vụng về.
   + Gieo vần điệu chuẩn xác (vần chân, vần lưng, vần đôi/ba), câu chữ gãy gọn, giàu nhạc tính.
@@ -841,14 +864,15 @@ YÊU CẦU NHIỆM VỤ:
 - ĐẶC BIỆT CHÚ Ý ĐỘ DÀI: BẮT BUỘC TỪ 800 KÝ TỰ VÀ KHÔNG QUÁ 920 KÝ TỰ (Khoảng 830 - 890 ký tự là tối ưu).
 - Dựa trên phong cách kỹ thuật sau:
   ${preset.style}
-- Tùy chỉnh chi tiết phong cách trên sao cho hòa quyện với chủ đề (${topic || 'unwavering love'}) và câu hook (${hook || ''}), giữ vững BPM, nhạc cụ, vocal timbre, build-up, drop, mastering và negative tags (NO ...).
+- Tùy chỉnh chi tiết phong cách trên sao cho hòa quyện với chủ đề, tiêu đề (${inputTitle || 'deep emotional theme'}) và câu hook, giữ vững BPM, nhạc cụ, vocal timbre, build-up, drop, mastering và negative tags (NO ...).
 - BẮT BUỘC đếm và đảm bảo chuỗi prompt style tiếng Anh có tổng độ dài ký tự nằm trong khoảng từ 800 đến 920 ký tự.
 
-3. ĐẶT TÊN BÀI HÁT (Title): Ngắn gọn, cuốn hút, hợp tâm trạng.
+3. TÊN BÀI HÁT (Title):
+${inputTitle ? `- BẮT BUỘC trả về chính xác tên bài hát do người dùng chỉ định: "${inputTitle}".` : '- Đặt tên bài hát ngắn gọn, cuốn hút, hợp tâm trạng.'}
 
 Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
-  "title": "Tên bài hát",
+  "title": "${inputTitle ? inputTitle : 'Tên bài hát'}",
   "style": "Prompt Style tiếng Anh từ 800 đến 920 ký tự...",
   "lyrics": "Lời bài hát hoàn chỉnh với các thẻ [Intro], [Verse], [Chorus]..."
 }`;
@@ -872,7 +896,7 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
             aiText = aiText.replace(/```json/g, '').replace(/```/g, '').trim();
             const sunoData = JSON.parse(aiText);
 
-            outSunoTitle.value = sunoData.title || preset.title;
+            outSunoTitle.value = inputTitle || sunoData.title || preset.title;
             outSunoStyle.value = formatSunoStylePrompt(sunoData.style, currentSunoStyleId);
             outSunoLyrics.value = sunoData.lyrics || preset.lyrics;
             updateSunoStyleCount();
@@ -972,6 +996,7 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         if (seoExportActions) seoExportActions.style.display = 'none';
 
         // Tab 2 (Suno AI Studio)
+        if (sunoInputTitle) sunoInputTitle.value = '';
         if (outSunoTitle) outSunoTitle.value = '';
         if (outSunoStyle) outSunoStyle.value = '';
         if (outSunoLyrics) outSunoLyrics.value = '';
