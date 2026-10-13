@@ -639,6 +639,18 @@ button {
     border-color: rgba(255, 255, 255, 0.25);
 }
 
+.tag-chip.title-chip {
+    background: rgba(255, 165, 2, 0.08);
+    color: #ffa502;
+    border-color: rgba(255, 165, 2, 0.3);
+}
+
+.tag-chip.title-chip:hover {
+    background: rgba(255, 165, 2, 0.2);
+    color: #ffffff;
+    border-color: #ffa502;
+}
+
 .style-header-wrap {
     display: flex;
     justify-content: space-between;
