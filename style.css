@@ -262,6 +262,18 @@ button {
     border: 1px solid rgba(30, 144, 255, 0.3);
 }
 
+.badge-top {
+    background: rgba(46, 213, 115, 0.15);
+    color: #2ed573;
+    border: 1px solid rgba(46, 213, 115, 0.3);
+}
+
+.badge-remix {
+    background: rgba(165, 94, 234, 0.15);
+    color: #a55eea;
+    border: 1px solid rgba(165, 94, 234, 0.3);
+}
+
 .char-count {
     font-size: 0.75rem;
     color: var(--text-muted);
