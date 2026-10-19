@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         generateDefaultTitles(songs);
         outDescription.value = generateDefaultDescription(songs);
-        outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #NhacTre #TopTrending';
+        outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #remix #nhactreremix #nhacremix #nhachaymoingay #nhactinhyeu #NhacTre #TopTrending #giaitri';
         outTags.value = formatYouTubeTags(songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất');
         updateTagsCount();
 
