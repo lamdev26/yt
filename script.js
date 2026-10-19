@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalDurationEl = document.getElementById('totalDuration');
     const outDescription = document.getElementById('outDescription');
     const outHashtags = document.getElementById('outHashtags');
+    const hashtagsCount = document.getElementById('hashtagsCount');
     const outTags = document.getElementById('outTags');
     const tagsCount = document.getElementById('tagsCount');
     const outTitle1 = document.getElementById('outTitle1');
@@ -76,6 +77,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (outTags) {
         outTags.addEventListener('input', () => {
             updateTagsCount();
+        });
+    }
+
+    // Helper: Cập nhật đếm số lượng Hashtags
+    function updateHashtagsCount() {
+        if (!outHashtags || !hashtagsCount) return;
+        const text = outHashtags.value.trim();
+        if (!text) {
+            hashtagsCount.innerText = '0 hashtags';
+            hashtagsCount.style.color = 'var(--text-muted)';
+            return;
+        }
+        const matches = text.match(/#[^\s#]+/g) || text.split(/\s+/).filter(Boolean);
+        const count = matches.length;
+        hashtagsCount.innerText = `${count} hashtags`;
+        if (count >= 15) {
+            hashtagsCount.style.color = 'var(--success-color)';
+        } else {
+            hashtagsCount.style.color = 'var(--text-muted)';
+        }
+    }
+
+    if (outHashtags) {
+        outHashtags.addEventListener('input', () => {
+            updateHashtagsCount();
         });
     }
 
@@ -177,6 +203,96 @@ document.addEventListener('DOMContentLoaded', () => {
             truncated = truncated.trim();
         }
         return truncated;
+    }
+
+    // Helper: Định dạng và làm giàu bộ Hashtags YouTube chuẩn SEO với nhiều từ khóa hot
+    function formatYouTubeHashtags(rawHashtags, songNames = []) {
+        const currentYear = new Date().getFullYear();
+        // 1. Các hashtag cốt lõi theo yêu cầu của người dùng
+        const coreHashtags = [
+            '#remix',
+            '#nhactreremix',
+            '#nhacremix',
+            '#nhachaymoingay',
+            '#nhactinhyeu',
+            '#NhacTre'
+        ];
+
+        // 2. Các hashtag xu hướng âm nhạc, nhạc trẻ, quẩy, trending YouTube & TikTok
+        const trendingHashtags = [
+            '#TopTrending',
+            '#NhacHay',
+            '#BXHNhacViet',
+            `#NhacTre${currentYear}`,
+            `#NhacRemix${currentYear}`,
+            '#Nonstop',
+            '#Vinahouse',
+            '#Vietmix',
+            '#NhacTikTok',
+            '#XuHuong',
+            '#XuHuongYouTube',
+            '#NhacRemixMoiNhat',
+            '#NhacGayNghien',
+            '#BassCucManh',
+            '#LienKhucNhacTre',
+            '#LienKhucRemix',
+            '#EDM',
+            '#NhacQuay'
+        ];
+
+        // 3. Tạo hashtag từ các bài hát trong danh sách
+        const songHashtags = [];
+        if (Array.isArray(songNames)) {
+            songNames.forEach(song => {
+                if (!song) return;
+                // Xóa ký tự thừa, tạo hashtag dính liền
+                const cleanName = song.replace(/[\s\-_|.,!?'"()\[\]]+/g, '');
+                if (cleanName.length >= 2) {
+                    songHashtags.push('#' + cleanName);
+                    if (!cleanName.toLowerCase().includes('remix')) {
+                        songHashtags.push('#' + cleanName + 'Remix');
+                    }
+                }
+            });
+        }
+
+        // 4. Trích xuất hashtag từ dữ liệu đầu vào hoặc AI trả về
+        let aiTags = [];
+        if (rawHashtags) {
+            const matches = String(rawHashtags).match(/#[^\s#,;]+/g);
+            if (matches && matches.length > 0) {
+                aiTags = matches;
+            } else {
+                aiTags = String(rawHashtags)
+                    .split(/[\s,;]+/)
+                    .filter(Boolean)
+                    .map(w => w.startsWith('#') ? w : '#' + w.replace(/[^a-zA-Z0-9\u00C0-\u024F\u1EA0-\u1EF9]/g, ''))
+                    .filter(w => w.length > 2);
+            }
+        }
+
+        // Hợp nhất theo thứ tự ưu tiên: Core tags -> Song tags (tối đa 12) -> AI tags -> Trending tags
+        const combined = [
+            ...coreHashtags,
+            ...songHashtags.slice(0, 12),
+            ...aiTags,
+            ...trendingHashtags
+        ];
+
+        // Khử trùng lặp (không phân biệt chữ hoa/thường)
+        const seen = new Set();
+        const uniqueTags = [];
+        for (const tag of combined) {
+            let clean = tag.trim().replace(/[,;]+$/, '');
+            if (!clean.startsWith('#')) clean = '#' + clean;
+            const lower = clean.toLowerCase();
+            if (!seen.has(lower) && clean.length > 2) {
+                seen.add(lower);
+                uniqueTags.push(clean);
+            }
+        }
+
+        return uniqueTags.join(' ');
     }
 
     // Tạo tiêu đề mẫu dự phòng (khi chỉ tính timestamp hoặc chưa gọi AI)
@@ -281,7 +397,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         generateDefaultTitles(songs);
         outDescription.value = generateDefaultDescription(songs);
-        outHashtags.value = songs.slice(0, 5).map(s => '#' + s.replace(/[\s\-_|]+/g, '')).join(' ') + ' #remix #nhactreremix #nhacremix #nhachaymoingay #nhactinhyeu #NhacTre #TopTrending #giaitri';
+        outHashtags.value = formatYouTubeHashtags('', songs);
+        updateHashtagsCount();
         outTags.value = formatYouTubeTags(songs.slice(0, 8).join(', ') + ', nhac tre, top trending, bài hát hay nhất');
         updateTagsCount();
 
@@ -362,6 +479,7 @@ QUY TẮC CỐT LÕI BẮT BUỘC:
 YÊU CẦU ĐẶC BIỆT:
 - TUYỆT ĐỐI KHÔNG sử dụng các ký tự đặc biệt dùng để định dạng văn bản (như dấu **, dấu *, dấu _, v.v.) trong phần mô tả, chỉ được phép sử dụng văn bản thường và các icon (emoji).
 - THẺ TAG (tags): Tổng độ dài của chuỗi thẻ tag phân cách bởi dấu phẩy BẮT BUỘC TỐI ĐA 450 KÝ TỰ (YouTube giới hạn 500 ký tự, nên phải dưới 450 ký tự để không bao giờ bị lỗi khi paste vào YouTube Studio). Chọn lọc các từ khóa SEO đắt giá nhất.
+- BỘ HASHTAGS BÙNG NỔ LƯỢT XEM (TỐI THIỂU 20 - 30 HASHTAGS): BẮT BUỘC bao gồm các hashtags cốt lõi: #remix #nhactreremix #nhacremix #nhachaymoingay #nhactinhyeu #NhacTre kết hợp với hashtags từ tên các bài hát trong danh sách (#TenBaiHat, #TenBaiHatRemix) và hashtags xu hướng âm nhạc YouTube (#TopTrending #NhacHay #BXHNhacViet #Vinahouse #Vietmix #Nonstop #NhacTikTok #XuHuong #NhacRemixMoiNhat #NhacGayNghien #BassCucManh #LienKhucRemix). Chuỗi hashtag cách nhau bởi 1 khoảng trắng duy nhất, không dùng dấu phẩy.
 - Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
   "title1": "LK TIÊU ĐỀ 1 IN HOA 100% KHÔNG DẤU HAI CHẤM KHÔNG ICON Ở ĐẦU...",
@@ -370,7 +488,7 @@ YÊU CẦU ĐẶC BIỆT:
   "title4": "TOP TIÊU ĐỀ 4 IN HOA 100% KHÔNG DẤU HAI CHẤM KHÔNG ICON Ở ĐẦU...",
   "title5": "REMIX TIÊU ĐỀ 5 IN HOA 100% KHÔNG DẤU HAI CHẤM KHÔNG ICON Ở ĐẦU...",
   "description": "Đoạn mô tả hoàn chỉnh được biến tấu sáng tạo theo phong cách và tên bài hát...",
-  "hashtags": "Danh sách hashtag viết liền, cách nhau bởi khoảng trắng, bao gồm tên bài hát, thể loại (ví dụ: #NhacTre #TopTrending)",
+  "hashtags": "#remix #nhactreremix #nhacremix #nhachaymoingay #nhactinhyeu #NhacTre ... (tối thiểu 20-30 hashtag cách nhau bởi khoảng trắng)",
   "tags": "Danh sách thẻ tag cách nhau bởi dấu phẩy, CHỌN LỌC TỐI ĐA 450 KÝ TỰ (ví dụ: nhạc trẻ, nhac tre, bài hát hay nhất)"
 }`;
 
@@ -406,7 +524,8 @@ YÊU CẦU ĐẶC BIỆT:
 
             // Cập nhật giao diện
             outDescription.value = seoData.description || '';
-            outHashtags.value = seoData.hashtags || '';
+            outHashtags.value = formatYouTubeHashtags(seoData.hashtags || '', songs);
+            updateHashtagsCount();
             outTags.value = formatYouTubeTags(seoData.tags || '');
             updateTagsCount();
 
@@ -1015,6 +1134,7 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         if (outTags) outTags.value = '';
         if (totalDurationEl) totalDurationEl.innerText = '00:00';
         updateAllTitleCounts();
+        updateHashtagsCount();
         updateTagsCount();
         
         if (outputContent) outputContent.style.display = 'none';
