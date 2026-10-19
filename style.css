@@ -389,7 +389,7 @@ button {
 
 #outDescription { height: 100px; }
 #outTimestamps { height: 150px; font-family: monospace;}
-#outHashtags { height: 60px; }
+#outHashtags { height: 85px; }
 #outTags { height: 60px; }
 
 .loader {
