@@ -819,6 +819,71 @@ Dẫu người đi cùng em đến cuối con đường... chẳng phải là an
 Tạm biệt người anh yêu nhất...
 Hẹn em ở một kiếp khác, bình yên hơn.
 [Fade Out]`
+        },
+        4: {
+            id: 4,
+            name: "Vietnamese Jerk Drill x Melodic Lo-Fi",
+            bpm: 122,
+            title: "Lạc Lối Đêm Phố Thị",
+            style: "Vietnamese Jerk Drill x Melodic Lo-Fi, 122 BPM, bouncy upbeat pulse with a melancholic sway. Saturated distorted 808s against chill lo-fi piano and crisp, syncopated claps. Low dark male and female vocals in smooth silky call-and-response, female soprano gliding between choppy rap phrases, gliding female rap against choppy male rap with backing voices. Viral TikTok-style arrangement with a sudden bass freeze and hook-led drops; springy 808 bass slides, chill lo-fi piano chords, rhythmic claps and finger snaps. Dynamic contrast between moody intimate verses and energetic bouncy hook drops. Wide stereo panning, tape warmth, punchy transients, pristine upfront vocal mix, radio-ready commercial master. NO monotone delivery, NO flat drops, NO muddy low-end, NO robotic autotune artifacts, NO harsh highs, NO slow tempo, NO acoustic ballad.",
+            lyrics: `[Intro - Chill Lo-Fi Piano & Snaps]
+(Syncopated claps, soft tape hiss, lo-fi piano chords)
+[Low Male Voice] 122 BPM... Phố lên đèn rồi em.
+[Female Soprano Gliding] Màn đêm buông xuống, liệu ai thật lòng?
+
+[Verse 1 - Choppy Male Rap]
+Đèn đường hắt hiu rọi vào góc phố thân quen
+Bước chân vội vã cố tìm một khoảng trời riêng
+Bao ánh nhìn phán xét, bao cám dỗ bủa vây
+Ta giữ lại bản ngã giữa vòng xoáy đổi thay.
+Đồng tiền làm mờ mắt, danh vọng làm người say
+Nhưng chữ tâm chữ nghĩa, anh nắm chặt trong tay!
+
+[Verse 1 - Gliding Female Soprano Rap]
+Lướt qua ánh mắt sắc lạnh giữa màn đêm
+Gió lay tà áo, nỗi cô đơn dày thêm
+Người ta đến rồi đi tựa như làn khói mỏng
+Chỉ có nhịp tim này chưa từng nguôi hy vọng.
+Anh bảo vệ giấc mơ, em gạt đi nước mắt
+Giữa chốn thị phi ta cùng nhau vượt qua ngặt nghèo!
+
+[Pre-Chorus - Call-and-Response Duet]
+[Male] Em có sợ ngày mai giông bão kéo về?
+[Female] Bên anh rồi, đường gai góc cũng hóa bình yên!
+[Male] Nhịp claps lệch điệu, bass bắt đầu siết chặt...
+[Female] Nắm lấy tay em, đừng buông nhé người ơi!
+
+[Bass Freeze]
+(Tất cả âm thanh dừng lại 1 giây - Chỉ còn tiếng thở nhẹ)
+[Female Hook] Phố thị không ngủ... ta thuộc về nhau!
+
+[Drop - Bouncy 808 Jerk Drill]
+(Distorted 808 bass slides, springy syncopated percussion, female vocal chops)
+
+[Verse 2 - Choppy Male Rap with Female Backing]
+Cứ để miệng đời thêu dệt những điều hoang đường
+Thép đã tôi trong lửa, ta kiên cường dặm trường
+Ánh hào quang lấp lánh không mua nổi chân tình
+Đêm tàn trời lại sáng, ta đón ánh bình minh.
+Có em kề vai, mọi hiểm nguy đều hóa nhẹ tênh
+Vững bước ta đi, khắc tên mình lên đỉnh cao!
+
+[Bridge - Melancholic Sway & Soft Piano]
+Dưới ánh đèn neon lập lòe góc tối
+Ta tìm thấy nhau giữa muôn ngàn lạc lối
+Dẫu cả thế giới quay lưng lại phía sau
+Chỉ cần một người hiểu, đau đớn cũng phai màu...
+
+[Bass Freeze - Hook]
+[Duet] Phố thị đèn mờ... tình này chẳng phai!
+
+[Drop - Final Climax]
+(Maximum Saturated 808 Slides, High-Energy Jerk Drill Pulse & Ad-libs)
+
+[Outro - Lo-Fi Piano fading out]
+[Female Soprano] Lạc lối đêm nay... nhưng tìm thấy anh.
+[Male Voice] Mãi mãi bên em.
+[Fade Out]`
         }
     };
 
@@ -979,7 +1044,7 @@ THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
 ${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (YÊU CẦU QUAN TRỌNG NHẤT: BẮT BUỘC BÁM SÁT TIÊU ĐỀ NÀY LÀM LINH HỒN CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
 - Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
 - Chủ đề & Cảm xúc: ${topic || (inputTitle ? `Khai thác sâu sắc câu chuyện và cảm xúc xoay quanh tiêu đề "${inputTitle}"` : 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay')}
-- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : ''))}
+- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : '')))}
 
 YÊU CẦU NHIỆM VỤ CỐT LÕI:
 1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU & BÁM SÁT TIÊU ĐỀ:
@@ -997,11 +1062,11 @@ ${inputTitle ? `⭐ QUY TẮC BẮT BUỘC VỀ TIÊU ĐỀ "${inputTitle}":
     [Verse 1]
     [Pre-Chorus]
     [Chorus]
-    ${currentSunoStyleId !== 3 ? '[Drop]' : '[Interlude]'}
+    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId !== 3 ? '[Drop]' : '[Interlude]')}
     [Verse 2]
     [Chorus]
     [Bridge] (Đoạn cao trào chuyển biến cảm xúc mạnh mẽ nhất)
-    ${currentSunoStyleId !== 3 ? '[Drop - Final Climax]' : '[Chorus - Climax]'}
+    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Final Climax]' : (currentSunoStyleId !== 3 ? '[Drop - Final Climax]' : '[Chorus - Climax]')}
     [Outro]
 
 2. TẠO PROMPT STYLE (Style of Music) TIẾNG ANH CHO SUNO AI:
