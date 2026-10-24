@@ -213,14 +213,21 @@
                         <span class="badge">Suno v3.5 / v4 Ready</span>
                     </div>
 
-                    <!-- Lựa chọn 3 thể loại gợi ý -->
-                    <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 4 thể loại gợi ý:</label>
+                    <!-- Lựa chọn 4 thể loại gợi ý -->
+                    <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 6 thể loại gợi ý:</label>
                     <div class="style-selector">
                         <!-- Style 1 -->
                         <div class="style-card" data-style="1">
                             <div class="style-card-header">
                                 <span class="style-title"><i class="fas fa-bolt"></i> Thể loại 1: Rap Pop x Jersey Club x Afrobeat</span>
-                                <span class="bpm-badge">128 BPM</span>
+                                <div class="bpm-stepper" data-style="1">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="128" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
                             </div>
                             <p class="style-summary">Jersey bounce nẩy, Afrobeat groove, beat drops chuyển đoạn bùng nổ, funky bass, duet nam-nữ ngọt ngào hoặc melodic rap.</p>
                         </div>
@@ -229,7 +236,14 @@
                         <div class="style-card selected" data-style="2">
                             <div class="style-card-header">
                                 <span class="style-title"><i class="fas fa-fire"></i> Thể loại 2: Vinahouse x Big Room EDM</span>
-                                <span class="bpm-badge">140 BPM</span>
+                                <div class="bpm-stepper" data-style="2">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="140" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
                             </div>
                             <p class="style-summary">Peak-time festival, vocal nam ấm khàn sâu sắc, 3 drops bass cuộn cực căng, hook đắt giá bùng nổ cảm xúc.</p>
                         </div>
@@ -238,7 +252,14 @@
                         <div class="style-card" data-style="3">
                             <div class="style-card-header">
                                 <span class="style-title"><i class="fas fa-heart"></i> Thể loại 3: Emotional Pop Ballad x Orchestral</span>
-                                <span class="bpm-badge">82 BPM</span>
+                                <div class="bpm-stepper" data-style="3">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="82" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
                             </div>
                             <p class="style-summary">Piano da diết, dàn dây strings cao trào, ca từ sâu sắc chạm đáy tâm can, day dứt, chân thành và nghẹn ngào.</p>
                         </div>
@@ -247,9 +268,48 @@
                         <div class="style-card" data-style="4">
                             <div class="style-card-header">
                                 <span class="style-title"><i class="fas fa-drum"></i> Thể loại 4: Vietnamese Jerk Drill x Lo-Fi</span>
-                                <span class="bpm-badge">122 BPM</span>
+                                <div class="bpm-stepper" data-style="4">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="122" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
                             </div>
                             <p class="style-summary">808 saturated nảy gai góc, piano lo-fi da diết, claps lệch nhịp, duet call-and-response nam trầm x nữ soprano lả lướt, viral TikTok drop.</p>
+                        </div>
+
+                        <!-- Style 5 -->
+                        <div class="style-card" data-style="5">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-guitar"></i> Thể loại 5: Vietnamese Rumba x Latin Acoustic</span>
+                                <div class="bpm-stepper" data-style="5">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="100" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <p class="style-summary">Guitar nylon Tây Ban Nha trữ tình, nhịp rumba lắc conga mộc mạc hoài niệm, ca từ tự sự sâu lắng chạm đáy tâm can.</p>
+                        </div>
+
+                        <!-- Style 6 -->
+                        <div class="style-card" data-style="6">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-cocktail"></i> Thể loại 6: Vietnamese Cha Cha Cha x Latin Big Band</span>
+                                <div class="bpm-stepper" data-style="6">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="128" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <p class="style-summary">Kèn đồng Big Band tưng bừng, cowbell và timbales rộn rã, vũ điệu khiêu vũ Latin sang trọng cuốn hút, tràn đầy sức sống.</p>
                         </div>
                     </div>
 
@@ -267,6 +327,8 @@
                         <span class="tag-chip title-chip" data-title="Khiêu Vũ Dưới Ngàn Sao">✨ Khiêu Vũ Dưới Ngàn Sao</span>
                         <span class="tag-chip title-chip" data-title="Nếu Có Kiếp Sau">❄️ Nếu Có Kiếp Sau</span>
                         <span class="tag-chip title-chip" data-title="Lạc Lối Đêm Phố Thị">🏙️ Lạc Lối Đêm Phố Thị</span>
+                        <span class="tag-chip title-chip" data-title="Đêm Mưa Nhớ Người">🌧️ Đêm Mưa Nhớ Người</span>
+                        <span class="tag-chip title-chip" data-title="Vũ Điệu Say Tình">💃 Vũ Điệu Say Tình</span>
                     </div>
 
                     <!-- Ô nhập Chủ đề / Cảm xúc -->
@@ -293,6 +355,8 @@
                         <span class="tag-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
                         <span class="tag-chip" data-topic="Sức sống mãnh liệt của hy vọng tựa như chồi non vươn lên đón nắng mùa xuân">🌸 Hy vọng mùa xuân</span>
                         <span class="tag-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
+                        <span class="tag-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
+                        <span class="tag-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
                     </div>
 
                     <!-- Ô nhập Hook chính -->
