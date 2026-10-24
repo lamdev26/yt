@@ -885,6 +885,128 @@ Chỉ cần một người hiểu, đau đớn cũng phai màu...
 [Male Voice] Mãi mãi bên em.
 [Fade Out]`
         }
+,
+        5: {
+            id: 5,
+            name: "Vietnamese Rumba x Latin Acoustic Ballad",
+            bpm: 100,
+            title: "Đêm Mưa Nhớ Người",
+            style: "Vietnamese Rumba x Latin Acoustic Ballad, 100 BPM, warm romantic sway with nostalgic Latin-Vietnamese percussion. Delicate Spanish nylon-string acoustic guitar arpeggios and rhythmic rumba strums, warm melodic upright bass, syncopated congas, bongos, gentle shaker and crisp wooden rimshots. Sincere expressive warm mature male vocal, deep soulful phrasing, subtle vibrato, emotional romantic longing. Mellow vintage accordion fills, subtle warm string quartet pads, gentle Spanish trumpet accents in transitions. Intimate storytelling verses, passionate soaring melodic chorus, expressive acoustic guitar solo bridge, soft fading romantic outro. Wide acoustic stereo imaging, vintage tube console warmth, pristine vocal intimacy, broadcast-ready analog master. NO heavy synth, NO EDM drums, NO aggressive distortion, NO harsh autotune, NO robotic artifacts, NO fast beat.",
+            lyrics: `[Intro - Spanish Nylon Guitar & Congas]
+(Mellow acoustic guitar arpeggios, gentle shaker, slow rumba rhythm)
+
+[Verse 1]
+Từng hạt mưa rơi rớt bên hiên vắng lạnh lùng
+Ngọn đèn khuya hắt hiu bóng ai trong màn sương
+Gió đông về khẽ nhắc lại chuyện tình xưa
+Thuở hai đứa chung đường, dưới cơn mưa chiều vội vã.
+
+[Verse 2]
+Thời gian trôi cuốn theo bao hẹn ước ban đầu
+Người phương xa có còn nhớ mảnh trăng xưa?
+Chén rượu nồng chẳng làm vơi đi nỗi nhớ
+Chỉ thấy bóng hình em khắc sâu tận đáy lòng...
+
+[Pre-Chorus]
+Đàn ai buông tiếng rumba da diết
+Rung lên từng cung bậc của đớn đau
+Biết duyên phận lỡ làng không chung lối
+Sao ngàn năm lòng vẫn mãi vấn vương?
+
+[Chorus]
+Mưa vẫn rơi như tiếng lòng than khóc
+Người ra đi mang theo nửa linh hồn
+Đêm rumba trăn trở hoài kỷ niệm
+Một thuở yêu người... trọn vẹn cả thanh xuân!
+
+[Interlude - Acoustic Guitar & Accordion Solo]
+(Soulful nylon guitar solo, warm accordion fills, conga groove)
+
+[Verse 3]
+Đời nổi trôi giữa muôn ngàn sóng gió
+Gặp được nhau đã là một chữ duyên
+Dẫu mai này đường trần chia hai ngả
+Nguyện chúc người một đời vẹn bình yên.
+
+[Bridge]
+Nếu có ngày người ngoảnh lại phía sau
+Vẫn thấy nơi đây một ngọn đèn le lói
+Không oán hận, không một lời trách móc
+Chỉ mong nụ cười em mãi nở trên môi...
+
+[Chorus - Emotional Climax]
+Mưa vẫn rơi như tiếng lòng than khóc
+Người ra đi mang theo nửa linh hồn
+Đêm rumba trăn trở hoài kỷ niệm
+Một thuở yêu người... trọn vẹn cả thanh xuân!
+
+[Outro - Gentle Nylon Guitar Solo]
+(Soft congas fading out, delicate guitar strum)
+Mưa đêm... nhớ người khôn nguôi.
+[Fade Out]`
+        },
+        6: {
+            id: 6,
+            name: "Vietnamese Cha Cha Cha x Latin Big Band",
+            bpm: 128,
+            title: "Vũ Điệu Say Tình",
+            style: "Vietnamese Cha Cha Cha x Modern Latin Big Band, 128 BPM, vibrant infectious dance rhythm with lively ballroom energy. Crisp syncopated cowbell, driving timbale fills, punchy congas, rhythmic guiro, bouncy electric bassline, playful Latin piano montuno riffs. Charismatic energetic male vocal with playful female backing harmonies, seductive phrasing, confident melodic delivery. Bright punchy brass section stabs, soulful muted trumpet solos, crisp handclaps, dynamic rhythmic breaks and dramatic brass swells. Dynamic build-up into an irresistible catchy dance chorus, energetic percussion breakdown bridge, triumphant celebratory climax outro. Wide panoramic stereo soundstage, punchy drum transients, pristine upfront vocal mix, radio-ready dancefloor master. NO slow ballad, NO muddy low-end, NO robotic vocal tuning, NO flat drums, NO weak drops, NO gloomy atmosphere.",
+            lyrics: `[Intro - Cowbell & Brass Horns]
+(One, two, cha-cha-cha! Bright horn stabs, driving timbales)
+1, 2, 3... Khiêu vũ cùng anh nhé em!
+
+[Verse 1]
+Ánh đèn đêm lấp lánh soi rọi sàn khiêu vũ
+Tiếng kèn đồng ngân vang giục giã bước chân say
+Gạt đi bao muộn phiền của ngày dài đã qua
+Hãy để âm nhạc dẫn lối đôi trái tim này!
+
+[Verse 2]
+Ánh mắt em trao mang ngọn lửa đam mê
+Nụ cười kiêu sa làm say đắm cả không gian
+Nhịp bước một hai, cha-cha-cha nồng cháy
+Gió cuốn tà váy bay trong điệu nhạc cuồng si.
+
+[Pre-Chorus]
+Nghe tiếng tim đập hòa cùng nhịp trống rộn ràng
+Đôi bàn tay đan chặt không rời xa
+Âm nhạc thăng hoa, men tình ngây ngất
+Đêm nay là của ta, quên hết âu lo đời thường!
+
+[Chorus]
+Vũ điệu cha cha cha thắp sáng ngàn ánh sao
+Say trong men tình ngỡ giấc chiêm bao
+Bước chân nhịp nhàng, mắt trao tha thiết
+Hãy giữ chặt tay nhau, trọn vẹn từng phút giây!
+
+[Brass Break - Percussion Solo]
+(Driving timbale rolls, conga slap, energetic trumpet solo)
+Cha-cha-cha!
+
+[Verse 3]
+Cuộc đời này ngắn ngủi tựa như một thoáng say
+Hà cớ chi ta phải ngập ngừng đắn đo?
+Yêu hết mình và sống trọn từng khoảnh khắc
+Giai điệu này sinh ra để dành cho chúng ta!
+
+[Bridge - Playful Duet Rhythm]
+[Female] Em sẽ theo anh đến tận cùng vũ điệu!
+[Male] Nắm chặt tay anh, ta xoay giữa muôn ngàn hoa!
+[Duet] Nhịp cha-cha-cha rộn rã tim ta...
+Một hai ba, ta cùng bùng cháy!
+
+[Chorus - Maximum Energy Big Band]
+Vũ điệu cha cha cha thắp sáng ngàn ánh sao
+Say trong men tình ngỡ giấc chiêm bao
+Bước chân nhịp nhàng, mắt trao tha thiết
+Hãy giữ chặt tay nhau, trọn vẹn từng phút giây!
+
+[Outro - Big Band Climax]
+(Triumphant brass swells, cowbell accents, final sharp hit)
+1, 2, cha-cha-cha!
+Tuyệt vời lắm em ơi!
+[Fade Out]`
+        }
     };
 
     let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
@@ -902,12 +1024,118 @@ Chỉ cần một người hiểu, đau đớn cũng phai màu...
     const sunoExportActions = document.getElementById('sunoExportActions');
 
     // Chọn thể loại card
+    function selectStyleCard(card) {
+        if (!card) return;
+        styleCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        currentSunoStyleId = parseInt(card.getAttribute('data-style'));
+    }
+
     styleCards.forEach(card => {
         card.addEventListener('click', () => {
-            styleCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            currentSunoStyleId = parseInt(card.getAttribute('data-style'));
+            selectStyleCard(card);
         });
+    });
+
+    // Helper: Xử lý thay đổi BPM tùy chỉnh cho từng thể loại
+    function handleBpmChange(styleId, newBpmVal) {
+        let newBpm = parseInt(newBpmVal, 10);
+        if (isNaN(newBpm)) return;
+        newBpm = Math.max(40, Math.min(240, newBpm));
+
+        // Cập nhật giá trị hiển thị trong ô input
+        const card = document.querySelector(`.style-card[data-style="${styleId}"]`);
+        if (card) {
+            const input = card.querySelector('.bpm-input');
+            if (input && parseInt(input.value, 10) !== newBpm) {
+                input.value = newBpm;
+            }
+        }
+
+        // Cập nhật vào SUNO_PRESETS
+        if (SUNO_PRESETS[styleId]) {
+            const oldBpm = SUNO_PRESETS[styleId].bpm;
+            SUNO_PRESETS[styleId].bpm = newBpm;
+
+            // Cập nhật BPM trong chuỗi style prompt của preset
+            SUNO_PRESETS[styleId].style = SUNO_PRESETS[styleId].style.replace(
+                /\b\d{2,3}\s*BPM\b/gi,
+                `${newBpm} BPM`
+            );
+
+            // Cập nhật BPM trong lời bài hát mẫu (nếu có)
+            if (SUNO_PRESETS[styleId].lyrics) {
+                SUNO_PRESETS[styleId].lyrics = SUNO_PRESETS[styleId].lyrics.replace(
+                    new RegExp(`\\b(${oldBpm}|\\d{2,3})\\s*(BPM|nhịp đập)\\b`, 'gi'),
+                    (match, p1, p2) => `${newBpm} ${p2}`
+                );
+            }
+        }
+
+        // Nếu đây là thể loại đang chọn và ô outSunoStyle đang hiển thị nội dung: Cập nhật realtime
+        if (currentSunoStyleId === styleId && outSunoStyle && outSunoStyle.value) {
+            outSunoStyle.value = outSunoStyle.value.replace(
+                /\b\d{2,3}\s*BPM\b/gi,
+                `${newBpm} BPM`
+            );
+            updateSunoStyleCount();
+        }
+    }
+
+    // Gán sự kiện nút Tăng/Giảm (+) (-) và nhập trực tiếp BPM
+    document.querySelectorAll('.bpm-stepper').forEach(stepper => {
+        const styleId = parseInt(stepper.getAttribute('data-style'));
+        const minusBtn = stepper.querySelector('.btn-bpm-minus');
+        const plusBtn = stepper.querySelector('.btn-bpm-plus');
+        const input = stepper.querySelector('.bpm-input');
+
+        // Bấm nút Giảm (-)
+        if (minusBtn && input) {
+            minusBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = stepper.closest('.style-card');
+                if (card) selectStyleCard(card);
+
+                let currentVal = parseInt(input.value, 10) || SUNO_PRESETS[styleId]?.bpm || 120;
+                let nextVal = Math.max(40, currentVal - 1);
+                input.value = nextVal;
+                handleBpmChange(styleId, nextVal);
+            });
+        }
+
+        // Bấm nút Tăng (+)
+        if (plusBtn && input) {
+            plusBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = stepper.closest('.style-card');
+                if (card) selectStyleCard(card);
+
+                let currentVal = parseInt(input.value, 10) || SUNO_PRESETS[styleId]?.bpm || 120;
+                let nextVal = Math.min(240, currentVal + 1);
+                input.value = nextVal;
+                handleBpmChange(styleId, nextVal);
+            });
+        }
+
+        // Nhập trực tiếp vào ô input số
+        if (input) {
+            input.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+            input.addEventListener('input', () => {
+                let val = parseInt(input.value, 10);
+                if (!isNaN(val)) {
+                    handleBpmChange(styleId, val);
+                }
+            });
+            input.addEventListener('change', () => {
+                let val = parseInt(input.value, 10);
+                if (isNaN(val) || val < 40) val = 40;
+                if (val > 240) val = 240;
+                input.value = val;
+                handleBpmChange(styleId, val);
+            });
+        }
     });
 
     // Chọn nhanh gợi ý tiêu đề bài hát
@@ -1038,13 +1266,23 @@ Chỉ cần một người hiểu, đau đớn cũng phai màu...
         sunoLoader.style.display = 'block';
         if (sunoExportActions) sunoExportActions.style.display = 'none';
 
+        // Reset BPM về mặc định ban đầu
+        const defaultBpms = { 1: 128, 2: 140, 3: 82, 4: 122, 5: 100, 6: 128 };
+        document.querySelectorAll('.bpm-input').forEach(inp => {
+            const st = inp.closest('.bpm-stepper')?.getAttribute('data-style');
+            if (st && defaultBpms[st]) {
+                inp.value = defaultBpms[st];
+                handleBpmChange(parseInt(st), defaultBpms[st]);
+            }
+        });
+
         const prompt = `Bạn là một nhạc sĩ sáng tác ca khúc hàng đầu Việt Nam và là chuyên gia Suno AI Prompt Engineering đỉnh cao.
 
 THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
 ${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (YÊU CẦU QUAN TRỌNG NHẤT: BẮT BUỘC BÁM SÁT TIÊU ĐỀ NÀY LÀM LINH HỒN CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
 - Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
 - Chủ đề & Cảm xúc: ${topic || (inputTitle ? `Khai thác sâu sắc câu chuyện và cảm xúc xoay quanh tiêu đề "${inputTitle}"` : 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay')}
-- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : '')))}
+- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : (currentSunoStyleId === 5 ? 'Một thuở yêu người, trọn vẹn cả thanh xuân.' : (currentSunoStyleId === 6 ? '1, 2, cha-cha-cha, hãy giữ chặt tay nhau!' : '')))))}
 
 YÊU CẦU NHIỆM VỤ CỐT LÕI:
 1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU & BÁM SÁT TIÊU ĐỀ:
@@ -1062,11 +1300,11 @@ ${inputTitle ? `⭐ QUY TẮC BẮT BUỘC VỀ TIÊU ĐỀ "${inputTitle}":
     [Verse 1]
     [Pre-Chorus]
     [Chorus]
-    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId !== 3 ? '[Drop]' : '[Interlude]')}
+    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Interlude - Solo Nhạc Cụ]' : (currentSunoStyleId === 6 ? '[Brass Break - Percussion Solo]' : '[Drop]'))}
     [Verse 2]
     [Chorus]
     [Bridge] (Đoạn cao trào chuyển biến cảm xúc mạnh mẽ nhất)
-    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Final Climax]' : (currentSunoStyleId !== 3 ? '[Drop - Final Climax]' : '[Chorus - Climax]')}
+    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Final Climax]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Chorus - Climax Cao Trào]' : (currentSunoStyleId === 6 ? '[Chorus - Maximum Energy Big Band]' : '[Drop - Final Climax]'))}
     [Outro]
 
 2. TẠO PROMPT STYLE (Style of Music) TIẾNG ANH CHO SUNO AI:
