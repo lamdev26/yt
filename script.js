@@ -1,3 +1,104 @@
+// =========================================================================
+// TIỆN ÍCH TOÀN CỤC CHO API KEY (HIỆN/ẨN MẬT KHẨU & SAO CHÉP NHANH)
+// =========================================================================
+function toggleApiKeyVisibility(targetId, btn) {
+    let input = null;
+    if (typeof targetId === 'string') {
+        input = document.getElementById(targetId);
+    } else if (targetId && targetId.tagName === 'INPUT') {
+        input = targetId;
+    }
+    if (!input && btn && btn.getAttribute && btn.getAttribute('data-target')) {
+        input = document.getElementById(btn.getAttribute('data-target'));
+    }
+    if (!input) return;
+
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+
+    const btnEl = btn || (typeof event !== 'undefined' ? event.currentTarget : null);
+    if (btnEl) {
+        const icon = btnEl.querySelector('i');
+        if (icon) {
+            icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+        } else {
+            btnEl.innerHTML = isPassword ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+        }
+        btnEl.title = isPassword ? 'Ẩn API Key' : 'Hiện API Key';
+        btnEl.setAttribute('aria-label', isPassword ? 'Ẩn API Key' : 'Hiện API Key');
+    }
+}
+window.toggleApiKeyVisibility = toggleApiKeyVisibility;
+
+async function copyApiKeyToClipboard(targetId, btn) {
+    let input = null;
+    if (typeof targetId === 'string') {
+        input = document.getElementById(targetId);
+    } else if (targetId && targetId.tagName === 'INPUT') {
+        input = targetId;
+    }
+    if (!input && btn && btn.getAttribute && btn.getAttribute('data-target')) {
+        input = document.getElementById(btn.getAttribute('data-target'));
+    }
+
+    let val = '';
+    if (input && input.value) {
+        val = input.value.trim();
+    } else if (targetId === 'auditApiKey') {
+        val = (localStorage.getItem('auditGeminiApiKey') || '').trim();
+    } else {
+        val = (localStorage.getItem('geminiApiKey') || '').trim();
+    }
+
+    if (!val) {
+        alert('Chưa có API Key để sao chép! Vui lòng nhập API Key.');
+        if (input) input.focus();
+        return;
+    }
+
+    let success = false;
+    if (navigator.clipboard && window.isSecureContext) {
+        try {
+            await navigator.clipboard.writeText(val);
+            success = true;
+        } catch (e) {
+            success = false;
+        }
+    }
+
+    if (!success) {
+        try {
+            const ta = document.createElement('textarea');
+            ta.value = val;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            ta.style.top = '0';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            success = document.execCommand('copy');
+            document.body.removeChild(ta);
+        } catch (e) {
+            success = false;
+        }
+    }
+
+    const btnEl = btn || (typeof event !== 'undefined' ? event.currentTarget : null);
+    if (btnEl) {
+        const originalHtml = btnEl.innerHTML;
+        btnEl.classList.add('copied');
+        btnEl.innerHTML = '<i class="fas fa-check"></i>';
+        btnEl.title = 'Đã sao chép!';
+        setTimeout(() => {
+            btnEl.classList.remove('copied');
+            btnEl.innerHTML = originalHtml;
+            btnEl.title = 'Sao chép API Key';
+        }, 2000);
+    }
+}
+window.copyApiKeyToClipboard = copyApiKeyToClipboard;
+
 document.addEventListener('DOMContentLoaded', () => {
     const tracklistInput = document.getElementById('tracklistInput');
     const songCount = document.getElementById('songCount');
@@ -24,74 +125,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const seoExportActions = document.getElementById('seoExportActions');
     const apiKeyInput = document.getElementById('geminiApiKey');
 
-    // Khôi phục và đồng bộ API Key trên toàn phần mềm
-    function syncAllApiKeys(value) {
-        if (value === undefined || value === null) value = '';
-        localStorage.setItem('geminiApiKey', value);
-        document.querySelectorAll('.sync-api-key').forEach(input => {
-            if (input.value !== value) input.value = value;
-        });
-        const statusEl = document.getElementById('apiKeyStatus');
-        if (statusEl) {
-            if (value.trim()) {
-                statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Đã cấu hình API Key';
-                statusEl.style.color = '#2ed573';
-                statusEl.style.borderColor = 'rgba(46, 213, 115, 0.4)';
-            } else {
-                statusEl.innerHTML = '<i class="fas fa-shield-alt"></i> Lưu an toàn trình duyệt';
-                statusEl.style.color = '#ffa502';
-                statusEl.style.borderColor = 'rgba(255, 165, 2, 0.3)';
-            }
+    // -------------------------------------------------------------------------
+    // 1. Quản lý Gemini API Key CHÍNH (Dùng cho Tab 1 YouTube SEO & Tab 2 Suno AI)
+    // -------------------------------------------------------------------------
+    const apiKeyStatus = document.getElementById('apiKeyStatus');
+
+    function updateMainKeyStatus(val) {
+        if (!apiKeyStatus) return;
+        if (val && val.trim()) {
+            apiKeyStatus.innerHTML = '<i class="fas fa-check-circle"></i> Đã cấu hình Key chính';
+            apiKeyStatus.style.color = '#2ed573';
+            apiKeyStatus.style.borderColor = 'rgba(46, 213, 115, 0.4)';
+        } else {
+            apiKeyStatus.innerHTML = '<i class="fas fa-shield-alt"></i> Tự động lưu';
+            apiKeyStatus.style.color = '#ffa502';
+            apiKeyStatus.style.borderColor = 'rgba(255, 165, 2, 0.3)';
         }
     }
 
-    const savedApiKey = localStorage.getItem('geminiApiKey') || '';
-    syncAllApiKeys(savedApiKey);
-
-    // Lắng nghe thay đổi trên tất cả các ô nhập API Key
-    document.querySelectorAll('.sync-api-key').forEach(input => {
-        input.addEventListener('input', () => {
-            syncAllApiKeys(input.value.trim());
+    const savedMainKey = localStorage.getItem('geminiApiKey') || '';
+    if (apiKeyInput) {
+        apiKeyInput.value = savedMainKey;
+        updateMainKeyStatus(savedMainKey);
+        apiKeyInput.addEventListener('input', () => {
+            const v = apiKeyInput.value.trim();
+            localStorage.setItem('geminiApiKey', v);
+            updateMainKeyStatus(v);
         });
-    });
+    }
 
-    // Nút ẩn / hiện API Key (Show/Hide Password toggle)
+    // -------------------------------------------------------------------------
+    // 2. Quản lý Gemini API Key RIÊNG BIỆT CHO TAB 3 (Thẩm Định Lời Chuyên Sâu)
+    // Hoàn toàn độc lập, KHÔNG liên quan và KHÔNG đồng bộ với API Key chính
+    // -------------------------------------------------------------------------
+    const auditApiKeyInput = document.getElementById('auditApiKey');
+    const auditKeyStatus = document.getElementById('auditKeyStatus');
+
+    function updateAuditKeyStatus(val) {
+        if (!auditKeyStatus) return;
+        if (val && val.trim()) {
+            auditKeyStatus.innerHTML = '<i class="fas fa-check-circle"></i> Đã có Key Tab 3';
+            auditKeyStatus.style.color = '#2ed573';
+            auditKeyStatus.style.borderColor = 'rgba(46, 213, 115, 0.4)';
+        } else {
+            auditKeyStatus.innerHTML = '<i class="fas fa-shield-alt"></i> Key riêng Tab 3';
+            auditKeyStatus.style.color = '#ffa502';
+            auditKeyStatus.style.borderColor = 'rgba(255, 165, 2, 0.3)';
+        }
+    }
+
+    const savedAuditKey = localStorage.getItem('auditGeminiApiKey') || '';
+    if (auditApiKeyInput) {
+        auditApiKeyInput.value = savedAuditKey;
+        updateAuditKeyStatus(savedAuditKey);
+        auditApiKeyInput.addEventListener('input', () => {
+            const v = auditApiKeyInput.value.trim();
+            localStorage.setItem('auditGeminiApiKey', v);
+            updateAuditKeyStatus(v);
+        });
+    }
+
+    // Lắng nghe sự kiện click cho các nút Hiện/Ẩn và Sao chép (bảo đảm cả khi gọi inline hoặc event)
     document.querySelectorAll('.btn-toggle-pwd').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = btn.getAttribute('data-target');
-            const targetInput = document.getElementById(targetId);
-            if (!targetInput) return;
-            const isPassword = targetInput.type === 'password';
-            targetInput.type = isPassword ? 'text' : 'password';
-            btn.innerHTML = isPassword ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
-            btn.title = isPassword ? 'Ẩn API Key' : 'Hiện API Key';
+            const targetId = btn.getAttribute('data-target') || (btn.id === 'btnToggleAuditKey' ? 'auditApiKey' : 'geminiApiKey');
+            toggleApiKeyVisibility(targetId, btn);
         });
     });
 
-    // Nút sao chép nhanh API Key
     document.querySelectorAll('.btn-copy-key').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = btn.getAttribute('data-target');
-            const targetInput = document.getElementById(targetId);
-            const val = (targetInput ? targetInput.value : localStorage.getItem('geminiApiKey')) || '';
-            if (!val.trim()) {
-                alert('Chưa có API Key để sao chép!');
-                return;
-            }
-            try {
-                await navigator.clipboard.writeText(val.trim());
-                const originalHtml = btn.innerHTML;
-                btn.classList.add('copied');
-                btn.innerHTML = '<i class="fas fa-check"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalHtml;
-                }, 2000);
-            } catch (err) {
-                alert('Đã sao chép API Key thành công!');
-            }
+            const targetId = btn.getAttribute('data-target') || (btn.id === 'btnCopyAuditKey' ? 'auditApiKey' : 'geminiApiKey');
+            copyApiKeyToClipboard(targetId, btn);
         });
     });
 
@@ -1657,12 +1764,14 @@ Mãi yêu em...
     // Chạy thẩm định & nâng cấp lời bài hát bằng Gemini AI
     if (btnRunAudit) {
         btnRunAudit.addEventListener('click', async () => {
-            const apiKey = (localStorage.getItem('geminiApiKey') || (apiKeyInput ? apiKeyInput.value.trim() : '')).trim();
-            if (!apiKey) {
-                alert('Vui lòng nhập Google Gemini API Key để thực hiện thẩm định AI.');
-                if (document.getElementById('auditApiKey')) document.getElementById('auditApiKey').focus();
+            const auditKey = (auditApiKeyInput && auditApiKeyInput.value.trim()) || (localStorage.getItem('auditGeminiApiKey') || '').trim();
+            if (!auditKey) {
+                alert('Vui lòng nhập Google Gemini API Key riêng cho Tab Thẩm Định Lời.');
+                if (auditApiKeyInput) auditApiKeyInput.focus();
                 return;
             }
+            localStorage.setItem('auditGeminiApiKey', auditKey);
+            const apiKey = auditKey;
 
             const rawLyrics = auditLyricsInput.value.trim();
             if (!rawLyrics) {
