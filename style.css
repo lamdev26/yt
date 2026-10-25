@@ -230,6 +230,16 @@ header p { color: var(--text-muted); }
     padding: 2px 8px;
     border-radius: 10px;
     border: 1px solid rgba(255, 165, 2, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.api-sync-badge.independent-badge {
+    color: #2ed573;
+    background: rgba(46, 213, 115, 0.12);
+    border: 1px solid rgba(46, 213, 115, 0.3);
+    font-weight: 600;
 }
 
 .api-input-pill.mini {
