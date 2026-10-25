@@ -47,35 +47,121 @@ header h1 {
 
 header p { color: var(--text-muted); }
 
-.api-key-section {
+/* ==================== API KEY BAR (SIÊU GỌN GÀNG & HIỆN ĐẠI) ==================== */
+.api-key-bar {
     background: var(--panel-bg);
-    padding: 14px 20px;
-    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px 16px;
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.api-key-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.api-key-header label {
-    font-weight: 600;
-    font-size: 0.92rem;
+.api-bar-label {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
     color: var(--text-main);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.api-key-badge {
+.key-icon {
+    color: #ffa502;
+}
+
+.api-input-pill {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2px 4px 2px 12px;
+    gap: 6px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.api-input-pill:focus-within {
+    border-color: #ffa502;
+    box-shadow: 0 0 10px rgba(255, 165, 2, 0.25);
+}
+
+.lock-icon {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.api-input-pill input {
+    flex: 1;
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-family: monospace;
+    font-size: 0.88rem;
+    padding: 6px 4px !important;
+    letter-spacing: 0.5px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.api-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.btn-api-tool {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffa502 !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 0.78rem !important;
+    transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+.btn-api-tool:hover {
+    background: #ffa502 !important;
+    border-color: #ffa502 !important;
+    color: #0b0c10 !important;
+    transform: scale(1.12) !important;
+}
+
+.btn-api-tool.copied {
+    background: #2ed573 !important;
+    border-color: #2ed573 !important;
+    color: #0b0c10 !important;
+}
+
+.api-bar-extra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.api-status-tag {
     font-size: 0.72rem;
     padding: 3px 10px;
     border-radius: 12px;
@@ -86,77 +172,86 @@ header p { color: var(--text-muted); }
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    white-space: nowrap;
 }
 
-.api-key-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background: var(--bg-color);
+.api-link-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
-.api-key-input-wrapper:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+.api-link-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
-.api-input-icon {
-    position: absolute;
-    left: 12px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    pointer-events: none;
+/* Mini pill in Tab 3 */
+.inline-api-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color);
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
 }
 
-.api-key-input-wrapper input {
-    flex: 1;
-    width: 100%;
-    padding: 10px 10px 10px 36px;
-    background: transparent;
-    border: none;
-    color: white;
-    font-family: monospace;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+.inline-api-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
-.api-key-input-wrapper input:focus {
-    outline: none;
-}
-
-.api-key-input-wrapper.small input {
-    padding: 8px 10px 8px 34px;
+.inline-api-header label {
+    font-weight: 600;
     font-size: 0.85rem;
-}
-
-.btn-api-action {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    border-radius: 4px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
+    color: var(--text-main);
+    margin: 0;
 }
 
-.btn-api-action:hover {
+.api-sync-badge {
+    font-size: 0.7rem;
     color: #ffa502;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 165, 2, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 165, 2, 0.25);
 }
 
-.btn-api-action.copied {
-    color: #2ed573;
+.api-input-pill.mini {
+    padding: 1px 4px 1px 10px;
 }
 
-.api-key-section a { color: var(--primary-color); text-decoration: none; }
+.api-input-pill.mini input {
+    font-size: 0.82rem;
+    padding: 5px 4px !important;
+}
+
+@media (max-width: 768px) {
+    .api-key-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px 14px;
+    }
+    .api-bar-extra {
+        justify-content: space-between;
+    }
+}
 
 .main-grid {
     display: grid;
