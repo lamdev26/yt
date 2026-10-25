@@ -814,12 +814,25 @@ YÊU CẦU ĐẶC BIỆT:
             btn.classList.add('active');
             const targetPane = document.getElementById(targetTab);
             if (targetPane) targetPane.classList.add('active');
+
+            // Khi chuyển sang Tab Kiểm tra lời (Tab 3): tự động đồng bộ từ Tab Suno
+            if (targetTab === 'tab-lyrics-audit') {
+                syncSunoToAudit();
+            }
         });
     });
 
     // ==========================================
     // SUNO AI STUDIO LOGIC & PRESETS
     // ==========================================
+    const STYLE_TO_AUDIT_GENRE = {
+        1: 'vinahouse',
+        2: 'ballad',
+        3: 'jerk_drill',
+        4: 'rumba',
+        5: 'chacha',
+        6: 'rap_jersey'
+    };
     const SUNO_PRESETS = {
         1: {
             id: 1,
@@ -1321,7 +1334,7 @@ Tuyệt vời lắm em ơi!
         });
     });
 
-    // Chọn nhanh gợi ý chủ đề
+    // Chọn nhanh gợi ý chủ đề trong Tab Suno & Đồng bộ ngay sang Tab 3
     document.querySelectorAll('.tag-chip[data-topic]').forEach(chip => {
         chip.addEventListener('click', () => {
             const topicText = chip.getAttribute('data-topic');
@@ -1331,9 +1344,31 @@ Tuyệt vời lắm em ơi!
                 } else {
                     sunoTopic.value += ', ' + topicText;
                 }
+                // Đồng bộ ngay lập tức sang Tab 3
+                if (auditTopic) {
+                    auditTopic.value = sunoTopic.value;
+                }
             }
         });
     });
+
+    // Lắng nghe gõ phím ở ô Chủ đề Tab Suno để đồng bộ sang Tab 3
+    if (sunoTopic) {
+        sunoTopic.addEventListener('input', () => {
+            if (auditTopic) {
+                auditTopic.value = sunoTopic.value;
+            }
+        });
+    }
+
+    // Lắng nghe gõ tiêu đề ở Tab Suno để đồng bộ sang Tab 3
+    if (sunoInputTitle) {
+        sunoInputTitle.addEventListener('input', () => {
+            if (auditSongTitle) {
+                auditSongTitle.value = sunoInputTitle.value;
+            }
+        });
+    }
 
     // Helper: Định dạng và kiểm soát độ dài Prompt Style BẮT BUỘC 800 - 920 ký tự
     function formatSunoStylePrompt(rawPrompt, styleId) {
@@ -1416,6 +1451,15 @@ Tuyệt vời lắm em ơi!
         sunoLoader.style.display = 'none';
         sunoOutputContent.style.display = 'block';
         if (sunoExportActions) sunoExportActions.style.display = 'flex';
+
+        // Tự động đồng bộ sang Tab 3
+        if (auditSongTitle) auditSongTitle.value = preset.title;
+        if (auditLyricsInput) auditLyricsInput.value = preset.lyrics;
+        if (auditTopic && sunoTopic.value.trim()) auditTopic.value = sunoTopic.value;
+        if (auditGenreSelect && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+            auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+        }
+        updateAuditLyricsCount();
     });
 
     // Tạo Lời & Prompt Suno AI (gọi Gemini)
@@ -1439,11 +1483,12 @@ Tuyệt vời lắm em ơi!
         sunoLoader.style.display = 'block';
         if (sunoExportActions) sunoExportActions.style.display = 'none';
 
-        // Tab 3 (Thẩm định ca từ)
-        if (auditSongTitle) auditSongTitle.value = '';
-        if (auditTopic) auditTopic.value = '';
-        if (auditLyricsInput) auditLyricsInput.value = '';
-        updateAuditLyricsCount();
+        // Đồng bộ chủ đề và thể loại sang Tab 3 ngay khi bắt đầu tạo bài
+        if (auditTopic) auditTopic.value = topic;
+        if (auditSongTitle && inputTitle) auditSongTitle.value = inputTitle;
+        if (auditGenreSelect && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+            auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+        }
         if (auditPolishedLyrics) auditPolishedLyrics.value = '';
         if (auditOutputContent) auditOutputContent.style.display = 'none';
         if (auditLoader) auditLoader.style.display = 'none';
@@ -1532,6 +1577,15 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
             outSunoStyle.value = formatSunoStylePrompt(sunoData.style, currentSunoStyleId);
             outSunoLyrics.value = sunoData.lyrics || preset.lyrics;
             updateSunoStyleCount();
+
+            // Tự động đồng bộ toàn bộ Lời, Tiêu đề, Chủ đề và Thể loại sang Tab 3
+            if (auditSongTitle) auditSongTitle.value = outSunoTitle.value;
+            if (auditLyricsInput) auditLyricsInput.value = outSunoLyrics.value;
+            if (auditTopic && sunoTopic.value.trim()) auditTopic.value = sunoTopic.value.trim();
+            if (auditGenreSelect && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+                auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+            }
+            updateAuditLyricsCount();
 
         } catch (error) {
             alert('Lỗi khi gọi AI tạo nhạc Suno: ' + error.message);
@@ -1689,19 +1743,78 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         });
     });
 
-    // Lấy lời trực tiếp từ Tab Suno AI Studio sang
+    // Hàm đồng bộ toàn diện từ Tab Suno sang Tab Thẩm Định
+    function syncSunoToAudit() {
+        if (!auditTopic) return;
+        // 1. Đồng bộ chủ đề
+        if (sunoTopic && sunoTopic.value.trim()) {
+            auditTopic.value = sunoTopic.value.trim();
+        }
+        // 2. Đồng bộ thể loại
+        if (auditGenreSelect && currentSunoStyleId && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+            auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+        }
+        // 3. Đồng bộ tiêu đề
+        const titleVal = (outSunoTitle && outSunoTitle.value.trim()) || (sunoInputTitle && sunoInputTitle.value.trim()) || '';
+        if (titleVal && auditSongTitle && !auditSongTitle.value.trim()) {
+            auditSongTitle.value = titleVal;
+        }
+        // 4. Đồng bộ lời nếu bên Tab 3 đang trống mà bên Tab 2 đã có lời
+        if (outSunoLyrics && outSunoLyrics.value.trim() && auditLyricsInput && !auditLyricsInput.value.trim()) {
+            auditLyricsInput.value = outSunoLyrics.value.trim();
+            updateAuditLyricsCount();
+        }
+    }
+
+    // Nút bấm đồng bộ nhanh chủ đề từ Tab Suno
+    const btnSyncTopicFromSuno = document.getElementById('btnSyncTopicFromSuno');
+    if (btnSyncTopicFromSuno) {
+        btnSyncTopicFromSuno.addEventListener('click', () => {
+            if (sunoTopic && sunoTopic.value.trim()) {
+                auditTopic.value = sunoTopic.value.trim();
+                if (auditGenreSelect && currentSunoStyleId && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+                    auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+                }
+                const previewText = sunoTopic.value.trim().length > 60 ? sunoTopic.value.trim().substring(0, 60) + '...' : sunoTopic.value.trim();
+                alert('Đã đồng bộ Chủ đề & Thể loại từ Tab Suno:\n"' + previewText + '"');
+            } else {
+                alert('Bên Tab Suno chưa nhập hoặc chưa chọn chủ đề nào để đồng bộ!');
+            }
+        });
+    }
+
+    // Lấy toàn bộ Lời & Chủ đề trực tiếp từ Tab Suno AI Studio sang Tab 3
     if (btnPasteFromSuno) {
         btnPasteFromSuno.addEventListener('click', () => {
-            if (!outSunoLyrics || !outSunoLyrics.value.trim()) {
-                alert('Tab Suno AI Studio hiện chưa có lời bài hát. Hãy tạo hoặc nạp lời mẫu ở Tab Suno trước!');
-                return;
+            let syncedItems = [];
+            // Lời
+            if (outSunoLyrics && outSunoLyrics.value.trim()) {
+                auditLyricsInput.value = outSunoLyrics.value.trim();
+                updateAuditLyricsCount();
+                syncedItems.push('Lời bài hát');
             }
-            auditLyricsInput.value = outSunoLyrics.value.trim();
-            if (outSunoTitle && outSunoTitle.value.trim()) {
-                auditSongTitle.value = outSunoTitle.value.trim();
+            // Tiêu đề
+            const t = (outSunoTitle && outSunoTitle.value.trim()) || (sunoInputTitle && sunoInputTitle.value.trim());
+            if (t && auditSongTitle) {
+                auditSongTitle.value = t;
+                syncedItems.push('Tiêu đề');
             }
-            updateAuditLyricsCount();
-            alert('Đã lấy toàn bộ lời bài hát từ Tab Suno AI Studio thành công!');
+            // Chủ đề
+            if (sunoTopic && sunoTopic.value.trim() && auditTopic) {
+                auditTopic.value = sunoTopic.value.trim();
+                syncedItems.push('Chủ đề & Cảm xúc');
+            }
+            // Thể loại
+            if (auditGenreSelect && currentSunoStyleId && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+                auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+                syncedItems.push('Thể loại');
+            }
+
+            if (syncedItems.length > 0) {
+                alert('Đã đồng bộ thành công (' + syncedItems.join(', ') + ') từ Tab Suno AI Studio sang Tab Kiểm Tra Lời!');
+            } else {
+                alert('Bên Tab Suno hiện chưa có nội dung để đồng bộ. Hãy chọn chủ đề hoặc tạo bài ở Tab Suno trước!');
+            }
         });
     }
 
