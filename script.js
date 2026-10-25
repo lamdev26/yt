@@ -24,10 +24,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const seoExportActions = document.getElementById('seoExportActions');
     const apiKeyInput = document.getElementById('geminiApiKey');
 
-    // Khôi phục API Key từ LocalStorage nếu có
-    if (localStorage.getItem('geminiApiKey')) {
-        apiKeyInput.value = localStorage.getItem('geminiApiKey');
+    // Khôi phục và đồng bộ API Key trên toàn phần mềm
+    function syncAllApiKeys(value) {
+        if (value === undefined || value === null) value = '';
+        localStorage.setItem('geminiApiKey', value);
+        document.querySelectorAll('.sync-api-key').forEach(input => {
+            if (input.value !== value) input.value = value;
+        });
+        const statusEl = document.getElementById('apiKeyStatus');
+        if (statusEl) {
+            if (value.trim()) {
+                statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Đã cấu hình API Key';
+                statusEl.style.color = '#2ed573';
+                statusEl.style.borderColor = 'rgba(46, 213, 115, 0.4)';
+            } else {
+                statusEl.innerHTML = '<i class="fas fa-shield-alt"></i> Lưu an toàn trình duyệt';
+                statusEl.style.color = '#ffa502';
+                statusEl.style.borderColor = 'rgba(255, 165, 2, 0.3)';
+            }
+        }
     }
+
+    const savedApiKey = localStorage.getItem('geminiApiKey') || '';
+    syncAllApiKeys(savedApiKey);
+
+    // Lắng nghe thay đổi trên tất cả các ô nhập API Key
+    document.querySelectorAll('.sync-api-key').forEach(input => {
+        input.addEventListener('input', () => {
+            syncAllApiKeys(input.value.trim());
+        });
+    });
+
+    // Nút ẩn / hiện API Key (Show/Hide Password toggle)
+    document.querySelectorAll('.btn-toggle-pwd').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('data-target');
+            const targetInput = document.getElementById(targetId);
+            if (!targetInput) return;
+            const isPassword = targetInput.type === 'password';
+            targetInput.type = isPassword ? 'text' : 'password';
+            btn.innerHTML = isPassword ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+            btn.title = isPassword ? 'Ẩn API Key' : 'Hiện API Key';
+        });
+    });
+
+    // Nút sao chép nhanh API Key
+    document.querySelectorAll('.btn-copy-key').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('data-target');
+            const targetInput = document.getElementById(targetId);
+            const val = (targetInput ? targetInput.value : localStorage.getItem('geminiApiKey')) || '';
+            if (!val.trim()) {
+                alert('Chưa có API Key để sao chép!');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(val.trim());
+                const originalHtml = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHtml;
+                }, 2000);
+            } catch (err) {
+                alert('Đã sao chép API Key thành công!');
+            }
+        });
+    });
 
     // Cập nhật số lượng bài hát realtime
     tracklistInput.addEventListener('input', () => {
@@ -1266,6 +1332,18 @@ Tuyệt vời lắm em ơi!
         sunoLoader.style.display = 'block';
         if (sunoExportActions) sunoExportActions.style.display = 'none';
 
+        // Tab 3 (Thẩm định ca từ)
+        if (auditSongTitle) auditSongTitle.value = '';
+        if (auditTopic) auditTopic.value = '';
+        if (auditLyricsInput) auditLyricsInput.value = '';
+        updateAuditLyricsCount();
+        if (auditPolishedLyrics) auditPolishedLyrics.value = '';
+        if (auditOutputContent) auditOutputContent.style.display = 'none';
+        if (auditLoader) auditLoader.style.display = 'none';
+        if (auditEmptyOutput) auditEmptyOutput.style.display = 'flex';
+        if (auditExportActions) auditExportActions.style.display = 'none';
+        currentAuditData = null;
+
         // Reset BPM về mặc định ban đầu
         const defaultBpms = { 1: 128, 2: 140, 3: 82, 4: 122, 5: 100, 6: 128 };
         document.querySelectorAll('.bpm-input').forEach(inp => {
@@ -1422,6 +1500,436 @@ Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`
         a.click();
         URL.revokeObjectURL(url);
     });
+
+
+    // ==========================================
+    // TAB 3: THẨM ĐỊNH & NÂNG CẤP LỜI CHUYÊN SÂU
+    // ==========================================
+    const auditGenreSelect = document.getElementById('auditGenreSelect');
+    const auditSongTitle = document.getElementById('auditSongTitle');
+    const auditTopic = document.getElementById('auditTopic');
+    const auditLyricsInput = document.getElementById('auditLyricsInput');
+    const auditLyricsCount = document.getElementById('auditLyricsCount');
+    const btnPasteFromSuno = document.getElementById('btnPasteFromSuno');
+    const btnSampleAuditLyrics = document.getElementById('btnSampleAuditLyrics');
+    const btnRunAudit = document.getElementById('btnRunAudit');
+    const btnResetAudit = document.getElementById('btnResetAudit');
+    const auditLoader = document.getElementById('auditLoader');
+    const auditEmptyOutput = document.getElementById('auditEmptyOutput');
+    const auditOutputContent = document.getElementById('auditOutputContent');
+    const auditExportActions = document.getElementById('auditExportActions');
+    const auditOverallScore = document.getElementById('auditOverallScore');
+    const auditScoreRating = document.getElementById('auditScoreRating');
+    const auditGeneralReview = document.getElementById('auditGeneralReview');
+    const scoreEmotional = document.getElementById('scoreEmotional');
+    const barEmotional = document.getElementById('barEmotional');
+    const scoreRhyme = document.getElementById('scoreRhyme');
+    const barRhyme = document.getElementById('barRhyme');
+    const scoreGenre = document.getElementById('scoreGenre');
+    const barGenre = document.getElementById('barGenre');
+    const scoreImagery = document.getElementById('scoreImagery');
+    const barImagery = document.getElementById('barImagery');
+    const auditWeakList = document.getElementById('auditWeakList');
+    const auditStrongList = document.getElementById('auditStrongList');
+    const auditImprovementsList = document.getElementById('auditImprovementsList');
+    const auditPolishedLyrics = document.getElementById('auditPolishedLyrics');
+    const btnCopyAuditLyrics = document.getElementById('btnCopyAuditLyrics');
+    const btnCopyPolishedLyrics = document.getElementById('btnCopyPolishedLyrics');
+    const btnSendAuditToSuno = document.getElementById('btnSendAuditToSuno');
+    const btnSendToSunoBottom = document.getElementById('btnSendToSunoBottom');
+    const btnExportAuditTxt = document.getElementById('btnExportAuditTxt');
+
+    let currentAuditData = null;
+
+    // Đếm số từ và số dòng của ô lời bài hát
+    function updateAuditLyricsCount() {
+        if (!auditLyricsInput || !auditLyricsCount) return;
+        const text = auditLyricsInput.value.trim();
+        if (!text) {
+            auditLyricsCount.innerText = '0 từ • 0 dòng';
+            return;
+        }
+        const words = text.split(/\s+/).filter(Boolean).length;
+        const lines = text.split('\n').filter(l => l.trim() !== '').length;
+        auditLyricsCount.innerText = `${words} từ • ${lines} dòng`;
+    }
+
+    if (auditLyricsInput) {
+        auditLyricsInput.addEventListener('input', updateAuditLyricsCount);
+    }
+
+    // Chip chọn nhanh thể loại trong Tab 3
+    document.querySelectorAll('.audit-genre-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const g = chip.getAttribute('data-genre');
+            if (auditGenreSelect && g) {
+                auditGenreSelect.value = g;
+            }
+        });
+    });
+
+    // Chip chọn nhanh chủ đề trong Tab 3
+    document.querySelectorAll('.audit-topic-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const t = chip.getAttribute('data-topic');
+            if (auditTopic && t) {
+                if (auditTopic.value.trim() === '') {
+                    auditTopic.value = t;
+                } else {
+                    auditTopic.value += ', ' + t;
+                }
+            }
+        });
+    });
+
+    // Lấy lời trực tiếp từ Tab Suno AI Studio sang
+    if (btnPasteFromSuno) {
+        btnPasteFromSuno.addEventListener('click', () => {
+            if (!outSunoLyrics || !outSunoLyrics.value.trim()) {
+                alert('Tab Suno AI Studio hiện chưa có lời bài hát. Hãy tạo hoặc nạp lời mẫu ở Tab Suno trước!');
+                return;
+            }
+            auditLyricsInput.value = outSunoLyrics.value.trim();
+            if (outSunoTitle && outSunoTitle.value.trim()) {
+                auditSongTitle.value = outSunoTitle.value.trim();
+            }
+            updateAuditLyricsCount();
+            alert('Đã lấy toàn bộ lời bài hát từ Tab Suno AI Studio thành công!');
+        });
+    }
+
+    // Nạp bài hát mẫu cần kiểm tra thử nghiệm
+    if (btnSampleAuditLyrics) {
+        btnSampleAuditLyrics.addEventListener('click', () => {
+            auditSongTitle.value = 'Chẳng Đổi Thay (Bản Thô Cần Nâng Cấp)';
+            auditGenreSelect.value = 'vinahouse';
+            auditTopic.value = 'Tình yêu chân thành bền bỉ bất chấp năm tháng đổi thay, dù xa cách hay giông bão vẫn một lòng hướng về nhau';
+            auditLyricsInput.value = `[Intro - Vocal Hook]
+Ngoài kia đổi thay rồi
+Anh vẫn thế thôi em ơi.
+
+[Verse 1]
+Thành phố này đông người quá em ơi
+Anh đi làm về một mình buồn ghê
+Nhớ em nhiều nhưng chẳng biết nói gì
+Chỉ mong em đừng bao giờ quên anh.
+
+[Pre-Chorus]
+Cuộc sống ngoài kia có bao nhiêu cám dỗ
+Liệu em có giữ lời hứa ngày xưa?
+Đừng làm anh khóc nhé người ơi
+Vì tim anh chỉ có mỗi em thôi.
+
+[Chorus]
+Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay
+Dù cho bão giông hay nắng tắt anh vẫn đợi đây
+Yêu em bằng cả con tim này thật lòng
+Mong ngày sau chúng ta về chung một nhà.
+
+[Drop]
+(Vinahouse Bass Drop)
+
+[Verse 2]
+Nhiều khi anh thấy mệt mỏi trong lòng
+Chỉ muốn có em ở bên ôm chặt
+Mong sao tương lai hai đứa bình yên
+Không còn những nỗi buồn phiền vương mi.
+
+[Bridge]
+Thời gian trôi nhanh quá em à
+Vật đổi sao dời ai biết được đâu
+Chỉ cần hai đứa luôn tin tưởng nhau
+Thì bão giông nào cũng sẽ qua mau!
+
+[Chorus]
+Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay
+Dù cho bão giông hay nắng tắt anh vẫn đợi đây
+Yêu em bằng cả con tim này thật lòng
+Mong ngày sau chúng ta về chung một nhà.
+
+[Outro]
+Mãi yêu em...
+Đừng đổi thay nhé em.`;
+            updateAuditLyricsCount();
+        });
+    }
+
+    // Chạy thẩm định & nâng cấp lời bài hát bằng Gemini AI
+    if (btnRunAudit) {
+        btnRunAudit.addEventListener('click', async () => {
+            const apiKey = (localStorage.getItem('geminiApiKey') || (apiKeyInput ? apiKeyInput.value.trim() : '')).trim();
+            if (!apiKey) {
+                alert('Vui lòng nhập Google Gemini API Key để thực hiện thẩm định AI.');
+                if (document.getElementById('auditApiKey')) document.getElementById('auditApiKey').focus();
+                return;
+            }
+
+            const rawLyrics = auditLyricsInput.value.trim();
+            if (!rawLyrics) {
+                alert('Vui lòng nhập hoặc dán lời bài hát cần kiểm tra!');
+                auditLyricsInput.focus();
+                return;
+            }
+
+            const genreName = auditGenreSelect.options[auditGenreSelect.selectedIndex].text;
+            const songTitle = auditSongTitle.value.trim() || 'Chưa đặt tiêu đề';
+            const topic = auditTopic.value.trim() || 'Khai thác cảm xúc sâu sắc theo ngữ cảnh bài hát';
+
+            // Hiện loader
+            if (auditEmptyOutput) auditEmptyOutput.style.display = 'none';
+            if (auditOutputContent) auditOutputContent.style.display = 'none';
+            if (auditExportActions) auditExportActions.style.display = 'none';
+            if (auditLoader) auditLoader.style.display = 'block';
+
+            const auditPrompt = `Bạn là một BẬC THẦY THẨM ĐỊNH & SÁNG TÁC CA TỪ HÀNG ĐẦU VIỆT NAM (Master Lyricist, Songwriter & Vocal Coach).
+Bạn có đôi tai thẩm âm tinh tế, am hiểu sâu sắc về thanh điệu tiếng Việt (bằng - trắc, gieo vần chân, vần lưng, vần liên tiếp), nhạc lý cảm xúc, và đặc tính nhịp điệu của từng thể loại nhạc.
+
+DƯỚI ĐÂY LÀ THÔNG TIN BÀI HÁT CẦN THẨM ĐỊNH & NÂNG CẤP CHUYÊN SÂU:
+- TIÊU ĐỀ BÀI HÁT: "${songTitle}"
+- THỂ LOẠI ÂM NHẠC: ${genreName}
+- CHỦ ĐỀ & CẢM XÚC CỐT LÕI: ${topic}
+- BẢN LỜI GỐC CẦN KIỂM TRA:
+${rawLyrics}
+
+NHIỆM VỤ CỐT LÕI CỦA BẠN:
+1. ĐÁNH GIÁ CHUYÊN SÂU VÀ CHẤM ĐIỂM (Thang điểm 1.0 đến 10.0):
+   - Độ chạm cảm xúc (emotionalResonance): Ca từ có thật sự lay động, chân thành, chạm đáy tâm can hay còn sáo rỗng, hời hợt, giả tạo?
+   - Vần điệu & Bằng trắc (rhymeAndFlow): Đánh giá độ khít của vần chân, vần lưng, tính tự nhiên khi hát lên không bị gượng gạo hay ép vần.
+   - Nhịp điệu & Độ khít Thể loại (genreFit): Câu từ có ăn khớp với nhịp phách, tiết tấu và năng lượng đặc trưng của thể loại (${genreName}) hay không?
+   - Tính độc đáo & Triết lý (creativeImagery): Hình tượng thơ ca, sự mới mẻ trong ví von, có câu chốt nào đắt giá, viral không?
+   - Điểm tổng quan (overallScore): Trung bình có trọng số.
+   - Nhận định tổng quan (generalReview): Viết đoạn văn súc tích, sắc sảo từ góc nhìn chuyên gia.
+
+2. BẮT BỆNH CA TỪ (Weak Points):
+   - Chỉ ra chính xác 3-5 câu/cụm từ còn sáo rỗng, nông cạn, vụng về hoặc gượng ép vần trong bản gốc và giải thích vì sao.
+
+3. ĐIỂM SÁNG CA TỪ (Strong Points):
+   - Ghi nhận 2-3 điểm tích cực hoặc ý niệm tốt đẹp trong lời gốc.
+
+4. BẢNG SO SÁNH & GỢI Ý NÂNG CẤP TỪNG ĐOẠN (Line Improvements):
+   - Chọn lọc 3-5 câu/đoạn quan trọng nhất (đặc biệt là [Chorus] điệp khúc, [Bridge] cầu nối và [Verse] mở đầu).
+   - Đưa ra "original" (câu gốc) -> "improved" (câu nâng cấp chạm sâu sắc, giàu hình ảnh thơ, gieo vần tuyệt mỹ) kèm "reason" (lý do nâng cấp).
+
+5. BẢN LỜI BÀI HÁT HOÀN CHỈNH ĐÃ NÂNG CẤP ĐỈNH CAO (Polished Lyrics):
+   - Viết lại toàn bộ bài hát hoàn chỉnh dựa trên tinh thần gốc nhưng ĐÃ ĐƯỢC NÂNG CẤP TOÀN DIỆN:
+   - Ca từ sâu sắc, giàu nhạc tính, câu từ chạm đáy tâm can, tuyệt đối không hời hợt.
+   - Gieo vần chuẩn xác từng câu, thanh điệu êm ái khi cất giọng.
+   - Giữ đầy đủ cấu trúc thẻ meta chuyên nghiệp cho Suno AI: [Intro], [Verse 1], [Pre-Chorus], [Chorus], [Drop/Interlude], [Verse 2], [Bridge], [Outro]...
+
+TRẢ VỀ ĐÚNG ĐỊNH DẠNG JSON SAU (TUYỆT ĐỐI KHÔNG KÈM MARKDOWN \`\`\`json):
+{
+  "overallScore": 8.8,
+  "scoreRating": "Cảm Xúc Sâu Sắc & Chạm Đáy Tâm Can",
+  "scores": {
+    "emotionalResonance": 8.5,
+    "rhymeAndFlow": 9.0,
+    "genreFit": 9.2,
+    "creativeImagery": 8.6
+  },
+  "generalReview": "Nhận xét tổng quan của bậc thầy ca từ...",
+  "weakPoints": [
+    "Câu '...' còn hời hợt vì...",
+    "Đoạn '...' dùng từ sáo rỗng..."
+  ],
+  "strongPoints": [
+    "Ý niệm về ... rất đáng khen ngợi...",
+    "Hình ảnh ... tạo cảm giác gần gũi..."
+  ],
+  "lineImprovements": [
+    {
+      "section": "Chorus (Điệp khúc)",
+      "original": "Câu gốc...",
+      "improved": "Câu nâng cấp giàu xúc cảm...",
+      "reason": "Giải thích vì sao câu mới chạm hơn..."
+    }
+  ],
+  "polishedLyrics": "Toàn bộ bản lời bài hát hoàn chỉnh sau khi nâng cấp..."
+}`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: auditPrompt }] }],
+                        generationConfig: { temperature: 0.82 }
+                    })
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                let aiText = data.candidates[0].content.parts[0].text;
+                aiText = aiText.replace(/```json/gi, '').replace(/```/g, '').trim();
+                const result = JSON.parse(aiText);
+                currentAuditData = result;
+
+                // Render điểm tổng quan
+                if (auditOverallScore) auditOverallScore.innerText = Number(result.overallScore || 8.5).toFixed(1);
+                if (auditScoreRating) auditScoreRating.innerText = result.scoreRating || 'Thẩm Định Thành Công';
+                if (auditGeneralReview) auditGeneralReview.innerText = result.generalReview || '';
+
+                // Render 4 thanh chỉ số
+                const sc = result.scores || {};
+                const setScore = (valEl, barEl, scoreVal) => {
+                    const num = Number(scoreVal || 8.0);
+                    if (valEl) valEl.innerText = num.toFixed(1) + '/10';
+                    if (barEl) barEl.style.width = Math.min(100, Math.max(10, num * 10)) + '%';
+                };
+                setScore(scoreEmotional, barEmotional, sc.emotionalResonance);
+                setScore(scoreRhyme, barRhyme, sc.rhymeAndFlow);
+                setScore(scoreGenre, barGenre, sc.genreFit);
+                setScore(scoreImagery, barImagery, sc.creativeImagery);
+
+                // Render Weak points & Strong points
+                if (auditWeakList) {
+                    const weaks = Array.isArray(result.weakPoints) ? result.weakPoints : [];
+                    auditWeakList.innerHTML = weaks.map(w => `<li>${w}</li>`).join('') || '<li>Không phát hiện câu từ sáo rỗng nghiêm trọng.</li>';
+                }
+                if (auditStrongList) {
+                    const strongs = Array.isArray(result.strongPoints) ? result.strongPoints : [];
+                    auditStrongList.innerHTML = strongs.map(s => `<li>${s}</li>`).join('') || '<li>Cốt truyện bài hát có định hướng tốt.</li>';
+                }
+
+                // Render Line improvements
+                if (auditImprovementsList) {
+                    const imps = Array.isArray(result.lineImprovements) ? result.lineImprovements : [];
+                    if (imps.length > 0) {
+                        auditImprovementsList.innerHTML = imps.map(imp => `
+                            <div class="improvement-card">
+                                <div class="imp-header">
+                                    <span><i class="fas fa-bookmark"></i> ${imp.section || 'Đoạn nâng cấp'}</span>
+                                    <span class="badge" style="background: rgba(46,213,115,0.15); color: #2ed573;">Nâng cấp chạm sâu</span>
+                                </div>
+                                <div class="imp-body">
+                                    <div class="imp-orig"><strong>Câu gốc:</strong> "${imp.original || ''}"</div>
+                                    <div class="imp-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="imp-upgraded"><strong>Gợi ý nâng cấp:</strong> "${imp.improved || ''}"</div>
+                                    <div class="imp-reason"><i class="fas fa-info-circle"></i> ${imp.reason || ''}</div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        auditImprovementsList.innerHTML = '<p class="hint">Toàn bộ câu từ của bản gốc đã đạt độ chín muồi tốt.</p>';
+                    }
+                }
+
+                // Render bản lời hoàn chỉnh sau nâng cấp
+                if (auditPolishedLyrics) {
+                    auditPolishedLyrics.value = result.polishedLyrics || rawLyrics;
+                }
+
+                // Hiển thị kết quả
+                if (auditEmptyOutput) auditEmptyOutput.style.display = 'none';
+                if (auditOutputContent) auditOutputContent.style.display = 'block';
+                if (auditExportActions) auditExportActions.style.display = 'flex';
+
+            } catch (err) {
+                alert('Lỗi thẩm định ca từ: ' + err.message);
+                console.error(err);
+                if (auditEmptyOutput) auditEmptyOutput.style.display = 'flex';
+            } finally {
+                if (auditLoader) auditLoader.style.display = 'none';
+            }
+        });
+    }
+
+    // Sao chép toàn bộ lời đã nâng cấp
+    const handleCopyPolishedLyrics = async () => {
+        if (!auditPolishedLyrics || !auditPolishedLyrics.value.trim()) {
+            alert('Chưa có lời bài hát đã nâng cấp để sao chép!');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(auditPolishedLyrics.value.trim());
+            alert('Đã sao chép toàn bộ lời bài hát đã nâng cấp thành công!');
+        } catch (e) {
+            auditPolishedLyrics.select();
+            document.execCommand('copy');
+            alert('Đã sao chép lời bài hát!');
+        }
+    };
+    if (btnCopyAuditLyrics) btnCopyAuditLyrics.addEventListener('click', handleCopyPolishedLyrics);
+    if (btnCopyPolishedLyrics) btnCopyPolishedLyrics.addEventListener('click', handleCopyPolishedLyrics);
+
+    // Chuyển lời đã nâng cấp sang Tab 2 (Suno AI Studio)
+    const handleSendAuditToSuno = () => {
+        if (!auditPolishedLyrics || !auditPolishedLyrics.value.trim()) {
+            alert('Chưa có lời bài hát đã nâng cấp để chuyển sang Tab Suno!');
+            return;
+        }
+        if (outSunoLyrics) outSunoLyrics.value = auditPolishedLyrics.value.trim();
+        if (auditSongTitle && auditSongTitle.value.trim()) {
+            const cleanTitle = auditSongTitle.value.replace(/\(Bản Thô.*?\)/gi, '').trim();
+            if (outSunoTitle) outSunoTitle.value = cleanTitle;
+            if (sunoInputTitle) sunoInputTitle.value = cleanTitle;
+        }
+        // Chuyển tab sang Tab Suno
+        const sunoTabBtn = document.querySelector('.tab-btn[data-tab="tab-suno"]');
+        if (sunoTabBtn) sunoTabBtn.click();
+        alert('Đã chuyển thành công lời bài hát đã nâng cấp sang Tab Suno AI Studio! Bạn có thể tạo nhạc ngay.');
+    };
+    if (btnSendAuditToSuno) btnSendAuditToSuno.addEventListener('click', handleSendAuditToSuno);
+    if (btnSendToSunoBottom) btnSendToSunoBottom.addEventListener('click', handleSendAuditToSuno);
+
+    // Xuất báo cáo thẩm định TXT
+    if (btnExportAuditTxt) {
+        btnExportAuditTxt.addEventListener('click', () => {
+            if (!auditPolishedLyrics || !auditPolishedLyrics.value.trim()) {
+                alert('Chưa có kết quả thẩm định để xuất file!');
+                return;
+            }
+            const report = `============================================================
+BÁO CÁO THẨM ĐỊNH & NÂNG CẤP CA TỪ CHUYÊN SÂU
+TIÊU ĐỀ: ${auditSongTitle.value.trim() || 'Chưa đặt tiêu đề'}
+THỂ LOẠI: ${auditGenreSelect.options[auditGenreSelect.selectedIndex].text}
+CHỦ ĐỀ: ${auditTopic.value.trim() || 'N/A'}
+ĐIỂM TỔNG QUAN: ${auditOverallScore.innerText} - ${auditScoreRating.innerText}
+============================================================
+
+1. NHẬN ĐỊNH TỔNG QUAN TỪ BẬC THẦY CA TỪ:
+${auditGeneralReview.innerText}
+
+2. CÁC ĐIỂM HẠN CHẾ CẦN KHẮC PHỤC (HỜI HỢT / SÁO RỖNG):
+${(currentAuditData?.weakPoints || []).map((w, i) => `${i + 1}. ${w}`).join('\n')}
+
+3. ĐIỂM SÁNG TRONG BẢN GỐC:
+${(currentAuditData?.strongPoints || []).map((s, i) => `${i + 1}. ${s}`).join('\n')}
+
+============================================================
+4. TOÀN BỘ BẢN LỜI HOÀN CHỈNH ĐÃ ĐƯỢC NÂNG CẤP CHẠM ĐÁY TÂM CAN:
+============================================================
+${auditPolishedLyrics.value.trim()}
+`;
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${auditSongTitle.value.trim() || 'Tham_Dinh'}_Bao_Cao_Ca_Tu.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
+    // Xóa & làm mới dữ liệu Tab 3
+    if (btnResetAudit) {
+        btnResetAudit.addEventListener('click', () => {
+            if (confirm('Bạn có chắc chắn muốn xóa dữ liệu thẩm định trong Tab này không?')) {
+                auditSongTitle.value = '';
+                auditTopic.value = '';
+                auditLyricsInput.value = '';
+                updateAuditLyricsCount();
+                if (auditPolishedLyrics) auditPolishedLyrics.value = '';
+                if (auditOutputContent) auditOutputContent.style.display = 'none';
+                if (auditExportActions) auditExportActions.style.display = 'none';
+                if (auditLoader) auditLoader.style.display = 'none';
+                if (auditEmptyOutput) auditEmptyOutput.style.display = 'flex';
+                currentAuditData = null;
+            }
+        });
+    }
 
     // Hàm reset sạch toàn bộ kết quả khi F5 hoặc tải lại trang
     function resetAllOutputs() {
