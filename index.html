@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Music SEO Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.2">
     <!-- FontAwesome cho icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -17,22 +17,32 @@
             <p>Tạo Tiêu đề SEO Hot, Timestamp, Mô tả, Hashtag & Tag tự động với Gemini AI</p>
         </header>
 
-        <div class="api-key-section">
-            <div class="api-key-header">
-                <label for="geminiApiKey"><i class="fas fa-key"></i> Google Gemini API Key:</label>
-                <span class="api-key-badge" id="apiKeyStatus"><i class="fas fa-shield-alt"></i> Lưu an toàn trình duyệt</span>
+                <!-- THANH API KEY GỌN GÀNG HIỆN ĐẠI -->
+        <div class="api-key-bar">
+            <div class="api-bar-label">
+                <i class="fas fa-key key-icon"></i>
+                <span>Gemini API Key:</span>
             </div>
-            <div class="api-key-input-wrapper">
-                <i class="fas fa-lock api-input-icon"></i>
-                <input type="password" id="geminiApiKey" class="sync-api-key" placeholder="Nhập Google Gemini API Key của bạn (AI Studio)..." autocomplete="off" spellcheck="false">
-                <button type="button" class="btn-api-action btn-toggle-pwd" data-target="geminiApiKey" title="Hiện / Ẩn API Key">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button type="button" class="btn-api-action btn-copy-key" data-target="geminiApiKey" title="Sao chép API Key">
-                    <i class="fas fa-copy"></i>
-                </button>
+            <div class="api-input-pill">
+                <i class="fas fa-lock lock-icon"></i>
+                <input type="password" id="geminiApiKey" class="sync-api-key" placeholder="Dán Google Gemini API Key vào đây..." autocomplete="off" spellcheck="false">
+                <div class="api-btn-group">
+                    <button type="button" class="btn-api-tool btn-toggle-pwd" onclick="toggleApiKeyVisibility('geminiApiKey', this)" title="Hiện / Ẩn API Key">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn-api-tool btn-copy-key" onclick="copyApiKeyToClipboard('geminiApiKey', this)" title="Sao chép API Key">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
             </div>
-            <small>Lấy API Key miễn phí tại <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>. Khóa được lưu và tự động đồng bộ trên tất cả các Tab.</small>
+            <div class="api-bar-extra">
+                <span class="api-status-tag" id="apiKeyStatus">
+                    <i class="fas fa-shield-alt"></i> Tự động lưu
+                </span>
+                <a href="https://aistudio.google.com/" target="_blank" class="api-link-btn" title="Lấy API Key miễn phí tại Google AI Studio">
+                    <i class="fas fa-external-link-alt"></i> Lấy Key
+                </a>
+            </div>
         </div>
 
         <!-- THANH CHUYỂN TAB -->
@@ -463,18 +473,23 @@
                         <span class="badge">AI Lyric Master</span>
                     </div>
 
-                    <!-- Ô API Key trong Tab 3 -->
+                                        <!-- Ô API Key trong Tab 3 -->
                     <div class="form-group inline-api-box">
-                        <label for="auditApiKey"><i class="fas fa-key"></i> Google Gemini API Key (Dùng chung toàn bộ app):</label>
-                        <div class="api-key-input-wrapper small">
-                            <i class="fas fa-lock api-input-icon"></i>
-                            <input type="password" id="auditApiKey" class="sync-api-key" placeholder="Nhập hoặc dán Gemini API Key..." autocomplete="off" spellcheck="false">
-                            <button type="button" class="btn-api-action btn-toggle-pwd" data-target="auditApiKey" title="Hiện / Ẩn API Key">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button type="button" class="btn-api-action btn-copy-key" data-target="auditApiKey" title="Sao chép API Key">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                        <div class="inline-api-header">
+                            <label for="auditApiKey"><i class="fas fa-key"></i> Google Gemini API Key (Dùng chung toàn app):</label>
+                            <span class="api-sync-badge"><i class="fas fa-sync-alt"></i> Tự động đồng bộ</span>
+                        </div>
+                        <div class="api-input-pill mini">
+                            <i class="fas fa-lock lock-icon"></i>
+                            <input type="password" id="auditApiKey" class="sync-api-key" placeholder="Dán Gemini API Key vào đây..." autocomplete="off" spellcheck="false">
+                            <div class="api-btn-group">
+                                <button type="button" class="btn-api-tool btn-toggle-pwd" onclick="toggleApiKeyVisibility('auditApiKey', this)" title="Hiện / Ẩn API Key">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn-api-tool btn-copy-key" onclick="copyApiKeyToClipboard('auditApiKey', this)" title="Sao chép API Key">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -668,6 +683,6 @@
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script src="script.js?v=2.2"></script>
 </body>
 </html>
