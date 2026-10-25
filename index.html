@@ -525,20 +525,37 @@
                         <input type="text" id="auditSongTitle" placeholder="Ví dụ: Chẳng Đổi Thay, Đêm Mưa Nhớ Người, Lạc Lối Đêm Phố Thị...">
                     </div>
 
-                    <!-- Chủ đề & Cốt truyện cảm xúc -->
+                    <!-- Chủ đề & Cốt truyện cảm xúc (Đồng bộ với Tab Suno) -->
                     <div class="form-group">
-                        <label for="auditTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc cốt lõi (Để soi độ sâu câu từ):</label>
-                        <textarea id="auditTopic" rows="2" placeholder="Ví dụ: Nỗi đau chia tay khi còn yêu sâu đậm, nhìn người cũ bước đi mà lòng thắt lại, tự dằn vặt bản thân..."></textarea>
+                        <div class="textarea-header-row">
+                            <label for="auditTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc bài hát (Đồng bộ với Tab Suno):</label>
+                            <button type="button" id="btnSyncTopicFromSuno" class="btn-quick-sync" title="Đồng bộ ngay chủ đề đang chọn từ Tab Suno AI Studio">
+                                <i class="fas fa-sync-alt"></i> Đồng bộ từ Tab Suno
+                            </button>
+                        </div>
+                        <textarea id="auditTopic" rows="3" placeholder="Tự động đồng bộ với chủ đề đã chọn ở Tab Suno AI Studio (hoặc chọn thêm ở các chip bên dưới)..."></textarea>
                     </div>
 
-                    <!-- Gợi ý nhanh chủ đề -->
+                    <!-- Gợi ý nhanh chủ đề (18 chủ đề phong phú đồng bộ với Tab Suno) -->
                     <div class="quick-tags audit-topic-tags">
-                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi đau chia tay khi còn yêu sâu đậm, nhìn người cũ bước đi mà lòng thắt lại">💔 Nỗi đau chia tay</span>
-                        <span class="tag-chip audit-topic-chip" data-topic="Tình yêu thủy chung bền bỉ, nguyện cùng nhau vượt qua muôn ngàn bão tố cuộc đời">❤️ Chung thủy trọn đời</span>
-                        <span class="tag-chip audit-topic-chip" data-topic="Yêu đơn phương thầm kín, giấu tình cảm sâu tận đáy lòng không dám ngỏ">💌 Yêu đơn phương</span>
-                        <span class="tag-chip audit-topic-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau ánh hào nhoáng và khát khao đồng điệu">🏙️ Góc khuất phố thị</span>
-                        <span class="tag-chip audit-topic-chip" data-topic="Khát vọng tuổi trẻ, vượt qua định kiến xã hội, kiên cường đứng dậy sau vấp ngã">🔥 Bản lĩnh tuổi trẻ</span>
-                        <span class="tag-chip audit-topic-chip" data-topic="Tự chữa lành vết thương lòng, buông bỏ quá khứ để tìm lại sự an yên">🌿 Tự chữa lành</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình mẫu tử thiêng liêng, bao la như biển cả và sự hy sinh thầm lặng của mẹ">👩‍👧 Tình mẹ bao la</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình bạn tri kỷ, luôn sát cánh đồng hành qua mọi thăng trầm của cuộc sống">🤝 Tình bạn tri kỷ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Cảm giác lạc lõng, cô đơn giữa phố thị ồn ào và khao khát được thấu hiểu">🥀 Nỗi buồn cô đơn</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Hành trình tự chữa lành những tổn thương, tìm về sự bình yên trong tâm hồn">🌿 Chữa lành tâm hồn</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ quê hương da diết, những hoài niệm mộc mạc về tuổi thơ yên bình">🏡 Nhớ về quê hương</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình cảm thầm kín không dám ngỏ, niềm vui nhỏ nhoi khi được dõi theo ai đó">💌 Yêu đơn phương</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Hành trình nỗ lực theo đuổi đam mê, không bao giờ bỏ cuộc trước thất bại">🌟 Theo đuổi đam mê</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Dũng cảm buông bỏ quá khứ đau buồn, mỉm cười đón nhận một khởi đầu mới">🌅 Khởi đầu mới</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Sức sống mãnh liệt của hy vọng tựa như chồi non vươn lên đón nắng mùa xuân">🌸 Hy vọng mùa xuân</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
                     </div>
 
                     <!-- Lời bài hát cần kiểm tra -->
@@ -548,8 +565,8 @@
                             <span id="auditLyricsCount" class="char-count">0 từ • 0 dòng</span>
                         </div>
                         <div class="quick-action-bar">
-                            <button type="button" id="btnPasteFromSuno" class="btn-quick-tool" title="Lấy nhanh lời đang có từ Tab Suno AI Studio">
-                                <i class="fas fa-file-import"></i> Lấy lời từ Tab Suno
+                            <button type="button" id="btnPasteFromSuno" class="btn-quick-tool" title="Đồng bộ toàn bộ Lời bài hát, Chủ đề, Thể loại và Tiêu đề từ Tab Suno AI Studio">
+                                <i class="fas fa-sync-alt"></i> Đồng bộ Lời & Chủ đề từ Tab Suno
                             </button>
                             <button type="button" id="btnSampleAuditLyrics" class="btn-quick-tool" title="Nạp bài hát mẫu để kiểm tra thử nghiệm">
                                 <i class="fas fa-lightbulb"></i> Nạp lời mẫu thử
