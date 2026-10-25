@@ -1079,6 +1079,33 @@ button {
     margin-bottom: 6px;
 }
 
+.btn-quick-sync {
+    background: rgba(255, 165, 2, 0.12);
+    border: 1px solid rgba(255, 165, 2, 0.35);
+    color: #ffa502;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-quick-sync:hover {
+    background: #ffa502;
+    color: #0b0c10;
+    border-color: #ffa502;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 165, 2, 0.3);
+}
+
+.btn-quick-sync:active {
+    transform: translateY(0);
+}
+
 .quick-action-bar {
     display: flex;
     gap: 8px;
