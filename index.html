@@ -18,9 +18,21 @@
         </header>
 
         <div class="api-key-section">
-            <label for="geminiApiKey"><i class="fas fa-key"></i> Google Gemini API Key:</label>
-            <input type="password" id="geminiApiKey" placeholder="Nhập API Key của bạn (Bắt buộc để dùng AI)...">
-            <small>Lấy API Key miễn phí tại <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>.</small>
+            <div class="api-key-header">
+                <label for="geminiApiKey"><i class="fas fa-key"></i> Google Gemini API Key:</label>
+                <span class="api-key-badge" id="apiKeyStatus"><i class="fas fa-shield-alt"></i> Lưu an toàn trình duyệt</span>
+            </div>
+            <div class="api-key-input-wrapper">
+                <i class="fas fa-lock api-input-icon"></i>
+                <input type="password" id="geminiApiKey" class="sync-api-key" placeholder="Nhập Google Gemini API Key của bạn (AI Studio)..." autocomplete="off" spellcheck="false">
+                <button type="button" class="btn-api-action btn-toggle-pwd" data-target="geminiApiKey" title="Hiện / Ẩn API Key">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button type="button" class="btn-api-action btn-copy-key" data-target="geminiApiKey" title="Sao chép API Key">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+            <small>Lấy API Key miễn phí tại <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>. Khóa được lưu và tự động đồng bộ trên tất cả các Tab.</small>
         </div>
 
         <!-- THANH CHUYỂN TAB -->
@@ -30,7 +42,11 @@
             </button>
             <button class="tab-btn" data-tab="tab-suno">
                 <i class="fas fa-music"></i> <span>Suno AI Studio (Lời & Prompt)</span>
-                <span class="tab-badge">MỚI</span>
+                <span class="tab-badge">HOT</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-lyrics-audit">
+                <i class="fas fa-spell-check"></i> <span>Kiểm Tra Lời Chuyên Sâu</span>
+                <span class="tab-badge pulse-badge">VIP</span>
             </button>
         </nav>
 
@@ -430,6 +446,220 @@
                                 <button type="button" class="btn-copy-box" data-target="outSunoLyrics">
                                     <i class="fas fa-copy"></i> <span>Sao chép Lời Nhạc</span>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: KIỂM TRA LỜI CHUYÊN SÂU (LYRIC DEEP AUDIT & ENHANCE) -->
+        <div id="tab-lyrics-audit" class="tab-pane">
+            <div class="main-grid">
+                <!-- Cột trái: Đầu vào kiểm tra -->
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-microscope"></i> Thẩm Định Lời Nhạc Chuyên Sâu</h2>
+                        <span class="badge">AI Lyric Master</span>
+                    </div>
+
+                    <!-- Ô API Key trong Tab 3 -->
+                    <div class="form-group inline-api-box">
+                        <label for="auditApiKey"><i class="fas fa-key"></i> Google Gemini API Key (Dùng chung toàn bộ app):</label>
+                        <div class="api-key-input-wrapper small">
+                            <i class="fas fa-lock api-input-icon"></i>
+                            <input type="password" id="auditApiKey" class="sync-api-key" placeholder="Nhập hoặc dán Gemini API Key..." autocomplete="off" spellcheck="false">
+                            <button type="button" class="btn-api-action btn-toggle-pwd" data-target="auditApiKey" title="Hiện / Ẩn API Key">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button type="button" class="btn-api-action btn-copy-key" data-target="auditApiKey" title="Sao chép API Key">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chọn thể loại âm nhạc cần thẩm định -->
+                    <div class="form-group">
+                        <label for="auditGenreSelect"><i class="fas fa-compact-disc"></i> Thể loại âm nhạc thẩm định:</label>
+                        <select id="auditGenreSelect" class="form-select">
+                            <option value="vinahouse" selected>🔥 Vietnamese Vinahouse x Big Room EDM (140 BPM)</option>
+                            <option value="ballad">💔 Emotional Pop Ballad x Orchestral (82 BPM)</option>
+                            <option value="jerk_drill">⚡ Vietnamese Jerk Drill x Melodic Lo-Fi (122 BPM)</option>
+                            <option value="rumba">🌧️ Vietnamese Rumba x Latin Acoustic Ballad (100 BPM)</option>
+                            <option value="chacha">💃 Vietnamese Cha Cha Cha x Latin Big Band (128 BPM)</option>
+                            <option value="rap_jersey">🎤 Rap Pop x Jersey Club x Afrobeat (128 BPM)</option>
+                            <option value="nhactre">🌟 Nhạc Trẻ Hot Trend / TikTok Viral</option>
+                            <option value="rnb">🌙 Modern R&B / Soul / Lofi Chill</option>
+                            <option value="bolero">🍂 Bolero Trữ Tình Quê Hương</option>
+                        </select>
+                    </div>
+
+                    <!-- Gợi ý chip thể loại nhanh -->
+                    <div class="quick-tags genre-quick-tags">
+                        <span class="tag-chip audit-genre-chip" data-genre="vinahouse">🔥 Vinahouse</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="ballad">💔 Pop Ballad</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="jerk_drill">⚡ Jerk Drill</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="rumba">🌧️ Rumba</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="chacha">💃 Cha Cha Cha</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="rap_jersey">🎤 Rap/Jersey</span>
+                    </div>
+
+                    <!-- Tiêu đề bài hát -->
+                    <div class="form-group">
+                        <label for="auditSongTitle"><i class="fas fa-heading"></i> Tiêu đề bài hát (Để đối chiếu tính bám sát chủ đề):</label>
+                        <input type="text" id="auditSongTitle" placeholder="Ví dụ: Chẳng Đổi Thay, Đêm Mưa Nhớ Người, Lạc Lối Đêm Phố Thị...">
+                    </div>
+
+                    <!-- Chủ đề & Cốt truyện cảm xúc -->
+                    <div class="form-group">
+                        <label for="auditTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc cốt lõi (Để soi độ sâu câu từ):</label>
+                        <textarea id="auditTopic" rows="2" placeholder="Ví dụ: Nỗi đau chia tay khi còn yêu sâu đậm, nhìn người cũ bước đi mà lòng thắt lại, tự dằn vặt bản thân..."></textarea>
+                    </div>
+
+                    <!-- Gợi ý nhanh chủ đề -->
+                    <div class="quick-tags audit-topic-tags">
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi đau chia tay khi còn yêu sâu đậm, nhìn người cũ bước đi mà lòng thắt lại">💔 Nỗi đau chia tay</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình yêu thủy chung bền bỉ, nguyện cùng nhau vượt qua muôn ngàn bão tố cuộc đời">❤️ Chung thủy trọn đời</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Yêu đơn phương thầm kín, giấu tình cảm sâu tận đáy lòng không dám ngỏ">💌 Yêu đơn phương</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau ánh hào nhoáng và khát khao đồng điệu">🏙️ Góc khuất phố thị</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Khát vọng tuổi trẻ, vượt qua định kiến xã hội, kiên cường đứng dậy sau vấp ngã">🔥 Bản lĩnh tuổi trẻ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tự chữa lành vết thương lòng, buông bỏ quá khứ để tìm lại sự an yên">🌿 Tự chữa lành</span>
+                    </div>
+
+                    <!-- Lời bài hát cần kiểm tra -->
+                    <div class="form-group">
+                        <div class="textarea-header-row">
+                            <label for="auditLyricsInput"><i class="fas fa-file-alt"></i> Lời bài hát cần kiểm tra & nâng cấp:</label>
+                            <span id="auditLyricsCount" class="char-count">0 từ • 0 dòng</span>
+                        </div>
+                        <div class="quick-action-bar">
+                            <button type="button" id="btnPasteFromSuno" class="btn-quick-tool" title="Lấy nhanh lời đang có từ Tab Suno AI Studio">
+                                <i class="fas fa-file-import"></i> Lấy lời từ Tab Suno
+                            </button>
+                            <button type="button" id="btnSampleAuditLyrics" class="btn-quick-tool" title="Nạp bài hát mẫu để kiểm tra thử nghiệm">
+                                <i class="fas fa-lightbulb"></i> Nạp lời mẫu thử
+                            </button>
+                        </div>
+                        <textarea id="auditLyricsInput" rows="10" placeholder="Dán toàn bộ lời bài hát vào đây (bao gồm các đoạn [Intro], [Verse 1], [Chorus], [Bridge]...).&#10;&#10;Hệ thống sẽ thẩm định từng câu chữ, vần điệu, độ sáo rỗng và nâng cấp thành phiên bản chạm sâu vào cảm xúc người nghe!"></textarea>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="btnRunAudit" class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Thẩm Định & Nâng Cấp Lời (AI)</button>
+                        <button id="btnResetAudit" class="btn-secondary"><i class="fas fa-trash-alt"></i> Xóa & Làm Mới</button>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Kết quả thẩm định & Phiên bản nâng cấp -->
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-clipboard-check"></i> Kết quả Thẩm Định & Lời Nâng Cấp</h2>
+                        <div class="export-actions" id="auditExportActions" style="display: none;">
+                            <button id="btnSendAuditToSuno" class="btn-icon" title="Chuyển lời đã nâng cấp sang Tab Suno để tạo nhạc"><i class="fas fa-paper-plane"></i></button>
+                            <button id="btnCopyAuditLyrics" class="btn-icon" title="Sao chép toàn bộ lời đã nâng cấp"><i class="fas fa-copy"></i></button>
+                            <button id="btnExportAuditTxt" class="btn-icon" title="Xuất báo cáo thẩm định TXT"><i class="fas fa-file-alt"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="loader" id="auditLoader">
+                        <i class="fas fa-spinner fa-spin"></i> AI Master Lyricist đang thẩm định ca từ, soi lỗi vần điệu và trau chuốt câu từ chạm sâu...
+                    </div>
+
+                    <div class="empty-state" id="auditEmptyOutput">
+                        <div class="empty-icon"><i class="fas fa-spell-check"></i></div>
+                        <h3>Chưa có dữ liệu thẩm định</h3>
+                        <p>Dán lời bài hát vào ô bên trái hoặc bấm <strong>"Lấy lời từ Tab Suno"</strong>, sau đó bấm <strong>"Thẩm Định & Nâng Cấp Lời (AI)"</strong> để bắt đầu phân tích chuyên sâu.</p>
+                    </div>
+
+                    <div class="output-content" id="auditOutputContent" style="display: none;">
+                        <!-- 1. BẢNG ĐIỂM TỔNG QUAN -->
+                        <div class="audit-scorecard">
+                            <div class="scorecard-main">
+                                <div class="score-badge-circle">
+                                    <span class="score-num" id="auditOverallScore">9.0</span>
+                                    <span class="score-max">/10</span>
+                                </div>
+                                <div class="score-info">
+                                    <h3 id="auditScoreRating">Cảm Xúc Sâu Sắc & Chạm Đáy Tâm Can</h3>
+                                    <p id="auditGeneralReview">Lời bài hát có cấu trúc tốt, ca từ giàu chất thơ và hình ảnh gợi cảm.</p>
+                                </div>
+                            </div>
+
+                            <!-- 4 Chỉ số chi tiết -->
+                            <div class="score-breakdown-grid">
+                                <div class="score-item">
+                                    <div class="score-item-header">
+                                        <span><i class="fas fa-heart"></i> Độ chạm cảm xúc</span>
+                                        <strong id="scoreEmotional">9.0/10</strong>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" id="barEmotional" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-item-header">
+                                        <span><i class="fas fa-link"></i> Vần điệu & Bằng trắc</span>
+                                        <strong id="scoreRhyme">8.5/10</strong>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" id="barRhyme" style="width: 85%;"></div></div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-item-header">
+                                        <span><i class="fas fa-drum"></i> Nhịp điệu & Độ khít Beat</span>
+                                        <strong id="scoreGenre">9.5/10</strong>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" id="barGenre" style="width: 95%;"></div></div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-item-header">
+                                        <span><i class="fas fa-gem"></i> Tính độc đáo & Triết lý</span>
+                                        <strong id="scoreImagery">8.8/10</strong>
+                                    </div>
+                                    <div class="progress-track"><div class="progress-fill" id="barImagery" style="width: 88%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. BẮT BỆNH CA TỪ & ĐIỂM SÁNG -->
+                        <div class="audit-critique-grid">
+                            <div class="critique-card weak-card">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Ca từ cần khắc phục (Hời hợt / Sáo rỗng)</h4>
+                                <ul id="auditWeakList" class="critique-list">
+                                    <!-- Liệt kê các câu hời hợt -->
+                                </ul>
+                            </div>
+                            <div class="critique-card strong-card">
+                                <h4><i class="fas fa-star"></i> Điểm sáng ca từ (Đắt giá & Tự nhiên)</h4>
+                                <ul id="auditStrongList" class="critique-list">
+                                    <!-- Liệt kê điểm mạnh -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 3. BẢNG SO SÁNH & GỢI Ý NÂNG CẤP TỪNG ĐOẠN -->
+                        <div class="output-section">
+                            <div class="style-header-wrap">
+                                <h3><i class="fas fa-exchange-alt"></i> So sánh Câu gốc & Câu Nâng Cấp Chạm Sâu</h3>
+                                <span class="badge"><i class="fas fa-magic"></i> Tối ưu độ chạm</span>
+                            </div>
+                            <div id="auditImprovementsList" class="improvements-container">
+                                <!-- Render danh sách so sánh -->
+                            </div>
+                        </div>
+
+                        <!-- 4. TOÀN BỘ BẢN LỜI HOÀN CHỈNH ĐÃ ĐƯỢC NÂNG CẤP -->
+                        <div class="output-section">
+                            <div class="style-header-wrap">
+                                <h3><i class="fas fa-crown" style="color: #ffa502;"></i> Toàn bộ Lời Bài Hát Sau Khi Đã Nâng Cấp Sâu Sắc</h3>
+                                <span id="auditPolishedCount" class="badge"><i class="fas fa-check-circle"></i> Chuẩn cấu trúc Suno AI</span>
+                            </div>
+                            <div class="output-box-wrap">
+                                <textarea id="auditPolishedLyrics" rows="12" placeholder="Bản lời bài hát hoàn chỉnh sau khi nâng cấp sẽ hiển thị tại đây..."></textarea>
+                                <div class="audit-bottom-actions">
+                                    <button type="button" id="btnCopyPolishedLyrics" class="btn-copy-box">
+                                        <i class="fas fa-copy"></i> <span>Sao chép Lời Đã Nâng Cấp</span>
+                                    </button>
+                                    <button type="button" id="btnSendToSunoBottom" class="btn-send-suno">
+                                        <i class="fas fa-paper-plane"></i> <span>Chuyển sang Tab Suno tạo nhạc</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
