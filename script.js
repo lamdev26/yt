@@ -846,36 +846,37 @@ Nói nghe nè...
 Anh có chắc là bên em suốt đời không?
 
 [Verse 1 - Melodic Rap Male]
-128 nhịp đập hòa vào tiếng đàn đêm nay
-Anh không quen vẽ tương lai bằng những lời đầu môi có cánh
-Nhưng nếu thế giới ngoài kia làm em thấy chênh vênh lạnh lẽo
-Cứ bước về phía anh, vòng tay này chẳng hề buông lơi.
+Một hai tám nhịp đập hòa vào tiếng đàn đêm nay
+Từng câu thề anh không vẽ bằng lời đầu môi gió bay
+Nếu thế giới ngoài kia làm em chênh vênh lạnh giá
+Cứ tựa vào vai anh, chẳng bao giờ buông tay rời xa!
 
 [Verse 1 - Playful Rap Female]
 Em đâu cần những lời hoa mỹ xa xôi
-Chỉ cần anh giữ đúng những điều anh nói
-Phố thị xô bồ, người đến rồi lại đi
-Nếu anh là bến đỗ, em chẳng tiếc thanh xuân trao người.
+Chỉ cần anh giữ trọn câu hứa trên môi
+Phố thị xô bồ, người vội vã chia phôi
+Nếu anh là bến đỗ, em trao cả thanh xuân này rồi!
 
 [Pre-Chorus - Duet]
-Từng ánh mắt chạm nhau giữa phố đêm lung linh
-Nhịp Jersey rộn vang khơi bừng lên ánh sáng
-Đừng ngập ngừng nữa, hãy giữ chặt tay nhau...
+Ánh mắt chạm nhau giữa phố đêm lung linh ánh đèn
+Nhịp Jersey rộn vang khơi bừng lên bao khát khao ấm êm
+Giữ chặt tay anh, cùng bước qua muôn trùng bão táp
+Để từng nốt nhạc ru êm giấc mộng bình yên...
 
 [Chorus - Energetic Hook Duet]
 Ta cùng khiêu vũ dưới bầu trời đầy sao
-Bao âu lo gửi vào làn gió cao
+Gửi muôn phiền lo bay vút lên trời cao
 Nhịp bass dập dồn, tim hòa chung một điệu
-Yêu là chân thành, không toan tính chi li!
+Yêu là chân thành, chẳng toan tính chi li!
 
 [Drop]
 (Jersey bounce rhythm - Funky bass - 808 glide drops)
 
 [Verse 2 - Melodic Rap Male & Female ad-libs]
-Đường đời vạn lối, ta tìm thấy nhau giữa muôn ngàn trắc trở
-Không phải tình cờ, mà là duyên nợ đã định từ lâu
+Đường đời vạn lối, ta tìm thấy nhau giữa giông bão cuộc đời
+Không phải tình cờ, mà là duyên nợ đã định sẵn người ơi
 Em là giai điệu ngọt ngào nhất trong bản phối đời anh
-Mỗi sớm mai thức dậy có em là bình yên trọn vẹn.
+Mỗi sớm mai thức dậy có em là bình yên trong lành!
 
 [Bridge - Soft Melodic Harmony]
 Dù mai này bão giông hay nắng tắt
@@ -885,9 +886,9 @@ Sẽ cùng ta đi đến cuối con đường...
 
 [Chorus - Duet Climax]
 Ta cùng khiêu vũ dưới bầu trời đầy sao
-Bao âu lo gửi vào làn gió cao
+Gửi muôn phiền lo bay vút lên trời cao
 Nhịp bass dập dồn, tim hòa chung một điệu
-Yêu là chân thành, không toan tính chi li!
+Yêu là chân thành, chẳng toan tính chi li!
 
 [Drop - Outro]
 (Bouncy Jersey triplets, ad-libs, fade out)
@@ -901,8 +902,8 @@ Mãi bên nhau nhé anh...
             title: "Riêng Tình Anh Chẳng Đổi Thay",
             style: "Vietnamese Vinahouse x Big Room EDM x Electro House, 140 BPM, peak-time festival. Warm mature slightly husky male vocal, deep, sincere, emotional and powerful. START WITH VOCAL HOOK, NO LONG INTRO. Main hook: “Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.” First explosive drop around 0:16. Theme: unwavering love despite time, distance, hardship and changes in life. Emotional piano, warm pads, cinematic strings, intimate verses, huge build-ups. Hard punchy kick, massive rolling bass, deep sub bass, aggressive supersaw, bright catchy synth lead, fast percussion, vocal chops and explosive drops. 3 drops, each harder than previous. Final drop emotional, euphoric and memorable. Wide stereo, massive bass, clean loud professional master. NO female vocal, NO duet, NO ballad, NO slow, NO acoustic, NO chill, NO weak drop.",
             lyrics: `[Intro - Vocal Hook]
-Ngoài kia mọi thứ đổi thay
-Riêng tình anh... chẳng đổi thay!
+Ngoài kia dẫu vạn vật đổi thay
+Riêng tình anh... vẫn đong đầy hôm nay!
 
 [Drop]
 (Bass rolling, supersaw lead, explosive punch)
@@ -910,48 +911,42 @@ Riêng tình anh... chẳng đổi thay!
 [Verse 1]
 Thành phố lên đèn giấu những vết thương chưa lành
 Dòng người vội vã lướt qua như cơn gió lạnh
-Bao lời hứa hẹn theo thời gian cũng phai tàn
-Chỉ có bóng hình em mãi vẹn nguyên trong anh.
+Bao lời hẹn ước theo năm tháng cũng tàn phai
+Chỉ bóng hình em khắc sâu chẳng hề nhạt phai.
 
 [Pre-Chorus]
 Dù đường đời chông chênh ngàn bão tố
-Dù cách xa hay thử thách muôn trùng
-Một nhịp đập nơi lồng ngực này
-Vẫn chỉ gọi tên một người duy nhất...
+Dù cách xa muôn dặm nẻo phong ba
+Một nhịp đập nơi lồng ngực này tha thiết
+Vẫn chỉ gọi tên một người duy nhất... là em!
 
 [Chorus]
 Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay!
-Dù cho năm tháng có trôi, bạc trắng cả mái đầu này.
+Dẫu cho năm tháng có trôi, bạc trắng mái đầu này.
 Bao nhiêu giông bão cuộc đời anh xin nhận lấy
-Chỉ mong nụ cười em vẫn vẹn nguyên từng ngày!
+Chỉ mong nụ cười em vẫn rạng rỡ từng ngày!
 
 [Drop]
 (Explosive Vinahouse Drop - Massive bass rolling - Vocal chops)
 
 [Verse 2]
-Có những đêm dài lặng nhìn mưa rơi bên thềm
+Những đêm dài nghe mưa rơi rớt bên thềm
 Tự hỏi duyên trời sao nỡ thử thách đôi tim
-Nhưng nếu yêu thương là ngọn lửa trong tim
-Thì bão giông nào dập tắt được niềm tin?
-
-[Chorus]
-Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay!
-Dù cho năm tháng có trôi, bạc trắng cả mái đầu này.
-Bao nhiêu giông bão cuộc đời anh xin nhận lấy
-Chỉ mong nụ cười em vẫn vẹn nguyên từng ngày!
+Nếu yêu thương là ngọn lửa ấm trong đêm
+Thì bão giông nào dập tắt được niềm tin êm đềm?
 
 [Bridge]
-Thời gian có thể xóa nhòa vạn vật
-Vật đổi sao dời, biển hóa nương dâu
-Nhưng khắc ghi một chữ TÌNH trong dạ
-Thì ngàn kiếp sau vẫn chẳng thể phai màu!
+Vạn vật thế gian có thể đổi dời
+Biển cạn đá mòn, vật đổi sao dời
+Nhưng một chữ TÌNH đã khắc sâu trong dạ
+Thì ngàn kiếp sau vẫn vẹn nguyên rạng ngời!
 
 [Drop - Final Climax]
 (Maximum Energy Peak Drop - Euphoric Synths & Heavy Bass)
 
 [Outro]
 Ngoài kia dẫu đổi thay...
-Tình anh... vẫn vẹn nguyên.
+Tình anh... vẫn vẹn nguyên nơi này.
 [Fade Out]`
         },
         3: {
@@ -965,9 +960,9 @@ Tình anh... vẫn vẹn nguyên.
 
 [Verse 1]
 Góc quán quen giờ chỉ còn mình anh với tách cà phê nguội
-Nhìn lá rơi bên thềm, tự hỏi em ở nơi xa có bình yên?
+Nhìn chiếc lá rơi bên thềm, tự hỏi em ở nơi xa có bình yên?
 Người ta thường bảo thời gian là liều thuốc chữa lành mọi vết thương
-Sao vết thương nhớ em, càng trôi đi lại càng đau nhói?
+Sao vết thương nhớ em, càng trôi đi lại càng đau nhức nhối?
 
 [Verse 2]
 Có những nỗi buồn chẳng biết tỏ cùng ai
@@ -976,29 +971,29 @@ Cảm ơn em vì đã từng ghé qua năm tháng ấy
 Cho anh biết thế nào là trọn vẹn một tình yêu...
 
 [Pre-Chorus]
-Dẫu biết duyên mỏng, phận chẳng thành đôi
-Dẫu biết hai ta giờ như hai đường thẳng song song
+Dẫu biết duyên mỏng, phận mình chẳng thành đôi
+Dẫu hai ta giờ tựa hai đường thẳng chia phôi
 Nhưng trái tim này chưa từng một lần hối tiếc
 Vì đã yêu em bằng tất cả những gì anh có...
 
 [Chorus]
 Nếu có kiếp sau, xin được tìm thấy em sớm hơn
-Để chở che em qua những ngày giông bão cuộc đời
-Đừng khóc nữa em ơi, hãy cười lên và hạnh phúc
+Để chở che em qua những ngày giông bão ngập tràn
+Đừng khóc nữa em ơi, hãy mỉm cười và hạnh phúc
 Dẫu người đi cùng em đến cuối con đường... chẳng phải là anh!
 
 [Interlude - Soaring Cello & Violins]
 
 [Bridge]
 Mưa vẫn rơi như khóc thay cho chuyện tình lỡ dở
-Từng nốt nhạc trầm buồn xé toạc màn đêm
+Từng nốt nhạc trầm buồn xé toạc màn đêm buông
 Chúc em một đời an yên bên người mới
-Phần đớn đau này, anh xin nhận hết về mình...
+Phần đớn đau này, anh xin nhận hết về riêng mình...
 
 [Chorus - Climax Full Strings & Vocal Emotion]
 Nếu có kiếp sau, xin được tìm thấy em sớm hơn
-Để chở che em qua những ngày giông bão cuộc đời
-Đừng khóc nữa em ơi, hãy cười lên và hạnh phúc
+Để chở che em qua những ngày giông bão ngập tràn
+Đừng khóc nữa em ơi, hãy mỉm cười và hạnh phúc
 Dẫu người đi cùng em đến cuối con đường... chẳng phải là anh!
 
 [Outro - Gentle Piano fading out]
@@ -1018,8 +1013,8 @@ Hẹn em ở một kiếp khác, bình yên hơn.
 [Female Soprano Gliding] Màn đêm buông xuống, liệu ai thật lòng?
 
 [Verse 1 - Choppy Male Rap]
-Đèn đường hắt hiu rọi vào góc phố thân quen
-Bước chân vội vã cố tìm một khoảng trời riêng
+Đèn đường hắt hiu rọi góc phố thân quen
+Bước chân vội vã tìm một khoảng trời riêng
 Bao ánh nhìn phán xét, bao cám dỗ bủa vây
 Ta giữ lại bản ngã giữa vòng xoáy đổi thay.
 Đồng tiền làm mờ mắt, danh vọng làm người say
@@ -1030,8 +1025,8 @@ Lướt qua ánh mắt sắc lạnh giữa màn đêm
 Gió lay tà áo, nỗi cô đơn dày thêm
 Người ta đến rồi đi tựa như làn khói mỏng
 Chỉ có nhịp tim này chưa từng nguôi hy vọng.
-Anh bảo vệ giấc mơ, em gạt đi nước mắt
-Giữa chốn thị phi ta cùng nhau vượt qua ngặt nghèo!
+Anh bảo vệ giấc mơ, em gạt đi dòng lệ
+Giữa chốn thị phi ta cùng nhau vượt qua dâu bể!
 
 [Pre-Chorus - Call-and-Response Duet]
 [Male] Em có sợ ngày mai giông bão kéo về?
@@ -1047,18 +1042,18 @@ Giữa chốn thị phi ta cùng nhau vượt qua ngặt nghèo!
 (Distorted 808 bass slides, springy syncopated percussion, female vocal chops)
 
 [Verse 2 - Choppy Male Rap with Female Backing]
-Cứ để miệng đời thêu dệt những điều hoang đường
+Cứ để miệng đời thêu dệt những hoang đường
 Thép đã tôi trong lửa, ta kiên cường dặm trường
-Ánh hào quang lấp lánh không mua nổi chân tình
+Ánh hào quang lấp lánh chẳng mua nổi chân tình
 Đêm tàn trời lại sáng, ta đón ánh bình minh.
-Có em kề vai, mọi hiểm nguy đều hóa nhẹ tênh
-Vững bước ta đi, khắc tên mình lên đỉnh cao!
+Có em kề vai, hiểm nguy hóa nhẹ tênh
+Vững bước ta đi, ghi tên mình lên đỉnh cao!
 
 [Bridge - Melancholic Sway & Soft Piano]
-Dưới ánh đèn neon lập lòe góc tối
+Dưới ánh đèn neon lập lòe nơi góc tối
 Ta tìm thấy nhau giữa muôn ngàn lạc lối
-Dẫu cả thế giới quay lưng lại phía sau
-Chỉ cần một người hiểu, đau đớn cũng phai màu...
+Dẫu cả thế gian quay lưng lại phía sau
+Chỉ cần người thấu hiểu, đau đớn cũng phai màu...
 
 [Bass Freeze - Hook]
 [Duet] Phố thị đèn mờ... tình này chẳng phai!
@@ -1070,8 +1065,7 @@ Chỉ cần một người hiểu, đau đớn cũng phai màu...
 [Female Soprano] Lạc lối đêm nay... nhưng tìm thấy anh.
 [Male Voice] Mãi mãi bên em.
 [Fade Out]`
-        }
-,
+        },
         5: {
             id: 5,
             name: "Vietnamese Rumba x Latin Acoustic Ballad",
@@ -1095,7 +1089,7 @@ Chỉ thấy bóng hình em khắc sâu tận đáy lòng...
 
 [Pre-Chorus]
 Đàn ai buông tiếng rumba da diết
-Rung lên từng cung bậc của đớn đau
+Rung lên từng cung bậc của nỗi tiếc thương
 Biết duyên phận lỡ làng không chung lối
 Sao ngàn năm lòng vẫn mãi vấn vương?
 
@@ -1149,53 +1143,49 @@ Hãy để âm nhạc dẫn lối đôi trái tim này!
 
 [Verse 2]
 Ánh mắt em trao mang ngọn lửa đam mê
-Nụ cười kiêu sa làm say đắm cả không gian
-Nhịp bước một hai, cha-cha-cha nồng cháy
-Gió cuốn tà váy bay trong điệu nhạc cuồng si.
+Nhịp bước nhịp nhàng ta lạc vào cõi mê
+Vòng tay anh siết nhẹ bên eo thon mềm mại
+Dưới điệu Cha Cha Cha nồng nàn men say.
 
 [Pre-Chorus]
-Nghe tiếng tim đập hòa cùng nhịp trống rộn ràng
-Đôi bàn tay đan chặt không rời xa
-Âm nhạc thăng hoa, men tình ngây ngất
-Đêm nay là của ta, quên hết âu lo đời thường!
+1, 2, cha-cha-cha, bước chân ta nhịp nhàng
+Quên đi hết âu lo, sống trọn với đam mê
+Giai điệu Latin bùng cháy ngọn lửa tình
+Đêm nay là của ta, hãy cháy hết mình đi em!
 
 [Chorus]
-Vũ điệu cha cha cha thắp sáng ngàn ánh sao
-Say trong men tình ngỡ giấc chiêm bao
-Bước chân nhịp nhàng, mắt trao tha thiết
-Hãy giữ chặt tay nhau, trọn vẹn từng phút giây!
+Cùng hòa nhịp bước trong vũ điệu say tình
+Tiếng kèn đồng ngân vang khúc ca rộn rã
+Nắm chặt tay anh xoay tròn giữa sàn hoa
+Yêu là đắm say, ngập tràn muôn sắc hoa!
 
-[Brass Break - Percussion Solo]
-(Driving timbale rolls, conga slap, energetic trumpet solo)
-Cha-cha-cha!
+[Interlude - Brass & Percussion Break]
+(Timbale solo, congas groove, bright brass stabs)
 
 [Verse 3]
-Cuộc đời này ngắn ngủi tựa như một thoáng say
-Hà cớ chi ta phải ngập ngừng đắn đo?
-Yêu hết mình và sống trọn từng khoảnh khắc
-Giai điệu này sinh ra để dành cho chúng ta!
+Nhịp tim rộn ràng theo từng bước nhún nhảy
+Hương thơm nồng nàn thoang thoảng bờ vai ai
+Cuộc đời này ngắn ngủi, cớ sao phải chần chừ?
+Hãy trao nhau nụ cười và khúc hát ban mai!
 
-[Bridge - Playful Duet Rhythm]
-[Female] Em sẽ theo anh đến tận cùng vũ điệu!
-[Male] Nắm chặt tay anh, ta xoay giữa muôn ngàn hoa!
-[Duet] Nhịp cha-cha-cha rộn rã tim ta...
-Một hai ba, ta cùng bùng cháy!
+[Bridge]
+Quên đi ngày hôm qua, đón lấy ánh rạng ngời
+Cùng vũ điệu Latin làm say đắm đất trời
+Chỉ cần ta bên nhau, ngập tràn niềm vui mới
+Hạnh phúc giản đơn là tiếng cười thảnh thơi!
 
 [Chorus - Maximum Energy Big Band]
-Vũ điệu cha cha cha thắp sáng ngàn ánh sao
-Say trong men tình ngỡ giấc chiêm bao
-Bước chân nhịp nhàng, mắt trao tha thiết
-Hãy giữ chặt tay nhau, trọn vẹn từng phút giây!
+Cùng hòa nhịp bước trong vũ điệu say tình
+Tiếng kèn đồng ngân vang khúc ca rộn rã
+Nắm chặt tay anh xoay tròn giữa sàn hoa
+Yêu là đắm say, ngập tràn muôn sắc hoa!
 
-[Outro - Big Band Climax]
-(Triumphant brass swells, cowbell accents, final sharp hit)
-1, 2, cha-cha-cha!
-Tuyệt vời lắm em ơi!
-[Fade Out]`
+[Outro]
+(Cha-cha-cha! Final brass hit & laughter)
+Vũ điệu say tình... ngập tràn hạnh phúc!`
         }
     };
-
-    let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
+        let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
     const styleCards = document.querySelectorAll('.style-card');
     const sunoInputTitle = document.getElementById('sunoInputTitle');
     const sunoTopic = document.getElementById('sunoTopic');
@@ -1506,46 +1496,62 @@ Tuyệt vời lắm em ơi!
             }
         });
 
-        const prompt = `Bạn là một nhạc sĩ sáng tác ca khúc hàng đầu Việt Nam và là chuyên gia Suno AI Prompt Engineering đỉnh cao.
+        const prompt = `Bạn là một NHẠC SĨ CA TỪ & BẬC THẦY THI CA ÂM NHẠC HÀNG ĐẦU VIỆT NAM (Master Vietnamese Lyricist & Poetic Songwriter), am hiểu sâu sắc về âm luật thơ ca tiếng Việt, thanh điệu bằng - trắc, nhịp phách và kỹ nghệ Suno AI Prompt Engineering.
 
 THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
-${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (YÊU CẦU QUAN TRỌNG NHẤT: BẮT BUỘC BÁM SÁT TIÊU ĐỀ NÀY LÀM LINH HỒN CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
+${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (QUY TẮC BẮT BUỘC: TIÊU ĐỀ NÀY CHÍNH LÀ LINH HỒN, ĐỀ TÀI VÀ CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
 - Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
 - Chủ đề & Cảm xúc: ${topic || (inputTitle ? `Khai thác sâu sắc câu chuyện và cảm xúc xoay quanh tiêu đề "${inputTitle}"` : 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay')}
 - Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : (currentSunoStyleId === 5 ? 'Một thuở yêu người, trọn vẹn cả thanh xuân.' : (currentSunoStyleId === 6 ? '1, 2, cha-cha-cha, hãy giữ chặt tay nhau!' : '')))))}
 
-YÊU CẦU NHIỆM VỤ CỐT LÕI:
-1. SÁNG TÁC LỜI BÀI HÁT (Lyrics) TIẾNG VIỆT CÓ CHIỀU SÂU & BÁM SÁT TIÊU ĐỀ:
-${inputTitle ? `⭐ QUY TẮC BẮT BUỘC VỀ TIÊU ĐỀ "${inputTitle}":
-- Tiêu đề "${inputTitle}" chính là "linh hồn", đề tài và tư tưởng xuyên suốt của bài hát.
-- Toàn bộ lời bài hát, cốt truyện, diễn biến tâm trạng từ [Verse 1], [Pre-Chorus], [Chorus], [Verse 2] đến [Bridge] PHẢI XOAY QUANH VÀ GIẢI NGHĨA SÂU SẮC CHO TIÊU ĐỀ "${inputTitle}".
-- TỪ KHÓA / CỤM TỪ TIÊU ĐỀ "${inputTitle}" PHẢI ĐƯỢC XUẤT HIỆN TRỰC TIẾP, ĐẮT GIÁ TRONG ĐOẠN [Chorus] (Điệp khúc) hoặc câu [Hook] tạo điểm nhấn bùng nổ, gieo vào tâm trí người nghe giai điệu và ca từ không thể nào quên!
-- Từng câu từng chữ phải ăn khớp và bám sát ngữ cảnh của tiêu đề "${inputTitle}", tuyệt đối không viết chung chung, mơ hồ hay lạc đề.` : '- Hãy tự đặt một tiêu đề thật đắt giá, và sáng tác lời bài hát xoay quanh tiêu đề đó.'}
-- YÊU CẦU CA TỪ: "NÂNG CẤP LỜI NHẠC CÂU TỪ SÂU ĐÚNG TÂM TRẠNG, TUYỆT ĐỐI KHÔNG HỜI HỢT".
-  + Ca từ phải thấm đẫm cảm xúc, giàu tính tự sự, triết lý nhân sinh và hình ảnh thơ ca đẹp, chạm tới trái tim người nghe.
-  + Tuyệt đối không dùng ca từ sáo rỗng, hời hợt, vô nghĩa hay ghép từ vụng về.
-  + Gieo vần điệu chuẩn xác (vần chân, vần lưng, vần đôi/ba), câu chữ gãy gọn, giàu nhạc tính.
-  + Cấu trúc bài hát chuyên nghiệp cho Suno AI với các thẻ meta:
-    [Intro]
-    [Verse 1]
-    [Pre-Chorus]
-    [Chorus]
-    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Interlude - Solo Nhạc Cụ]' : (currentSunoStyleId === 6 ? '[Brass Break - Percussion Solo]' : '[Drop]'))}
-    [Verse 2]
-    [Chorus]
-    [Bridge] (Đoạn cao trào chuyển biến cảm xúc mạnh mẽ nhất)
-    ${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n    [Drop - Final Climax]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Chorus - Climax Cao Trào]' : (currentSunoStyleId === 6 ? '[Chorus - Maximum Energy Big Band]' : '[Drop - Final Climax]'))}
-    [Outro]
+========================================================================
+YÊU CẦU ĐẶC BIỆT CỐT LÕI: "LỜI NHẠC PHẢI CHẠM SÂU TÂM TRẠNG & GIEO VẦN CHUẨN XÁC VỚI NHAU"
+========================================================================
 
-2. TẠO PROMPT STYLE (Style of Music) TIẾNG ANH CHO SUNO AI:
-- ĐẶC BIỆT CHÚ Ý ĐỘ DÀI: BẮT BUỘC TỪ 800 KÝ TỰ VÀ KHÔNG QUÁ 920 KÝ TỰ (Khoảng 830 - 890 ký tự là tối ưu).
-- Dựa trên phong cách kỹ thuật sau:
+⭐ NGUYÊN TẮC 1: NGHỆ THUẬT CHẠM SÂU TÂM TRẠNG (DEEP EMOTIONAL RESONANCE)
+1. BÀI TRỪ TUYỆT ĐỐI SÁO RỖNG (Zero Clichés):
+   - KHÔNG dùng câu chữ hời hợt, vô cảm kiểu: "anh yêu em nhiều lắm", "chúng ta bên nhau", "em ra đi để lại nỗi đau vô bờ", "trái tim anh tan nát"...
+   - NGHỆ THUẬT TẢ CẢNH NGỤ TÌNH & HÌNH TƯỢNG ĐIỆN ẢNH: Sử dụng chi tiết đắt giá chạm vào tiềm thức người nghe (ngọn đèn vàng hắt hiu bóng lẻ, tàn thuốc khuya bên tách cà phê nguội, ngã rẽ cuộc đời buông lơi cái nắm tay, giọt mưa đêm gõ nhịp bên song cửa, chiếc áo cũ sờn phai màu ký ức...).
+2. DIỄN BIẾN TÂM TRẠNG THEO LỚP LANG TỰ SỰ:
+   - [Verse 1]: Mở ra không gian, bối cảnh chân thực và nỗi niềm chất chứa, đặt nhân vật vào một trạng thái cảm xúc tự sự lắng đọng.
+   - [Pre-Chorus]: Nhịp điệu dồn nén, cảm xúc cuộn trào, những giằng xé nội tâm nghẹn ngào chuẩn bị bùng nổ.
+   - [Chorus]: Đỉnh cao bùng nổ cảm xúc! Chứa đựng câu HOOK đắt giá nhất, từ ngữ giàu triết lý nhân sinh, găm sâu vào tim người nghe.
+   - [Verse 2]: Không lặp lại ý Verse 1, mà đào sâu vào ký ức, góc khuất tâm lý hoặc thực tại trớ trêu.
+   - [Bridge]: Khúc quanh cảm xúc, sự đốn ngộ, thức tỉnh, xót xa tột cùng hoặc lời nhắn nhủ thiêng liêng, vị tha xé lòng.
+   - [Outro]: Dư âm lắng đọng, câu chốt nhẹ buông để lại khoảng lặng bồi hồi khôn nguôi.
+3. BÁM SÁT TIÊU ĐỀ "${inputTitle || 'tiêu đề'}":
+   - Từ khóa tiêu đề phải xuất hiện đắt giá ở vị trí trang trọng trong [Chorus] hoặc [Hook].
+
+⭐ NGUYÊN TẮC 2: QUY TẮC GIEO VẦN BẬC THẦY TIẾNG VIỆT (VIETNAMESE RHYME & TONE HARMONY)
+1. BẮT BUỘC GIEO VẦN CHÂN (CƯỚC VẬN - END RHYME):
+   - Từng khổ 4 câu (hoặc cặp 2 câu) PHẢI ăn vần chặt chẽ với nhau theo cấu trúc AABB hoặc ABAB.
+   - Vần phải tự nhiên, khít khao, tuyệt đối KHÔNG ép vần gượng gạo khiến câu văn ngô nghê.
+2. NGHỆ THUẬT GIEO VẦN LƯNG (YÊU VẬN - INTERNAL RHYME):
+   - Chữ cuối của câu trước bắt vần với chữ thứ 3, 4 hoặc 5 của câu sau để tạo dòng chảy giai điệu mượt mà, cuốn hút.
+3. PHỐI THANH ĐIỆU BẰNG - TRẮC (TONE HARMONY):
+   - CUỐI CÂU ĐIỆP KHÚC & CUỐI BÀI BẮT BUỘC BUÔNG THANH BẰNG (Không dấu hoặc Dấu Huyền: ơi, trôi, đời, người, vơi, say, mai...): Tạo độ ngân vang tha thiết, truyền cảm khi ca sĩ hát nốt cao hoặc phiêu luyến.
+   - Giữa câu gài thanh TRẮC (Sắc, Hỏi, Ngã, Nặng) tạo độ nén, nhấn nhá day dứt, biểu đạt nỗi niềm trăn trở.
+4. NHỊP ĐIỆU & ĐỘ DÀI CÂU ĐỒNG ĐỀU (METER & RHYTHM):
+   - Số chữ trong các cặp câu phải cân đối (khổ 7-7 chữ, 8-8 chữ hoặc 6-8), không viết câu dài lê thê vụng về khiến Suno AI bị vấp nhịp.
+
+⭐ NGUYÊN TẮC 3: CẤU TRÚC BÀI HÁT TỐI ƯU CHO SUNO AI
+Bao gồm đầy đủ các thẻ meta:
+[Intro]
+[Verse 1]
+[Pre-Chorus]
+[Chorus]
+${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Interlude - Solo Nhạc Cụ]' : (currentSunoStyleId === 6 ? '[Brass Break - Percussion Solo]' : '[Drop]'))}
+[Verse 2]
+[Chorus]
+[Bridge]
+${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Final Climax]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Chorus - Climax Cao Trào]' : (currentSunoStyleId === 6 ? '[Chorus - Maximum Energy Big Band]' : '[Drop - Final Climax]'))}
+[Outro]
+
+⭐ NGUYÊN TẮC 4: PROMPT STYLE TIẾNG ANH CHO SUNO AI
+- ĐỘ DÀI BẮT BUỘC: TỪ 800 ĐẾN 920 KÝ TỰ (830 - 890 ký tự là tối ưu).
+- Dựa trên phong cách kỹ thuật:
   ${preset.style}
-- Tùy chỉnh chi tiết phong cách trên sao cho hòa quyện với chủ đề, tiêu đề (${inputTitle || 'deep emotional theme'}) và câu hook, giữ vững BPM, nhạc cụ, vocal timbre, build-up, drop, mastering và negative tags (NO ...).
-- BẮT BUỘC đếm và đảm bảo chuỗi prompt style tiếng Anh có tổng độ dài ký tự nằm trong khoảng từ 800 đến 920 ký tự.
-
-3. TÊN BÀI HÁT (Title):
-${inputTitle ? `- BẮT BUỘC trả về chính xác tên bài hát do người dùng chỉ định: "${inputTitle}".` : '- Đặt tên bài hát ngắn gọn, cuốn hút, hợp tâm trạng.'}
+- Tùy chỉnh chi tiết cho khớp với tâm trạng, tiêu đề (${inputTitle || 'deep emotional theme'}) và hook, giữ vững BPM, nhạc cụ, vocal, mastering, và negative tags (NO ...).
 
 Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
@@ -1903,8 +1909,8 @@ Mãi yêu em...
             if (auditExportActions) auditExportActions.style.display = 'none';
             if (auditLoader) auditLoader.style.display = 'block';
 
-            const auditPrompt = `Bạn là một BẬC THẦY THẨM ĐỊNH & SÁNG TÁC CA TỪ HÀNG ĐẦU VIỆT NAM (Master Lyricist, Songwriter & Vocal Coach).
-Bạn có đôi tai thẩm âm tinh tế, am hiểu sâu sắc về thanh điệu tiếng Việt (bằng - trắc, gieo vần chân, vần lưng, vần liên tiếp), nhạc lý cảm xúc, và đặc tính nhịp điệu của từng thể loại nhạc.
+            const auditPrompt = `Bạn là một BẬC THẦY THẨM ĐỊNH & SÁNG TÁC CA TỪ HÀNG ĐẦU VIỆT NAM (Master Lyricist, Poetic Songwriter & Vocal Coach).
+Bạn có đôi tai thẩm âm tinh tế, am hiểu sâu sắc về thanh điệu tiếng Việt (bằng - trắc, gieo vần chân, vần lưng, vần liên tiếp, vần đa âm tiết), nhạc lý cảm xúc, và đặc tính nhịp điệu của từng thể loại nhạc.
 
 DƯỚI ĐÂY LÀ THÔNG TIN BÀI HÁT CẦN THẨM ĐỊNH & NÂNG CẤP CHUYÊN SÂU:
 - TIÊU ĐỀ BÀI HÁT: "${songTitle}"
@@ -1916,9 +1922,9 @@ ${rawLyrics}
 NHIỆM VỤ CỐT LÕI CỦA BẠN:
 1. ĐÁNH GIÁ CHUYÊN SÂU VÀ CHẤM ĐIỂM (Thang điểm 1.0 đến 10.0):
    - Độ chạm cảm xúc (emotionalResonance): Ca từ có thật sự lay động, chân thành, chạm đáy tâm can hay còn sáo rỗng, hời hợt, giả tạo?
-   - Vần điệu & Bằng trắc (rhymeAndFlow): Đánh giá độ khít của vần chân, vần lưng, tính tự nhiên khi hát lên không bị gượng gạo hay ép vần.
+   - Vần điệu & Bằng trắc (rhymeAndFlow): Đánh giá độ khít khao của vần chân, vần lưng, quy tắc buông thanh Bằng ở cuối câu và sự tự nhiên khi hát lên không bị gượng gạo hay ép vần.
    - Nhịp điệu & Độ khít Thể loại (genreFit): Câu từ có ăn khớp với nhịp phách, tiết tấu và năng lượng đặc trưng của thể loại (${genreName}) hay không?
-   - Tính độc đáo & Triết lý (creativeImagery): Hình tượng thơ ca, sự mới mẻ trong ví von, có câu chốt nào đắt giá, viral không?
+   - Tính độc đáo & Triết lý (creativeImagery): Hình tượng thơ ca, sự mới mẻ trong ví von tả cảnh ngụ tình, có câu chốt nào đắt giá, viral không?
    - Điểm tổng quan (overallScore): Trung bình có trọng số.
    - Nhận định tổng quan (generalReview): Viết đoạn văn súc tích, sắc sảo từ góc nhìn chuyên gia.
 
@@ -1929,43 +1935,42 @@ NHIỆM VỤ CỐT LÕI CỦA BẠN:
    - Ghi nhận 2-3 điểm tích cực hoặc ý niệm tốt đẹp trong lời gốc.
 
 4. BẢNG SO SÁNH & GỢI Ý NÂNG CẤP TỪNG ĐOẠN (Line Improvements):
-   - Chọn lọc 3-5 câu/đoạn quan trọng nhất (đặc biệt là [Chorus] điệp khúc, [Bridge] cầu nối và [Verse] mở đầu).
-   - Đưa ra "original" (câu gốc) -> "improved" (câu nâng cấp chạm sâu sắc, giàu hình ảnh thơ, gieo vần tuyệt mỹ) kèm "reason" (lý do nâng cấp).
+   - Chọn ra 3-5 câu yếu nhất, nâng cấp thành câu mới chạm sâu tâm can, gieo vần điêu luyện và giải thích lý do.
 
-5. BẢN LỜI BÀI HÁT HOÀN CHỈNH ĐÃ NÂNG CẤP ĐỈNH CAO (Polished Lyrics):
-   - Viết lại toàn bộ bài hát hoàn chỉnh dựa trên tinh thần gốc nhưng ĐÃ ĐƯỢC NÂNG CẤP TOÀN DIỆN:
-   - Ca từ sâu sắc, giàu nhạc tính, câu từ chạm đáy tâm can, tuyệt đối không hời hợt.
-   - Gieo vần chuẩn xác từng câu, thanh điệu êm ái khi cất giọng.
-   - Giữ đầy đủ cấu trúc thẻ meta chuyên nghiệp cho Suno AI: [Intro], [Verse 1], [Pre-Chorus], [Chorus], [Drop/Interlude], [Verse 2], [Bridge], [Outro]...
+5. PHIÊN BẢN LỜI BÀI HÁT HOÀN CHỈNH NÂNG CẤP ĐỈNH CAO (polishedLyrics):
+   - BẮT BUỘC viết lại toàn bộ bài hát thành phiên bản hoàn hảo nhất:
+     + "CHẠM SÂU TÂM TRẠNG": Tả cảnh ngụ tình, hình ảnh giàu chất thơ, không sáo rỗng, bám sát tiêu đề "${songTitle}".
+     + "GIEO VẦN CHUẨN XÁC 100%": Mỗi khổ thơ phải ăn vần chân (AABB hoặc ABAB), vần lưng mượt mà, cuối câu điệp khúc buông thanh Bằng (ngang/huyền) ngân vang.
+     + Giữ nguyên cấu trúc thẻ Suno AI: [Intro], [Verse 1], [Pre-Chorus], [Chorus], [Verse 2], [Bridge], [Outro].
 
-TRẢ VỀ ĐÚNG ĐỊNH DẠNG JSON SAU (TUYỆT ĐỐI KHÔNG KÈM MARKDOWN \`\`\`json):
+Trả về kết quả ĐÚNG định dạng JSON sau (không kèm markdown \`\`\`json):
 {
   "overallScore": 8.8,
-  "scoreRating": "Cảm Xúc Sâu Sắc & Chạm Đáy Tâm Can",
+  "scoreRating": "Tuyệt Tác Chạm Đáy Cảm Xúc",
   "scores": {
-    "emotionalResonance": 8.5,
-    "rhymeAndFlow": 9.0,
-    "genreFit": 9.2,
-    "creativeImagery": 8.6
+    "emotionalResonance": 9.0,
+    "rhymeAndFlow": 8.7,
+    "genreFit": 8.8,
+    "creativeImagery": 8.9
   },
-  "generalReview": "Nhận xét tổng quan của bậc thầy ca từ...",
+  "generalReview": "Đoạn văn nhận định tổng quan chuyên sâu từ Master Lyricist...",
   "weakPoints": [
-    "Câu '...' còn hời hợt vì...",
-    "Đoạn '...' dùng từ sáo rỗng..."
+    "Điểm yếu 1...",
+    "Điểm yếu 2..."
   ],
   "strongPoints": [
-    "Ý niệm về ... rất đáng khen ngợi...",
-    "Hình ảnh ... tạo cảm giác gần gũi..."
+    "Điểm sáng 1...",
+    "Điểm sáng 2..."
   ],
-  "lineImprovements": [
+  "improvements": [
     {
-      "section": "Chorus (Điệp khúc)",
+      "section": "[Chorus]",
       "original": "Câu gốc...",
-      "improved": "Câu nâng cấp giàu xúc cảm...",
+      "improved": "Câu nâng cấp giàu xúc cảm và gieo vần khít khao...",
       "reason": "Giải thích vì sao câu mới chạm hơn..."
     }
   ],
-  "polishedLyrics": "Toàn bộ bản lời bài hát hoàn chỉnh sau khi nâng cấp..."
+  "polishedLyrics": "Toàn bộ bản lời bài hát hoàn chỉnh sau khi nâng cấp với vần điệu chuẩn xác và cảm xúc sâu lắng..."
 }`;
 
             try {
