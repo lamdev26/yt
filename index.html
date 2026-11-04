@@ -239,8 +239,8 @@
                         <span class="badge">Suno v3.5 / v4 Ready</span>
                     </div>
 
-                    <!-- Lựa chọn 4 thể loại gợi ý -->
-                    <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 6 thể loại gợi ý:</label>
+                    <!-- Lựa chọn 8 thể loại gợi ý -->
+                    <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 8 thể loại gợi ý:</label>
                     <div class="style-selector">
                         <!-- Style 1 -->
                         <div class="style-card" data-style="1">
@@ -337,6 +337,38 @@
                             </div>
                             <p class="style-summary">Kèn đồng Big Band tưng bừng, cowbell và timbales rộn rã, vũ điệu khiêu vũ Latin sang trọng cuốn hút, tràn đầy sức sống.</p>
                         </div>
+
+                        <!-- Style 7: Bolero Miền Tây Sông Nước -->
+                        <div class="style-card" data-style="7">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-water"></i> Thể loại 7: Bolero Miền Tây Việt Nam (Sông Nước Nam Bộ)</span>
+                                <div class="bpm-stepper" data-style="7">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="78" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <p class="style-summary">Đậm chất miền Tây Nam Bộ: guitar phím lõm luyến láy, đàn sến, đàn kìm, nhịp bolero êm đềm, câu hò điệu lý da diết, mộc mạc tình quê phù sa.</p>
+                        </div>
+
+                        <!-- Style 8: Ballad Hiện Đại x Đàn Tranh & Đàn Bầu -->
+                        <div class="style-card" data-style="8">
+                            <div class="style-card-header">
+                                <span class="style-title"><i class="fas fa-spa"></i> Thể loại 8: Ballad Hiện Đại x Đàn Tranh & Bầu</span>
+                                <div class="bpm-stepper" data-style="8">
+                                    <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+                                    <div class="bpm-value-display">
+                                        <input type="number" class="bpm-input" value="105" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+                                        <span class="bpm-unit">BPM</span>
+                                    </div>
+                                    <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <p class="style-summary">Ballad hiện đại nhịp nhanh cuốn hút, đàn tranh luyến láy, đàn bầu ngân rung, vocal luyến láy ngân dài, cao trào mở rộng bùng nổ, plate reverb sáng vang mượt.</p>
+                        </div>
                     </div>
 
                     <!-- Ô nhập Tiêu đề / Tên bài hát -->
@@ -355,6 +387,8 @@
                         <span class="tag-chip title-chip" data-title="Lạc Lối Đêm Phố Thị">🏙️ Lạc Lối Đêm Phố Thị</span>
                         <span class="tag-chip title-chip" data-title="Đêm Mưa Nhớ Người">🌧️ Đêm Mưa Nhớ Người</span>
                         <span class="tag-chip title-chip" data-title="Vũ Điệu Say Tình">💃 Vũ Điệu Say Tình</span>
+                        <span class="tag-chip title-chip" data-title="Thương Em Con Nước Vơi Đầy">🌾 Thương Em Con Nước Vơi Đầy</span>
+                        <span class="tag-chip title-chip" data-title="Bến Trăng Vọng Nguyệt">🎋 Bến Trăng Vọng Nguyệt</span>
                     </div>
 
                     <!-- Ô nhập Chủ đề / Cảm xúc -->
@@ -363,7 +397,7 @@
                         <textarea id="sunoTopic" placeholder="Ví dụ: Tình yêu chân thành bền bỉ bất chấp năm tháng đổi thay, dù xa cách hay giông bão vẫn một lòng hướng về nhau..."></textarea>
                     </div>
 
-                    <!-- Gợi ý nhanh chủ đề -->
+                    <!-- Gợi ý nhanh chủ đề (36 chủ đề cảm xúc sâu sắc toàn diện) -->
                     <div class="quick-tags">
                         <!-- Nhóm 1: Tình yêu & Hạnh phúc -->
                         <span class="tag-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
@@ -546,6 +580,8 @@
                             <option value="rumba">🌧️ Vietnamese Rumba x Latin Acoustic Ballad (100 BPM)</option>
                             <option value="chacha">💃 Vietnamese Cha Cha Cha x Latin Big Band (128 BPM)</option>
                             <option value="rap_jersey">🎤 Rap Pop x Jersey Club x Afrobeat (128 BPM)</option>
+                            <option value="bolero_mientay">🌾 Bolero Miền Tây Sông Nước Nam Bộ (78 BPM)</option>
+                            <option value="ballad_dantoc">🎋 Ballad Hiện Đại x Đàn Tranh & Đàn Bầu (105 BPM)</option>
                             <option value="nhactre">🌟 Nhạc Trẻ Hot Trend / TikTok Viral</option>
                             <option value="rnb">🌙 Modern R&B / Soul / Lofi Chill</option>
                             <option value="bolero">🍂 Bolero Trữ Tình Quê Hương</option>
@@ -560,6 +596,8 @@
                         <span class="tag-chip audit-genre-chip" data-genre="rumba">🌧️ Rumba</span>
                         <span class="tag-chip audit-genre-chip" data-genre="chacha">💃 Cha Cha Cha</span>
                         <span class="tag-chip audit-genre-chip" data-genre="rap_jersey">🎤 Rap/Jersey</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="bolero_mientay">🌾 Bolero Miền Tây</span>
+                        <span class="tag-chip audit-genre-chip" data-genre="ballad_dantoc">🎋 Ballad Đàn Tranh/Bầu</span>
                     </div>
 
                     <!-- Tiêu đề bài hát -->
@@ -579,55 +617,55 @@
                         <textarea id="auditTopic" rows="3" placeholder="Tự động đồng bộ với chủ đề đã chọn ở Tab Suno AI Studio (hoặc chọn thêm ở các chip bên dưới)..."></textarea>
                     </div>
 
-                    <!-- Gợi ý nhanh chủ đề (18 chủ đề phong phú đồng bộ với Tab Suno) -->
+                    <!-- Gợi ý nhanh chủ đề (36 chủ đề cảm xúc sâu sắc đồng bộ với Tab Suno) -->
                     <div class="quick-tags audit-topic-tags">
                         <!-- Nhóm 1: Tình yêu & Hạnh phúc -->
-                        <span class="tag-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
-                        <span class="tag-chip" data-topic="Cảm xúc say đắm khi mới yêu, từng ánh mắt cử chỉ đều đong đầy mật ngọt hạnh phúc">🍯 Ngọt ngào say đắm</span>
-                        <span class="tag-chip" data-topic="Giây phút trao nhẫn cưới thiêng liêng, lời thề nguyện cùng nhau già đi đến đầu bạc răng long">💍 Lời thề trăm năm</span>
-                        <span class="tag-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
-                        <span class="tag-chip" data-topic="Sức sống mãnh liệt của hy vọng, niềm tin vào ngày mai tươi sáng tựa chồi non đón nắng xuân">🌸 Hy vọng mùa xuân</span>
-                        <span class="tag-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Cảm xúc say đắm khi mới yêu, từng ánh mắt cử chỉ đều đong đầy mật ngọt hạnh phúc">🍯 Ngọt ngào say đắm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Giây phút trao nhẫn cưới thiêng liêng, lời thề nguyện cùng nhau già đi đến đầu bạc răng long">💍 Lời thề trăm năm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Sức sống mãnh liệt của hy vọng, niềm tin vào ngày mai tươi sáng tựa chồi non đón nắng xuân">🌸 Hy vọng mùa xuân</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
 
                         <!-- Nhóm 2: Nỗi đau chia ly & Tổn thương -->
-                        <span class="tag-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
-                        <span class="tag-chip" data-topic="Nỗi đau bị phản bội dối lừa, niềm tin vụn vỡ sau bao hy sinh chân thành">🖤 Bị phản bội & Dối lừa</span>
-                        <span class="tag-chip" data-topic="Gặp đúng người nhưng sai thời điểm, duyên phận dở dang ôm nỗi tiếc thương trọn đời">⏳ Đúng người sai thời điểm</span>
-                        <span class="tag-chip" data-topic="Mối tình tay ba éo le giằng xé, người đến sau ngậm ngùi buông tay trong xót xa">🥀 Tình tay ba ngang trái</span>
-                        <span class="tag-chip" data-topic="Giá như ngày ấy biết trân trọng hơn, giờ đây chỉ còn nỗi ân hận muộn màng khôn nguôi">🌧️ Hối hận muộn màng</span>
-                        <span class="tag-chip" data-topic="Sự im lặng đáng sợ, những khoảng cách vô hình và hoài nghi bào mòn tình yêu từng ngày">❄️ Rạn nứt âm thầm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi đau bị phản bội dối lừa, niềm tin vụn vỡ sau bao hy sinh chân thành">🖤 Bị phản bội & Dối lừa</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Gặp đúng người nhưng sai thời điểm, duyên phận dở dang ôm nỗi tiếc thương trọn đời">⏳ Đúng người sai thời điểm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Mối tình tay ba éo le giằng xé, người đến sau ngậm ngùi buông tay trong xót xa">🥀 Tình tay ba ngang trái</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Giá như ngày ấy biết trân trọng hơn, giờ đây chỉ còn nỗi ân hận muộn màng khôn nguôi">🌧️ Hối hận muộn màng</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Sự im lặng đáng sợ, những khoảng cách vô hình và hoài nghi bào mòn tình yêu từng ngày">❄️ Rạn nứt âm thầm</span>
 
                         <!-- Nhóm 3: Nỗi nhớ, Hoài niệm & Đơn phương -->
-                        <span class="tag-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
-                        <span class="tag-chip" data-topic="Tình cảm thầm kín không dám ngỏ, niềm vui nhỏ nhoi khi được dõi theo ai đó từ xa">💌 Yêu đơn phương</span>
-                        <span class="tag-chip" data-topic="Mắc kẹt ở ranh giới tình bạn và tình yêu, sợ tỏ tình sẽ đánh mất nhau mãi mãi">👥 Ranh giới Friendzone</span>
-                        <span class="tag-chip" data-topic="Tình yêu xa cách nghìn trùng địa lý, gửi gắm nỗi nhớ qua màn hình và lời hẹn ước ngày về">✈️ Tình yêu xa cách</span>
-                        <span class="tag-chip" data-topic="Kỷ niệm tuổi học trò thơ ngây, mối tình đầu trong sáng vương vấn cả một thời áo trắng">🎒 Mối tình đầu thanh xuân</span>
-                        <span class="tag-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình cảm thầm kín không dám ngỏ, niềm vui nhỏ nhoi khi được dõi theo ai đó từ xa">💌 Yêu đơn phương</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Mắc kẹt ở ranh giới tình bạn và tình yêu, sợ tỏ tình sẽ đánh mất nhau mãi mãi">👥 Ranh giới Friendzone</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình yêu xa cách nghìn trùng địa lý, gửi gắm nỗi nhớ qua màn hình và lời hẹn ước ngày về">✈️ Tình yêu xa cách</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Kỷ niệm tuổi học trò thơ ngây, mối tình đầu trong sáng vương vấn cả một thời áo trắng">🎒 Mối tình đầu thanh xuân</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
 
                         <!-- Nhóm 4: Tâm trạng đêm muộn & Cô đơn -->
-                        <span class="tag-chip" data-topic="Mượn chén rượu cay trút cạn nỗi sầu, say trong ảo mộng để quên đi vết thương lòng">🍷 Mượn rượu giải sầu</span>
-                        <span class="tag-chip" data-topic="Cảm giác lạc lõng, cô đơn giữa phố thị ồn ào và khao khát được thấu hiểu">🥀 Nỗi buồn cô đơn</span>
-                        <span class="tag-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
-                        <span class="tag-chip" data-topic="Đêm tĩnh lặng dưới ánh trăng mờ, tự đối thoại với chính mình và những suy tư sâu kín">🌙 Đêm trăng tự sự</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Mượn chén rượu cay trút cạn nỗi sầu, say trong ảo mộng để quên đi vết thương lòng">🍷 Mượn rượu giải sầu</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Cảm giác lạc lõng, cô đơn giữa phố thị ồn ào và khao khát được thấu hiểu">🥀 Nỗi buồn cô đơn</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Đêm tĩnh lặng dưới ánh trăng mờ, tự đối thoại với chính mình và những suy tư sâu kín">🌙 Đêm trăng tự sự</span>
 
                         <!-- Nhóm 5: Ý chí, Bản lĩnh & Chữa lành -->
-                        <span class="tag-chip" data-topic="Hết duyên buông tay trong thanh thản, không oán trách, cảm ơn vì đã từng là một phần tươi đẹp">🕊️ Buông tay nhẹ nhàng</span>
-                        <span class="tag-chip" data-topic="Hành trình tự chữa lành những tổn thương, tìm về sự bình yên trong tâm hồn">🌿 Chữa lành tâm hồn</span>
-                        <span class="tag-chip" data-topic="Dũng cảm buông bỏ quá khứ đau buồn, mỉm cười đón nhận một khởi đầu mới">🌅 Khởi đầu mới</span>
-                        <span class="tag-chip" data-topic="Không bi lụy sau tổn thương, đứng dậy mạnh mẽ kiêu hãnh và bất cần trước mọi lọc lừa">🦅 Kiêu hãnh bất cần</span>
-                        <span class="tag-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
-                        <span class="tag-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
-                        <span class="tag-chip" data-topic="Hành trình nỗ lực theo đuổi đam mê, không bao giờ bỏ cuộc trước thất bại">🌟 Theo đuổi đam mê</span>
-                        <span class="tag-chip" data-topic="Áp lực cơm áo gạo tiền, những giọt mồ hôi mặn chát và sự kiên trì mưu sinh nơi xứ người">💼 Gánh nặng mưu sinh</span>
-                        <span class="tag-chip" data-topic="Tạm gác lại âu lo phố thị xô bồ, rong ruổi trên cung đường phượt tìm về với thiên nhiên tự do">🛵 Rong ruổi tự do</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Hết duyên buông tay trong thanh thản, không oán trách, cảm ơn vì đã từng là một phần tươi đẹp">🕊️ Buông tay nhẹ nhàng</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Hành trình tự chữa lành những tổn thương, tìm về sự bình yên trong tâm hồn">🌿 Chữa lành tâm hồn</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Dũng cảm buông bỏ quá khứ đau buồn, mỉm cười đón nhận một khởi đầu mới">🌅 Khởi đầu mới</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Không bi lụy sau tổn thương, đứng dậy mạnh mẽ kiêu hãnh và bất cần trước mọi lọc lừa">🦅 Kiêu hãnh bất cần</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Hành trình nỗ lực theo đuổi đam mê, không bao giờ bỏ cuộc trước thất bại">🌟 Theo đuổi đam mê</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Áp lực cơm áo gạo tiền, những giọt mồ hôi mặn chát và sự kiên trì mưu sinh nơi xứ người">💼 Gánh nặng mưu sinh</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tạm gác lại âu lo phố thị xô bồ, rong ruổi trên cung đường phượt tìm về với thiên nhiên tự do">🛵 Rong ruổi tự do</span>
 
                         <!-- Nhóm 6: Gia đình, Quê hương & Tình thâm -->
-                        <span class="tag-chip" data-topic="Tình mẫu tử thiêng liêng, bao la như biển cả và sự hy sinh thầm lặng của mẹ">👩‍👧 Tình mẹ bao la</span>
-                        <span class="tag-chip" data-topic="Bóng lưng gầy lặng lẽ của cha, tình thương thầm lặng tựa núi cao chở che con suốt cuộc đời">👨‍👦 Tình cha trầm lặng</span>
-                        <span class="tag-chip" data-topic="Bữa cơm gia đình ấm cúng, chốn bình yên duy nhất dang tay đón con trở về sau giông bão">🍲 Mái ấm gia đình</span>
-                        <span class="tag-chip" data-topic="Nỗi nhớ quê hương da diết, những hoài niệm mộc mạc về tuổi thơ yên bình">🏡 Nhớ về quê hương</span>
-                        <span class="tag-chip" data-topic="Tình bạn tri kỷ, luôn sát cánh đồng hành qua mọi thăng trầm của cuộc sống">🤝 Tình bạn tri kỷ</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình mẫu tử thiêng liêng, bao la như biển cả và sự hy sinh thầm lặng của mẹ">👩‍👧 Tình mẹ bao la</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Bóng lưng gầy lặng lẽ của cha, tình thương thầm lặng tựa núi cao chở che con suốt cuộc đời">👨‍👦 Tình cha trầm lặng</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Bữa cơm gia đình ấm cúng, chốn bình yên duy nhất dang tay đón con trở về sau giông bão">🍲 Mái ấm gia đình</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ quê hương da diết, những hoài niệm mộc mạc về tuổi thơ yên bình">🏡 Nhớ về quê hương</span>
+                        <span class="tag-chip audit-topic-chip" data-topic="Tình bạn tri kỷ, luôn sát cánh đồng hành qua mọi thăng trầm của cuộc sống">🤝 Tình bạn tri kỷ</span>
                     </div>
 
                     <!-- Lời bài hát cần kiểm tra -->
