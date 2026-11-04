@@ -826,12 +826,14 @@ YÊU CẦU ĐẶC BIỆT:
     // SUNO AI STUDIO LOGIC & PRESETS
     // ==========================================
     const STYLE_TO_AUDIT_GENRE = {
-        1: 'vinahouse',
-        2: 'ballad',
-        3: 'jerk_drill',
-        4: 'rumba',
-        5: 'chacha',
-        6: 'rap_jersey'
+        1: 'rap_jersey',
+        2: 'vinahouse',
+        3: 'ballad',
+        4: 'jerk_drill',
+        5: 'rumba',
+        6: 'chacha',
+        7: 'bolero_mientay',
+        8: 'ballad_dantoc'
     };
     const SUNO_PRESETS = {
         1: {
@@ -1183,6 +1185,130 @@ Yêu là đắm say, ngập tràn muôn sắc hoa!
 [Outro]
 (Cha-cha-cha! Final brass hit & laughter)
 Vũ điệu say tình... ngập tràn hạnh phúc!`
+        },
+        7: {
+            id: 7,
+            name: "Vietnamese Western Bolero (Sông Nước Nam Bộ)",
+            bpm: 78,
+            title: "Thương Em Con Nước Vơi Đầy",
+            style: "Vietnamese Western Bolero, 78 BPM slow gentle river sway, authentic Southern folk ballad. Melancholic Vietnamese scooped-fret guitar (guitar phim lom) with delicate weeping pitch bends, lyrical Dan Sen lute, warm resonant Dan Bau monochord glides, and subtle wooden song lang percussion. Sincere rustic Southern vocal (male or female), deep soulful phrasing, authentic vibrato, emotive delta storytelling. Soft acoustic nylon guitar, warm upright bass, nostalgic accordion fills, sweet distant bamboo flute. Intimate intro with folk chant (cau ho), tearful verses, soaring heartfelt chorus, emotional guitar solo bridge, fading peaceful outro. Wide acoustic stereo imaging, vintage tube analog console warmth, intimate pristine vocal mix, broadcast-ready master. NO EDM, NO fast beat, NO harsh autotune, NO modern synth, NO heavy drums, NO dance tempo.",
+            lyrics: `[Intro - Câu Hò & Guitar Phím Lõm]
+(Tiếng sóng vỗ mạn thuyền, tiếng hò ngân xa, guitar phím lõm luyến láy da diết)
+[Hò]: Hò ơ... Gió đưa bông sậy về trời...
+Chớ người thương ở lại... chịu đời đắng cay...
+
+[Verse 1]
+Chiều buông nghiêng bóng con đò nhỏ qua sông
+Gió thổi bên sông nghe buốt lạnh trong lòng
+Thương nhánh lục bình trôi dạt về nơi đâu
+Như kiếp nghèo anh mang nặng một khối sầu.
+
+[Verse 2]
+Mấy mùa mưa nắng dãi dầu chốn miền quê
+Vẫn nhớ câu thề ngày hai đứa chung đê
+Em bảo đợi anh dẫu con nước vơi đầy
+Sao nỡ vội quên bao ân tình đắp xây?
+
+[Pre-Chorus]
+Đàn sến buông lơi từng giọt sầu rơi rụng
+Tiếng thở dài hòa cùng sóng nước mênh mông
+Người ta giàu sang gấm lụa rước em về
+Bỏ lại bến xưa một người hoài ngóng trông...
+
+[Chorus]
+Thương em con nước vơi đầy, lòng này ai thấu?
+Bao nhiêu cay đắng anh gom giấu tận đáy lòng!
+Phù sa bồi đắp cho ruộng đồng xanh mướt
+Sao chẳng bồi đắp duyên mình được bền lâu?
+
+[Interlude - Đàn Sến & Guitar Phím Lõm Miền Tây]
+(Tiếng guitar phím lõm luyến láy nức nở, nhịp song lang gõ đều, đàn sến da diết)
+
+[Verse 3]
+Đêm lạnh Hậu Giang ánh trăng vàng soi bóng
+Thắt thẻo câu hò ai hát giữa dòng sông
+Đã lỡ cung đàn dang dở một đường tơ
+Trách phận bèo mây chẳng giữ được chữ ngờ.
+
+[Bridge - Tự Sự Miền Tây]
+Nếu có kiếp sau xin làm nhánh bần trôi
+Đứng đợi người xưa dẫu vật đổi sao dời
+Không trách em đi theo bến đỗ sang giàu
+Chỉ mong em cười... trọn vẹn kiếp mai sau...
+
+[Chorus - Đậm Chất Miền Tây Ngân Dài Mùi Mẫn]
+Thương em con nước vơi đầy, lòng này ai thấu?
+Bao nhiêu cay đắng anh gom giấu tận đáy lòng!
+Phù sa bồi đắp cho ruộng đồng xanh mướt
+Sao chẳng bồi đắp duyên mình được bền lâu?
+
+[Outro - Tiếng Hò Buông Lơi]
+(Guitar phím lõm gảy nốt trầm, sóng vỗ nhẹ)
+Nước chảy xuôi dòng...
+Tình nghèo... gửi lại dòng sông.
+[Fade Out]`
+        },
+        8: {
+            id: 8,
+            name: "Ballad Hiện Đại x Đàn Tranh & Đàn Bầu",
+            bpm: 105,
+            title: "Bến Trăng Vọng Nguyệt",
+            style: "Modern Vietnamese Folk Pop Ballad, 105 BPM upbeat driving tempo, captivating rhythm. Virtuosic Vietnamese Dan Tranh (zither) intricate pentatonic cascades, expressive Dan Bau (monochord) emotional bending and rich vibrato. Expressive male or female vocal, rich traditional melisma, graceful vocal ornamentations, soaring sustained high notes. Emotional grand piano chords, lush cinematic strings build-up, punchy pop drum groove, warm sub bass. Dramatic explosive crescendo expanding into an anthemic soaring chorus, emotional bridge with Dan Tranh and Dan Bau duel solo. Vocal treated with bright plate reverb and silky spacious hall ambience, pristine upfront vocal mix, radio-ready broadcast master. Dynamic arrangement from intimate folk verses to epic cathartic climax. NO flat chorus, NO slow tempo, NO dull vocal, NO muddy low-end, NO harsh autotune, NO robotic artifacts.",
+            lyrics: `[Intro - Đàn Tranh & Đàn Bầu Solo]
+(Tiếng đàn tranh tỉa giọt mưa lả lướt, đàn bầu ngân rung bổng trầm, piano đệm nhẹ)
+
+[Verse 1]
+Màn đêm buông xuống bến sông ánh trăng soi nghiêng
+Từng phím tơ vương tiếng đàn ai oán ưu phiền
+Người đi biền biệt khuất mờ sau làn sương khói
+Gió lay rèm thưa để lại muôn vàn nhức nhối.
+
+[Verse 2]
+Cung đàn buông lơi trách người sao vội sang ngang
+Đành lòng chôn giấu mối duyên xưa dẫu lỡ làng
+Rượu nồng chưa nhấp mà lòng đã say men đắng
+Ánh trăng tàn phai rơi rớt giữa trời hoang vắng.
+
+[Pre-Chorus]
+(Nhịp trống dồn dập, tiết tấu tăng dần cuốn hút, đàn dây cuộn trào)
+Đàn tranh réo rắt khơi bừng lên bao vết thương sâu
+Đàn bầu ngân nga tiếc cho duyên kiếp ban đầu
+Nấc nghẹn từng cơn giữa đêm lạnh lùng băng giá
+Bước chân người đi... sao nỡ vô tình rời xa?
+
+[Chorus - Cao Trào Mở Rộng Bùng Nổ]
+(Bright plate reverb, vocal ngân dài phiêu luyến, không gian vang mượt)
+Nguyện hóa cánh chim trời bay qua muôn trùng bão giông!
+Tìm lại ký ức một thời son sắt bên dòng sông
+Dẫu biết trăm năm tình này hóa thành tro bụi
+Vẫn đợi người về... dẫu bạc trắng cả thanh xuân!
+
+[Interlude - Đàn Tranh Luyến Láy & Đàn Bầu Ngân Rung Solo]
+(Đàn tranh tỉa ngũ cung dồn dập, đàn bầu uốn nốt nức nở, trống pop hiện đại hòa quyện)
+
+[Verse 3]
+Thời gian trôi mãi cuốn trôi đi bao lời hẹn ước
+Ngoảnh lại nhìn nhau giọt lệ vương sầu mi ướt
+Trách trời cao xanh sao nỡ gieo chi ngang trái
+Để mối tơ duyên ngàn kiếp chẳng thể nguôi ngoai!
+
+[Bridge - Đỉnh Điểm Cảm Xúc]
+Mượn chén trăng tàn chúc người một đời an yên
+Dẫu trái tim này mang nặng muôn ngàn oan khiên
+Đàn tranh đứt đoạn... đàn bầu nghẹn ngào buông lơi
+Kiếp này lỡ hẹn... xin hẹn người ở kiếp sau!
+
+[Chorus - Cao Trào Mở Rộng Bùng Nổ Plate Reverb]
+Nguyện hóa cánh chim trời bay qua muôn trùng bão giông!
+Tìm lại ký ức một thời son sắt bên dòng sông
+Dẫu biết trăm năm tình này hóa thành tro bụi
+Vẫn đợi người về... dẫu bạc trắng cả thanh xuân!
+
+[Outro - Tiếng Đàn Bầu Ngân Dài Chìm Dần]
+(Đàn bầu rung nốt dài thăm thẳm, plate reverb vang mượt mờ dần)
+Bến trăng xưa...
+Vẫn ngóng đợi người...
+[Fade Out]`
         }
     };
         let currentSunoStyleId = 2; // Mặc định Thể loại 2 (Vinahouse)
@@ -1205,6 +1331,11 @@ Vũ điệu say tình... ngập tràn hạnh phúc!`
         styleCards.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         currentSunoStyleId = parseInt(card.getAttribute('data-style'));
+
+        // Đồng bộ thể loại ngay lập tức sang Tab 3
+        if (auditGenreSelect && STYLE_TO_AUDIT_GENRE[currentSunoStyleId]) {
+            auditGenreSelect.value = STYLE_TO_AUDIT_GENRE[currentSunoStyleId];
+        }
     }
 
     styleCards.forEach(card => {
@@ -1487,7 +1618,7 @@ Vũ điệu say tình... ngập tràn hạnh phúc!`
         currentAuditData = null;
 
         // Reset BPM về mặc định ban đầu
-        const defaultBpms = { 1: 128, 2: 140, 3: 82, 4: 122, 5: 100, 6: 128 };
+        const defaultBpms = { 1: 128, 2: 140, 3: 82, 4: 122, 5: 100, 6: 128, 7: 78, 8: 105 };
         document.querySelectorAll('.bpm-input').forEach(inp => {
             const st = inp.closest('.bpm-stepper')?.getAttribute('data-style');
             if (st && defaultBpms[st]) {
@@ -1502,7 +1633,7 @@ THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
 ${inputTitle ? `- TIÊU ĐỀ BÀI HÁT: "${inputTitle}" (QUY TẮC BẮT BUỘC: TIÊU ĐỀ NÀY CHÍNH LÀ LINH HỒN, ĐỀ TÀI VÀ CỐT LÕI CỦA BÀI HÁT)` : '- TIÊU ĐỀ BÀI HÁT: Tự đặt tên bài hát thật sâu sắc, cuốn hút và đúng tâm trạng'}
 - Thể loại âm nhạc: ${preset.name} (${preset.bpm} BPM).
 - Chủ đề & Cảm xúc: ${topic || (inputTitle ? `Khai thác sâu sắc câu chuyện và cảm xúc xoay quanh tiêu đề "${inputTitle}"` : 'Tình yêu chân thành, bền chặt bất chấp năm tháng đổi thay')}
-- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : (currentSunoStyleId === 5 ? 'Một thuở yêu người, trọn vẹn cả thanh xuân.' : (currentSunoStyleId === 6 ? '1, 2, cha-cha-cha, hãy giữ chặt tay nhau!' : '')))))}
+- Điểm nhấn / Câu Hook: ${hook || (inputTitle ? `Lồng ghép từ khóa tiêu đề "${inputTitle}" vào câu hook hoặc điệp khúc` : (currentSunoStyleId === 2 ? 'Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.' : (currentSunoStyleId === 4 ? 'Phố thị không ngủ, ta thuộc về nhau.' : (currentSunoStyleId === 5 ? 'Một thuở yêu người, trọn vẹn cả thanh xuân.' : (currentSunoStyleId === 6 ? '1, 2, cha-cha-cha, hãy giữ chặt tay nhau!' : (currentSunoStyleId === 7 ? 'Thương em một đời, son sắt tình phù sa.' : (currentSunoStyleId === 8 ? 'Đàn buông tiếng tơ, ngàn năm luyến nhớ bóng hình xưa.' : '')))))))}
 
 ========================================================================
 YÊU CẦU ĐẶC BIỆT CỐT LÕI: "LỜI NHẠC PHẢI CHẠM SÂU TÂM TRẠNG & GIEO VẦN CHUẨN XÁC VỚI NHAU"
@@ -1540,11 +1671,11 @@ Bao gồm đầy đủ các thẻ meta:
 [Verse 1]
 [Pre-Chorus]
 [Chorus]
-${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Interlude - Solo Nhạc Cụ]' : (currentSunoStyleId === 6 ? '[Brass Break - Percussion Solo]' : '[Drop]'))}
+${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Bouncy 808 Jerk Drill]' : (currentSunoStyleId === 3 ? '[Interlude - Soaring Cello & Strings Solo]' : (currentSunoStyleId === 5 ? '[Interlude - Spanish Guitar Solo]' : (currentSunoStyleId === 6 ? '[Brass Break - Percussion Solo]' : (currentSunoStyleId === 7 ? '[Interlude - Đàn Sến & Guitar Phím Lõm Miền Tây]' : (currentSunoStyleId === 8 ? '[Interlude - Đàn Tranh Luyến Láy & Đàn Bầu Ngân Rung Solo]' : '[Drop]')))))}
 [Verse 2]
 [Chorus]
 [Bridge]
-${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Final Climax]' : (currentSunoStyleId === 3 || currentSunoStyleId === 5 ? '[Chorus - Climax Cao Trào]' : (currentSunoStyleId === 6 ? '[Chorus - Maximum Energy Big Band]' : '[Drop - Final Climax]'))}
+${currentSunoStyleId === 4 ? '[Bass Freeze - Hook]\n[Drop - Final Climax]' : (currentSunoStyleId === 3 ? '[Chorus - Climax Full Strings]' : (currentSunoStyleId === 5 ? '[Chorus - Emotional Climax]' : (currentSunoStyleId === 6 ? '[Chorus - Maximum Energy Big Band]' : (currentSunoStyleId === 7 ? '[Chorus - Đậm Chất Miền Tây Ngân Dài Mùi Mẫn]' : (currentSunoStyleId === 8 ? '[Chorus - Cao Trào Mở Rộng Bùng Nổ Plate Reverb]' : '[Drop - Final Climax]')))))}
 [Outro]
 
 ⭐ NGUYÊN TẮC 4: PROMPT STYLE TIẾNG ANH CHO SUNO AI
