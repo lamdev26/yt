@@ -63,18 +63,81 @@
         <!-- TAB 1: YOUTUBE MUSIC SEO -->
         <div id="tab-youtube" class="tab-pane active">
             <div class="main-grid">
-                <!-- Cột trái: Đầu vào -->
+                <!-- Cột trái: Đầu vào SEO YouTube -->
                 <div class="panel input-panel">
-                    <div class="panel-header">
-                        <h2><i class="fas fa-list-ol"></i> Danh sách bài hát</h2>
-                        <span id="songCount" class="badge">0 bài</span>
+                    <!-- Thanh chọn Chế độ: Đăng lẻ 1 bài (Single Track) vs Playlist / Nonstop -->
+                    <div class="seo-mode-switch">
+                        <button type="button" class="seo-mode-tab active" data-mode="playlist" id="btnModePlaylist">
+                            <i class="fas fa-layer-group"></i> <span>Playlist / Nonstop (Nhiều bài)</span>
+                        </button>
+                        <button type="button" class="seo-mode-tab" data-mode="single" id="btnModeSingle">
+                            <i class="fas fa-music"></i> <span>Đăng Lẻ 1 Bài (Single Track)</span>
+                        </button>
                     </div>
-                    <p class="hint">Nhập theo định dạng: <code>Tên bài hát - 03:45</code> hoặc <code>Tên bài hát 03:45</code></p>
-                    <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Đừng làm trái tim anh đau - 04:30&#10;Chạy ngay đi 04:15&#10;Nơi này có anh - 04:20"></textarea>
-                    
+
+                    <!-- KHỐI 1: Chế độ Playlist / Nonstop (Tổng hợp nhiều bài) -->
+                    <div id="seoPlaylistInputGroup" class="seo-input-group">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-list-ol"></i> Danh sách bài hát Playlist</h2>
+                            <span id="songCount" class="badge">0 bài</span>
+                        </div>
+                        <p class="hint">Nhập danh sách: <code>Tên bài hát - 03:45</code> (Tự tính Timestamp & tự trích 2-3 bài hot nhất lên tiêu đề)</p>
+                        <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Lỡ Yêu Em Mất Rồi - 04:30&#10;Yêu Đi Đừng Sợ - 03:45&#10;Nụ Hôn Ngọt Ngào - 04:15&#10;Thương Em Nhất - 03:50"></textarea>
+                    </div>
+
+                    <!-- KHỐI 2: Chế độ Đăng Lẻ 1 Bài (Single Track) -->
+                    <div id="seoSingleInputGroup" class="seo-input-group" style="display: none;">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-compact-disc"></i> Thông tin bài hát đăng lẻ</h2>
+                            <span class="badge badge-single-tag">Single Track</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="singleSongTitle"><i class="fas fa-heading"></i> Tên bài hát (Đặt ngay 3-5 từ đầu tiên của tiêu đề):</label>
+                            <input type="text" id="singleSongTitle" placeholder="Ví dụ: Lỡ Yêu Em Mất Rồi, Yêu Đi Đừng Sợ, Nụ Hôn Ngọt Ngào...">
+                        </div>
+                    </div>
+
+                    <!-- THÔNG TIN PHỤ TRỢ NÂNG CAO CHO CẢ 2 CHẾ ĐỘ -->
+                    <div class="seo-advanced-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="seoChannelOrProducer"><i class="fas fa-user-astronaut"></i> Tên Kênh / DJ / Producer:</label>
+                            <input type="text" id="seoChannelOrProducer" placeholder="Ví dụ: DJ ABC, Remix Channel, Thảo Phạm...">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="seoMusicGenre"><i class="fas fa-sliders-h"></i> Thể loại nhạc:</label>
+                            <input type="text" id="seoMusicGenre" placeholder="Ví dụ: Vinahouse Remix, EDM Dance..." list="seoGenreList">
+                            <datalist id="seoGenreList">
+                                <option value="Vinahouse Remix">
+                                <option value="EDM Dance Remix">
+                                <option value="Nhạc Trẻ Remix">
+                                <option value="Vietnamese Jerk Drill">
+                                <option value="Pop Ballad">
+                                <option value="Rumba Remix">
+                                <option value="Cha Cha Cha Remix">
+                                <option value="Bolero Miền Tây">
+                                <option value="Lofi Chill">
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <!-- GỢI Ý CHIP HẬU TỐ HÚT CLICK & TỪ KHÓA TREND -->
+                    <div class="form-group">
+                        <label><i class="fas fa-tags"></i> Hậu tố hút click & Từ khóa Trend (Bấm để thêm nhanh):</label>
+                        <div class="quick-tags seo-quick-tags" id="seoTrendChips">
+                            <span class="tag-chip seo-trend-chip" data-trend="TikTok Hot Trend 2026">🔥 TikTok Hot Trend 2026</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Nhạc Trẻ Remix Quẩy Cực Sung">⚡ Nhạc Trẻ Remix Quẩy Cực Sung</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Nhạc Bãi Bay Bass Cực Căng">🔊 Nhạc Bãi Bay Bass Cực Căng</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Tuyển Tập Nhạc Club Quẩy Nát Sàn">💃 Tuyển Tập Club Quẩy Nát Sàn</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Bass Boosted">🎧 Bass Boosted</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Nhạc Gây Nghiện">🌟 Nhạc Gây Nghiện</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Official Audio">💎 Official Audio</span>
+                            <span class="tag-chip seo-trend-chip" data-trend="Lyric Video">📝 Lyric Video</span>
+                        </div>
+                    </div>
+
                     <div class="action-buttons">
-                        <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Timestamp & SEO (AI)</button>
-                        <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Chỉ tính Timestamp</button>
+                        <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Tiêu Đề SEO & Timestamp (AI)</button>
+                        <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Tiêu Đề Mẫu Chuẩn (Offline)</button>
                     </div>
                 </div>
 
@@ -103,77 +166,105 @@
                         <!-- Phần Gợi ý Tiêu đề SEO Hot -->
                         <div class="output-section titles-section">
                             <div class="section-title-wrap">
-                                <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi ý Tiêu đề SEO Hot (Tối ưu tìm kiếm YouTube)</h3>
-                                <span class="section-hint">5 phong cách tiêu đề - Bấm Copy để lấy tiêu đề ưng ý</span>
+                                <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi Ý 5 Tiêu Đề SEO YouTube Chuẩn Thuật Toán 2026</h3>
+                                <span class="section-hint" id="seoTitleHint">Tối ưu từ khóa từ trái sang phải • Độ dài vàng 60-70 ký tự (Không bị cắt dấu ... trên điện thoại)</span>
                             </div>
+
+                            <!-- Thanh Quy Tắc Vàng Tối Ưu Tiêu Đề -->
+                            <div class="seo-golden-rule-bar">
+                                <div class="rule-item"><i class="fas fa-mobile-alt"></i> <span><strong>Độ dài vàng 60-70 ký tự:</strong> Hiện trọn vẹn trên Mobile</span></div>
+                                <div class="rule-item"><i class="fas fa-sort-amount-down"></i> <span><strong>Thứ tự từ trái sang phải:</strong> [Từ khóa chính] ➔ [Tên kênh/Producer] ➔ [Trend/Hút click]</span></div>
+                                <div class="rule-item"><i class="fas fa-shield-alt"></i> <span><strong>Chống spam:</strong> Phân cách bằng |, -, [] và không lặp từ quá 3 lần</span></div>
+                            </div>
+
                             <div class="titles-grid">
                                 <!-- Tiêu đề 1 -->
-                                <div class="title-card">
+                                <div class="title-card" data-title-index="1">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-trending"><i class="fas fa-chart-line"></i> Tiêu đề 1: Xu Hướng & Trending Hot (LK)</span>
+                                        <span class="badge-title badge-rec" id="badgeTitle1"><i class="fas fa-compact-disc"></i> Tiêu đề 1: Nonstop / DJ Set (Quẩy Continuous)</span>
                                         <span class="char-count" id="countTitle1">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle1" placeholder="LK TÊN BÀI HÁT - TUYỂN TẬP NHẠC TRẺ HOT TIK TOK MỚI NHẤT..." spellcheck="false">
+                                        <input type="text" id="outTitle1" placeholder="Nonstop Vinahouse 2026 - Lỡ Yêu Em Mất Rồi x Yêu Đi Đừng Sợ | Nhạc Bãi Bay Bass Cực Căng" spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
                                     </div>
+                                    <div class="mobile-preview-line">
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+                                    </div>
                                 </div>
 
                                 <!-- Tiêu đề 2 -->
-                                <div class="title-card">
+                                <div class="title-card" data-title-index="2">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-ctr"><i class="fas fa-bolt"></i> Tiêu đề 2: Kích Thích Tò Mò & Giật Tít (BXH)</span>
+                                        <span class="badge-title badge-top" id="badgeTitle2"><i class="fas fa-crown"></i> Tiêu đề 2: Top BXH Playlist (CTR Cao Nhất)</span>
                                         <span class="char-count" id="countTitle2">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle2" placeholder="BXH BẢNG XẾP HẠNG NHẠC REMIX BASS CỰC CĂNG ĐỐN TIM..." spellcheck="false">
+                                        <input type="text" id="outTitle2" placeholder="Top 15 Bài Vinahouse TikTok Hot Trend 2026 - Lỡ Yêu Em Mất Rồi, Thương Em Nhất | Nhạc Trẻ Remix" spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
                                     </div>
+                                    <div class="mobile-preview-line">
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+                                    </div>
                                 </div>
 
                                 <!-- Tiêu đề 3 -->
-                                <div class="title-card">
+                                <div class="title-card" data-title-index="3">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-search"><i class="fas fa-search"></i> Tiêu đề 3: Chuẩn Tìm Kiếm YouTube Search (NONSTOP)</span>
+                                        <span class="badge-title badge-trending" id="badgeTitle3"><i class="fas fa-heart"></i> Tiêu đề 3: Playlist Theo Chủ Đề & Tâm Trạng</span>
                                         <span class="char-count" id="countTitle3">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle3" placeholder="NONSTOP LIÊN KHÚC REMIX HAY NHẤT TRIỆU VIEW..." spellcheck="false">
+                                        <input type="text" id="outTitle3" placeholder="Playlist EDM Dance Tình Yêu Hay Nhất 2026 - Nụ Hôn Ngọt Ngào x Say Ánh Nhìn | Nhạc Gây Nghiện" spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
                                     </div>
+                                    <div class="mobile-preview-line">
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+                                    </div>
                                 </div>
 
                                 <!-- Tiêu đề 4 -->
-                                <div class="title-card">
+                                <div class="title-card" data-title-index="4">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-top"><i class="fas fa-crown"></i> Tiêu đề 4: Tuyển Chọn Triệu View / Viral (TOP)</span>
+                                        <span class="badge-title badge-ctr" id="badgeTitle4"><i class="fas fa-fire"></i> Tiêu đề 4: Tuyển Tập Triệu View TikTok</span>
                                         <span class="char-count" id="countTitle4">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle4" placeholder="TOP NHẠC TRẺ REMIX GÂY NGHIỆN TIK TOK MỚI NHẤT..." spellcheck="false">
+                                        <input type="text" id="outTitle4" placeholder="Tuyển Tập Nhạc Trẻ Remix TikTok Hot Trend 2026 - Lỡ Yêu Em Mất Rồi | Nhạc Quẩy Cực Căng" spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle4" title="Sao chép Tiêu đề 4">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
                                     </div>
+                                    <div class="mobile-preview-line">
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+                                    </div>
                                 </div>
 
                                 <!-- Tiêu đề 5 -->
-                                <div class="title-card">
+                                <div class="title-card" data-title-index="5">
                                     <div class="title-card-header">
-                                        <span class="badge-title badge-remix"><i class="fas fa-volume-up"></i> Tiêu đề 5: Bản Phối Bùng Nổ Bass Căng (REMIX)</span>
+                                        <span class="badge-title badge-remix" id="badgeTitle5"><i class="fas fa-bolt"></i> Tiêu đề 5: Nonstop Quẩy Club Bùng Nổ</span>
                                         <span class="char-count" id="countTitle5">0/100 ký tự</span>
                                     </div>
                                     <div class="title-box">
-                                        <input type="text" id="outTitle5" placeholder="REMIX BASS CỰC CĂNG ĐỐN TIM NGHE LÀ GÂY NGHIỆN..." spellcheck="false">
+                                        <input type="text" id="outTitle5" placeholder="Nonstop Vinahouse 2026 - Lỡ Yêu Em Mất Rồi x Yêu Đi Đừng Sợ | Tuyển Tập Nhạc Club Quẩy Nát Sàn" spellcheck="false">
                                         <button type="button" class="btn-copy-single" data-target="outTitle5" title="Sao chép Tiêu đề 5">
                                             <i class="fas fa-copy"></i> <span>Copy</span>
                                         </button>
+                                    </div>
+                                    <div class="mobile-preview-line">
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
                                     </div>
                                 </div>
                             </div>
