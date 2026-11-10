@@ -547,16 +547,26 @@ document.addEventListener('DOMContentLoaded', () => {
         str = str.replace(/^[\p{Extended_Pictographic}\p{Emoji}\s\-_|:•★🔥⚡🎧🎶✨]+/u, '').trim();
         str = str.replace(/^["'\d\.\-\s]+/, '').replace(/["']+$/, '').trim();
 
-        // 2. Chuẩn hóa khoảng trắng quanh các ký tự phân cách
+        // 2. Chuẩn hóa khoảng trắng quanh các ký tự phân cách |, -
         str = str.replace(/\s*\|\s*/g, ' | ');
         str = str.replace(/\s*-\s*/g, ' - ');
-        str = str.replace(/\s*x\s*/gi, ' x ');
+
+        // 3. Chuẩn hóa liên kết x giữa 2 bài hát (CHỈ khi có khoảng trắng xung quanh, TUYỆT ĐỐI không thay thế chữ x trong từ!)
+        str = str.replace(/\s+[xX]\s+/g, ' x ');
+
+        // 4. Sửa triệt để các từ viết tắt / thuật ngữ bị dính lỗi tách chữ "B x H", "B X H", "Remi x", "L K", "Vietmi x"
+        str = str.replace(/\bB\s*[xX]\s*H\b/gi, 'BXH');
+        str = str.replace(/\bL\s*K\b/gi, 'LK');
+        str = str.replace(/\bRemi\s*[xX]\b/gi, 'Remix');
+        str = str.replace(/\bVietmi\s*[xX]\b/gi, 'Vietmix');
+
+        // 5. Chuẩn hóa khoảng trắng
         str = str.replace(/\s+/g, ' ').trim();
 
-        // 3. Xóa dấu hai chấm dư thừa sau các tiền tố
+        // 6. Xóa dấu hai chấm dư thừa sau các tiền tố
         str = str.replace(/^(LK|BXH|TOP|NONSTOP|REMIX|PLAYLIST)\s*:\s*/i, '$1 ');
 
-        // 4. Cắt tỉa thông minh nếu dài quá 100 ký tự (ưu tiên cắt tại dấu phân cách | hoặc -)
+        // 7. Cắt tỉa thông minh nếu dài quá 100 ký tự (ưu tiên cắt tại dấu phân cách | hoặc -)
         if (str.length > 100) {
             let sub = str.substring(0, 99);
             let cutPos = Math.max(sub.lastIndexOf('|'), sub.lastIndexOf('-'));
@@ -686,49 +696,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Tạo 7 tiêu đề mẫu chuẩn SEO 2026: [Từ khóa chính] ➔ [Trend/Hút click] ➔ [Tên kênh/Producer]
+    // CHÚ Ý: Bám sát 100% danh sách bài hát người dùng nhập, TUYỆT ĐỐI KHÔNG gắn cứng tên bài giả định!
     function generateDefaultTitles(songNames) {
         if (!songNames || songNames.length === 0) return;
         const currentYear = new Date().getFullYear();
         const s1 = songNames[0];
         const s2 = songNames.length > 1 ? songNames[1] : '';
 
-        const artist = (seoChannelOrProducer?.value || '').trim() || (currentSeoMode === 'single' ? 'Producer Name' : 'Remix Channel');
-        const genre = (seoMusicGenre?.value || '').trim() || 'Vinahouse Remix';
+        // Tự động nhận diện bài lẻ nếu ở chế độ Single Track HOẶC danh sách người dùng chỉ nhập đúng 1 bài
+        const isSingle = (currentSeoMode === 'single') || (songNames.length === 1);
+        const artist = (seoChannelOrProducer?.value || '').trim() || (isSingle ? 'Producer Name' : 'Remix Channel');
+        const genre = (seoMusicGenre?.value || '').trim() || 'Nhạc Trẻ Remix';
         const rawGenre = genre.replace(/\s+Remix/i, '');
 
-        if (currentSeoMode === 'single') {
-            // I. Đặt Tiêu Đề SEO Khi Đăng Lẻ Từng Bài (Single Track): [Từ khóa chính] ➔ [Trend/Hút click] ➔ [Tên kênh/Producer]
-            // 1. Chuẩn SEO + Đề xuất: [Tên Bài Hát (Thể loại)] | [Từ khóa trend / Cảm xúc] - [Tên kênh]
+        if (isSingle) {
+            // I. Đặt Tiêu Đề SEO Khi Đăng Lẻ 1 Bài (hoặc danh sách chỉ có 1 bài: s1)
+            // TUYỆT ĐỐI KHÔNG GHÉP THÊM BÀI HÁT NÀO KHÁC BÊN NGOÀI BÀI NGƯỜI DÙNG NHẬP!
             outTitle1.value = formatSeoTitle(`${s1} (${genre}) | Nhạc EDM TikTok Hot Trend ${currentYear} - ${artist}`);
-            // 2. Thương hiệu / Official Audio: [Tên Bài Hát] - [Thể loại] (Official Audio) | [Trend 2026] - [Ca sĩ/Producer]
             outTitle2.value = formatSeoTitle(`${s1} - ${rawGenre} (Official Audio) | Nhạc Trẻ Hot Trend ${currentYear} - ${artist}`);
-            // 3. TikTok Hot Trend & Bass Boosted
             outTitle3.value = formatSeoTitle(`${s1} (${genre}) | TikTok Remix Hot Trend Bass Boosted ${currentYear} - ${artist}`);
-            // 4. Kích thích tò mò & Quẩy cực sung
             outTitle4.value = formatSeoTitle(`${s1} (Remix) | Bản Phối Bass Cực Căng Đốn Tim Gây Nghiện ${currentYear} - ${artist}`);
-            // 5. Chuẩn tìm kiếm YouTube Search
             outTitle5.value = formatSeoTitle(`${s1} ${genre} ${currentYear} | Nhạc Trẻ Remix Mới Nhất Quẩy Cực Sung - ${artist}`);
-            // 6. Tiêu đề 6: LK (Liên Khúc Single Hot Trend)
             outTitle6.value = formatSeoTitle(`LK ${s1} (${genre}) | Tuyển Tập Nhạc Trẻ Triệu View Gây Nghiện ${currentYear} - ${artist}`);
-            // 7. Tiêu đề 7: BXH (Bảng Xếp Hạng Bùng Nổ)
             outTitle7.value = formatSeoTitle(`BXH ${s1} (${genre}) | Top Nhạc Remix Thịnh Hành TikTok Quẩy Cực Căng ${currentYear} - ${artist}`);
         } else {
-            // II. Đặt Tiêu Đề SEO Khi Đăng Playlist / Nonstop: [Từ khóa chính] ➔ [Trend/Hút click] ➔ [Tên kênh/Producer]
-            const countNum = songNames.length >= 5 ? songNames.length : 15;
-            // 1. Công thức Nonstop / DJ Set: Nonstop [Thể loại] 2026 - [Bài 1] x [Bài 2] | [Hút click] - [Tên kênh]
-            outTitle1.value = formatSeoTitle(`Nonstop ${rawGenre} ${currentYear} - ${s1} x ${s2 || 'Yêu Đi Đừng Sợ'} | Nhạc Bãi Bay Bass Cực Căng - ${artist}`);
-            // 2. Công thức Playlist / Top BXH: Top [Số lượng] [Thể loại] 2026 - [2 bài hot] | [Trend] - [Tên kênh]
-            outTitle2.value = formatSeoTitle(`Top ${countNum} Bài ${rawGenre} Hay Nhất ${currentYear} - ${s1}, ${s2 || 'Thương Em Nhất'} | Nhạc Trẻ Remix Quẩy Cực Sung - ${artist}`);
-            // 3. Playlist Theo Chủ Đề: Playlist [Thể loại] [Chủ đề] 2026 - [Bài 1] x [Bài 2] | [Gây nghiện] - [Tên kênh]
-            outTitle3.value = formatSeoTitle(`Playlist ${rawGenre} Tình Yêu Hay Nhất ${currentYear} - ${s1} x ${s2 || 'Say Ánh Nhìn'} | Nhạc Gây Nghiện Đốn Tim - ${artist}`);
-            // 4. Tuyển Tập Triệu View TikTok: Tuyển Tập [Thể loại] TikTok Hot Trend 2026 - [Tên bài] | [Hút click] - [Tên kênh]
+            // II. Đặt Tiêu Đề SEO Khi Đăng Playlist / Nonstop (Từ 2 bài trở lên)
+            // Chỉ sử dụng đúng các bài hát người dùng nhập. Không gắn cứng tên bài ngoài đời thực!
+            const countNum = songNames.length;
+            const pairTitle = s2 ? `${s1} x ${s2}` : s1;
+            const listTitle = s2 ? `${s1}, ${s2}` : s1;
+
+            outTitle1.value = formatSeoTitle(`Nonstop ${rawGenre} ${currentYear} - ${pairTitle} | Nhạc Bãi Bay Bass Cực Căng - ${artist}`);
+            outTitle2.value = formatSeoTitle(`Top ${countNum} Bài ${rawGenre} Hay Nhất ${currentYear} - ${listTitle} | Nhạc Trẻ Remix Quẩy Cực Sung - ${artist}`);
+            outTitle3.value = formatSeoTitle(`Playlist ${rawGenre} Tình Yêu Hay Nhất ${currentYear} - ${pairTitle} | Nhạc Gây Nghiện Đốn Tim - ${artist}`);
             outTitle4.value = formatSeoTitle(`Tuyển Tập ${rawGenre} TikTok Hot Trend ${currentYear} - ${s1} | Nhạc Quẩy Cực Căng Bùng Nổ - ${artist}`);
-            // 5. Nonstop Club Quẩy Nát Sàn: Nonstop [Thể loại] Club 2026 - [Bài 1] x [Bài 2] | [Club nát sàn] - [Tên kênh]
-            outTitle5.value = formatSeoTitle(`Nonstop ${rawGenre} Club ${currentYear} - ${s1} x ${s2 || 'Đêm Nay Ta Say'} | Tuyển Tập Nhạc Club Quẩy Nát Sàn - ${artist}`);
-            // 6. Tiêu đề 6: LK (Liên Khúc Tuyển Chọn Hay Nhất)
-            outTitle6.value = formatSeoTitle(`LK ${rawGenre} Hay Nhất ${currentYear} - ${s1}, ${s2 || 'Yêu Đi Đừng Sợ'} | Liên Khúc Nhạc Trẻ Remix Triệu View - ${artist}`);
-            // 7. Tiêu đề 7: BXH (Bảng Xếp Hạng Bùng Nổ Thịnh Hành)
-            outTitle7.value = formatSeoTitle(`BXH Bảng Xếp Hạng ${rawGenre} ${currentYear} - ${s1}, ${s2 || 'Thương Em Nhất'} | Top Nhạc Remix Thịnh Hành TikTok - ${artist}`);
+            outTitle5.value = formatSeoTitle(`Nonstop ${rawGenre} Club ${currentYear} - ${pairTitle} | Tuyển Tập Nhạc Club Quẩy Nát Sàn - ${artist}`);
+            outTitle6.value = formatSeoTitle(`LK ${rawGenre} Hay Nhất ${currentYear} - ${listTitle} | Liên Khúc Nhạc Trẻ Remix Triệu View - ${artist}`);
+            outTitle7.value = formatSeoTitle(`BXH Bảng Xếp Hạng ${rawGenre} ${currentYear} - ${listTitle} | Top Nhạc Remix Thịnh Hành TikTok - ${artist}`);
         }
         updateAllTitleCounts();
     }
@@ -737,13 +741,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateDefaultDescription(songNames) {
         if (!songNames || songNames.length === 0) return '';
         const s1 = songNames[0];
-        const otherSongs = songNames.slice(1, 4).join(', ');
+        const isSingle = (currentSeoMode === 'single') || (songNames.length === 1);
+        const otherSongs = songNames.length > 1 ? songNames.slice(1, 4).join(', ') : '';
         const currentYear = new Date().getFullYear();
-        const artist = (seoChannelOrProducer?.value || '').trim() || (currentSeoMode === 'single' ? 'Producer Name' : 'Kênh Âm Nhạc');
+        const artist = (seoChannelOrProducer?.value || '').trim() || (isSingle ? 'Producer Name' : 'Kênh Âm Nhạc');
         const channelLink = (seoChannelLink?.value || '').trim() || generateChannelLink(artist);
         const genre = (seoMusicGenre?.value || '').trim() || 'Nhạc Trẻ Remix Hot Trend';
 
-        if (currentSeoMode === 'single') {
+        if (isSingle) {
             return `🎧 ${s1} (${genre}) - Sản phẩm âm nhạc được phối khí cuốn hút với nhịp bass uy lực, giai điệu bắt tai và ca từ chạm sâu cảm xúc người nghe.\n\n` +
                    `🔥 Hãy tăng âm lượng, đeo tai nghe hoặc thưởng thức trên dàn loa chất lượng cao để cảm nhận trọn vẹn từng dải âm thanh bùng nổ.\n\n` +
                    `❤️ Nếu bạn yêu thích bản nhạc này, đừng quên bấm Like 👍 • Chia sẻ 📤 • Đăng ký kênh 🔔 ${artist} để không bỏ lỡ những siêu phẩm âm nhạc mới nhất!\n` +
@@ -877,86 +882,69 @@ document.addEventListener('DOMContentLoaded', () => {
         const secondSong = songs.length > 1 ? songs[1] : '';
         const highlightSongs = songs.slice(0, 5).join(', ');
 
-        const isSingleTrack = currentSeoMode === 'single';
+        // Tự động nhận diện bài lẻ nếu ở chế độ Single Track HOẶC danh sách người dùng chỉ nhập đúng 1 bài
+        const isSingleTrack = (currentSeoMode === 'single') || (songs.length === 1);
         const artist = (seoChannelOrProducer?.value || '').trim() || (isSingleTrack ? 'Producer Name' : 'Remix Channel');
         const channelLink = (seoChannelLink?.value || '').trim() || generateChannelLink(artist);
-        const genre = (seoMusicGenre?.value || '').trim() || 'Vinahouse Remix';
+        const genre = (seoMusicGenre?.value || '').trim() || 'Nhạc Trẻ Remix';
         const rawGenre = genre.replace(/\s+Remix/i, '');
 
         const prompt = `Bạn là một CHUYÊN GIA SÁNG TẠO NỘI DUNG ÂM NHẠC & BẬC THẦY SEO YOUTUBE HÀNG ĐẦU NĂM ${currentYear}.
 
 THÔNG TIN ĐẦU VÀO TỪ NGƯỜI DÙNG:
 - Chế độ đăng bài: ${isSingleTrack ? 'ĐĂNG LẺ TỪNG BÀI (Single Track)' : 'ĐĂNG PLAYLIST / NONSTOP / TỔNG HỢP (Multi Track)'}
-- Danh sách bài hát: ${songs.join(', ')}
-- Bài hát chính (hot nhất): "${firstSong}"
+- Số lượng bài hát người dùng cung cấp: ${songs.length} bài
+- Danh sách bài hát do người dùng cung cấp: ${songs.join(', ')}
+- Bài hát chính: "${firstSong}"
 ${secondSong ? `- Bài hát thứ hai: "${secondSong}"` : ''}
 - Tên Kênh / Ca sĩ / Producer: "${artist}"
 - Link Kênh YouTube: "${channelLink}"
 - Thể loại âm nhạc: "${genre}"
 
 ========================================================================
-YÊU CẦU ĐẶC BIỆT: TẠO ĐÚNG 7 TIÊU ĐỀ SEO YOUTUBE CHUẨN THUẬT TOÁN ${currentYear}
+⚠️ NGUYÊN TẮC BẮT BUỘC SỐ 1 VỀ TÊN BÀI HÁT (TUYỆT ĐỐI TUÂN THỦ):
+========================================================================
+1. CHỈ SỬ DỤNG CHÍNH XÁC CÁC TÊN BÀI HÁT DO NGƯỜI DÙNG CUNG CẤP TRÊN ĐÂY (${songs.join(', ')}).
+2. TUYỆT ĐỐI KHÔNG TỰ BỊA ĐẶT HOẶC TỰ Ý CHÈN THÊM BẤT KỲ TÊN BÀI HÁT NÀO KHÁC BÊN NGOÀI (như "Thương Em Nhất", "Yêu Đi Đừng Sợ", v.v.).
+${isSingleTrack ? `3. NGƯỜI DÙNG CHỈ CUNG CẤP ĐÚNG 1 BÀI HÁT DUY NHẤT LÀ "${firstSong}". VÌ VẬY TOÀN BỘ 7 TIÊU ĐỀ CHỈ ĐƯỢC PHÉP CHỨA TÊN BÀI HÁT "${firstSong}", TUYỆT ĐỐI KHÔNG ĐƯỢC CHÈN THÊM BÀI HÁT THỨ HAI NÀO KHÁC!` : `3. Danh sách có ${songs.length} bài. Chỉ sử dụng đúng các bài hát có trong danh sách trên!`}
+
+========================================================================
+YÊU CẦU: TẠO ĐÚNG 7 TIÊU ĐỀ SEO YOUTUBE CHUẨN THUẬT TOÁN ${currentYear}
 ========================================================================
 
-⭐ BẮT BUỘC TUÂN THỦ NGHIÊM NGẶT "CÔNG THỨC VÀNG THỨ TỰ TỪ KHÓA TỪ TRÁI SANG PHẢI":
+⭐ BẮT BUỘC TUÂN THỦ "CÔNG THỨC VÀNG THỨ TỰ TỪ KHÓA TỪ TRÁI SANG PHẢI":
    [Từ khóa tìm kiếm chính] ➔ [Trend / Hút click] ➔ [Tên kênh / Producer]
    (Tên kênh / Producer luôn đặt ở cuối cùng sau dấu gạch ngang (-) hoặc dấu (|)).
 
 1. ĐỘ DÀI LÝ TƯỞNG: TỪ 60 ĐẾN 70 KÝ TỰ (Tối đa 100 ký tự). Đoạn 60 ký tự đầu tiên sẽ hiển thị trọn vẹn trên màn hình điện thoại di động mà không bị ngắt dấu ba chấm (...).
-2. KÝ TỰ PHÂN CÁCH CHUẨN MỰC: Dùng dấu gạch đứng (|), dấu gạch ngang (-), hoặc ngoặc tròn (()) để tách các phần rõ ràng: [Từ khóa chính] | [Trend/Hút click] - [Tên kênh].
-3. TRÁNH SPAM TỪ KHÓA: Không lặp lại 1 từ quá 3 lần trong tiêu đề.
-4. VIẾT HOA ĐẸP MẮT (Title Case): Viết hoa chữ cái đầu các từ chính, giữ nguyên chữ viết hoa các từ viết tắt chuyên ngành (EDM, DJ, TikTok, Remix, Nonstop, Top, BXH, LK, VIP, Official Audio...). Tuyệt đối không để icon/emoji ở đầu tiêu đề.
+2. KÝ TỰ PHÂN CÁCH: Dùng dấu gạch đứng (|), dấu gạch ngang (-), hoặc ngoặc tròn (()) để tách các phần rõ ràng: [Từ khóa chính] | [Trend/Hút click] - [Tên kênh].
+3. CHỮ VIẾT TẮT CHUẨN XÁC: Viết dính liền không khoảng cách: "BXH" (TUYỆT ĐỐI KHÔNG VIẾT "B X H" hay "B x H"), "Remix" (TUYỆT ĐỐI KHÔNG VIẾT "Remi x"), "LK", "EDM", "DJ", "TikTok", "Nonstop", "Top".
+4. TRÁNH SPAM TỪ KHÓA: Không lặp lại 1 từ quá 3 lần trong tiêu đề.
 
 ${isSingleTrack ? `
-CÔNG THỨC 7 TIÊU ĐỀ CHO BÀI ĐƠN LẺ (SINGLE TRACK):
-Mục tiêu: Đạt top tìm kiếm theo tên bài hát, thể loại và từ khóa hot trend trên TikTok/YouTube.
-- title1 (Chuẩn SEO + Đề xuất - Khuyên dùng):
-  Cấu trúc: [Tên Bài Hát] ([Thể Loại Remix]) | [Từ Khóa Trend / Cảm Xúc] - [Tên Kênh]
-  Ví dụ: ${firstSong} (${genre}) | Nhạc EDM TikTok Hot Trend ${currentYear} - ${artist}
-- title2 (Thương hiệu / Official):
-  Cấu trúc: [Tên Bài Hát] - [Thể Loại] (Official Audio) | [Cụm Từ Trend 2026] - [Ca Sĩ / Producer]
-  Ví dụ: ${firstSong} - ${rawGenre} (Official Audio) | Nhạc Trẻ Hot Trend ${currentYear} - ${artist}
-- title3 (TikTok Hot Trend & Bass Boosted):
-  Cấu trúc: [Tên Bài Hát] ([Thể Loại Remix]) | TikTok Remix Hot Trend Bass Boosted ${currentYear} - [Tên Kênh]
-  Ví dụ: ${firstSong} (${genre}) | TikTok Remix Hot Trend Bass Boosted ${currentYear} - ${artist}
-- title4 (Kích thích tò mò & Quẩy cực sung):
-  Cấu trúc: [Tên Bài Hát] (Remix) | Bản Phối Bass Cực Căng Đốn Tim Gây Nghiện ${currentYear} - [Tên Kênh]
-- title5 (Chuẩn tìm kiếm YouTube Search):
-  Cấu trúc: [Tên Bài Hát] ${genre} ${currentYear} | Nhạc Trẻ Remix Mới Nhất Quẩy Cực Sung - [Tên Kênh]
-- title6 (Tiêu đề 6: LK - Liên Khúc Single Hot Trend):
-  Cấu trúc: LK [Tên Bài Hát] ([Thể Loại Remix]) | Tuyển Tập Nhạc Trẻ Triệu View Gây Nghiện ${currentYear} - [Tên Kênh]
-  Ví dụ: LK ${firstSong} (${genre}) | Tuyển Tập Nhạc Trẻ Triệu View Gây Nghiện ${currentYear} - ${artist}
-- title7 (Tiêu đề 7: BXH - Bảng Xếp Hạng Bùng Nổ):
-  Cấu trúc: BXH [Tên Bài Hát] ([Thể Loại Remix]) | Top Nhạc Remix Thịnh Hành TikTok Quẩy Cực Căng ${currentYear} - [Tên Kênh]
-  Ví dụ: BXH ${firstSong} (${genre}) | Top Nhạc Remix Thịnh Hành TikTok Quẩy Cực Căng ${currentYear} - ${artist}
+CÔNG THỨC 7 TIÊU ĐỀ CHO BÀI ĐƠN LẺ ("${firstSong}"):
+- title1: ${firstSong} (${genre}) | Nhạc EDM TikTok Hot Trend ${currentYear} - ${artist}
+- title2: ${firstSong} - ${rawGenre} (Official Audio) | Nhạc Trẻ Hot Trend ${currentYear} - ${artist}
+- title3: ${firstSong} (${genre}) | TikTok Remix Hot Trend Bass Boosted ${currentYear} - ${artist}
+- title4: ${firstSong} (Remix) | Bản Phối Bass Cực Căng Đốn Tim Gây Nghiện ${currentYear} - ${artist}
+- title5: ${firstSong} ${genre} ${currentYear} | Nhạc Trẻ Remix Mới Nhất Quẩy Cực Sung - ${artist}
+- title6: LK ${firstSong} (${genre}) | Tuyển Tập Nhạc Trẻ Triệu View Gây Nghiện ${currentYear} - ${artist}
+- title7: BXH ${firstSong} (${genre}) | Top Nhạc Remix Thịnh Hành TikTok Quẩy Cực Căng ${currentYear} - ${artist}
 ` : `
-CÔNG THỨC 7 TIÊU ĐỀ CHO PLAYLIST / NONSTOP / TỔNG HỢP:
-Mục tiêu: Kéo dài thời gian xem (Watch time) và tăng tối đa CTR.
-- title1 (Nonstop / DJ Set - Quẩy Continuous):
-  Cấu trúc: Nonstop [Thể Loại] ${currentYear} - [Tên Bài Hot 1] x [Tên Bài Hot 2] | [Chủ Đề / Cụm Từ Hút Click] - [Tên Kênh]
-  Ví dụ: Nonstop ${rawGenre} ${currentYear} - ${firstSong} x ${secondSong || 'Yêu Đi Đừng Sợ'} | Nhạc Bãi Bay Bass Cực Căng - ${artist}
-- title2 (Top BXH Playlist - CTR cao nhất):
-  Cấu trúc: Top [Số Lượng] Bài Hát [Thể Loại] Hay Nhất ${currentYear} - [Tên 2-3 Bài Hot] | [Trend/Hút click] - [Tên Kênh]
-  Ví dụ: Top ${songs.length >= 5 ? songs.length : 15} Bài ${rawGenre} Hay Nhất ${currentYear} - ${firstSong}, ${secondSong || 'Thương Em Nhất'} | Nhạc Trẻ Remix Quẩy Cực Sung - ${artist}
-- title3 (Playlist Theo Chủ Đề & Cảm Xúc):
-  Cấu trúc: Playlist [Thể Loại] [Chủ Đề] Hay Nhất ${currentYear} - [Tên Bài Hot 1] x [Tên Bài Hot 2] | [Cụm Từ Hút Click] - [Tên Kênh]
-  Ví dụ: Playlist ${rawGenre} Tình Yêu Hay Nhất ${currentYear} - ${firstSong} x ${secondSong || 'Say Ánh Nhìn'} | Nhạc Gây Nghiện Đốn Tim - ${artist}
-- title4 (Tuyển tập Triệu View TikTok):
-  Cấu trúc: Tuyển Tập [Thể Loại] TikTok Hot Trend ${currentYear} - [${firstSong}] | [Hút click] - [Tên Kênh]
-- title5 (Nonstop Club / Quẩy Nát Sàn):
-  Cấu trúc: Nonstop [Thể Loại] Club ${currentYear} - ${firstSong} x ${secondSong || 'Đêm Nay Ta Say'} | Tuyển Tập Nhạc Club Quẩy Nát Sàn - ${artist}
-- title6 (Tiêu đề 6: LK - Liên Khúc Tuyển Chọn Hay Nhất):
-  Cấu trúc: LK [Thể Loại] Hay Nhất ${currentYear} - [Tên 2-3 Bài Hot] | Liên Khúc Nhạc Trẻ Remix Triệu View - [Tên Kênh]
-  Ví dụ: LK ${rawGenre} Hay Nhất ${currentYear} - ${firstSong}, ${secondSong || 'Yêu Đi Đừng Sợ'} | Liên Khúc Nhạc Trẻ Remix Triệu View - ${artist}
-- title7 (Tiêu đề 7: BXH - Bảng Xếp Hạng Bùng Nổ Thịnh Hành):
-  Cấu trúc: BXH Bảng Xếp Hạng [Thể Loại] ${currentYear} - [Tên 2-3 Bài Hot] | Top Nhạc Remix Thịnh Hành TikTok - [Tên Kênh]
-  Ví dụ: BXH Bảng Xếp Hạng ${rawGenre} ${currentYear} - ${firstSong}, ${secondSong || 'Thương Em Nhất'} | Top Nhạc Remix Thịnh Hành TikTok - ${artist}
+CÔNG THỨC 7 TIÊU ĐỀ CHO PLAYLIST (${songs.length} bài):
+- title1: Nonstop ${rawGenre} ${currentYear} - ${secondSong ? `${firstSong} x ${secondSong}` : firstSong} | Nhạc Bãi Bay Bass Cực Căng - ${artist}
+- title2: Top ${songs.length} Bài ${rawGenre} Hay Nhất ${currentYear} - ${secondSong ? `${firstSong}, ${secondSong}` : firstSong} | Nhạc Trẻ Remix Quẩy Cực Sung - ${artist}
+- title3: Playlist ${rawGenre} Tình Yêu Hay Nhất ${currentYear} - ${secondSong ? `${firstSong} x ${secondSong}` : firstSong} | Nhạc Gây Nghiện Đốn Tim - ${artist}
+- title4: Tuyển Tập ${rawGenre} TikTok Hot Trend ${currentYear} - ${firstSong} | Nhạc Quẩy Cực Căng Bùng Nổ - ${artist}
+- title5: Nonstop ${rawGenre} Club ${currentYear} - ${secondSong ? `${firstSong} x ${secondSong}` : firstSong} | Tuyển Tập Nhạc Club Quẩy Nát Sàn - ${artist}
+- title6: LK ${rawGenre} Hay Nhất ${currentYear} - ${secondSong ? `${firstSong}, ${secondSong}` : firstSong} | Liên Khúc Nhạc Trẻ Remix Triệu View - ${artist}
+- title7: BXH Bảng Xếp Hạng ${rawGenre} ${currentYear} - ${secondSong ? `${firstSong}, ${secondSong}` : firstSong} | Top Nhạc Remix Thịnh Hành TikTok - ${artist}
 `}
 
 ========================================================================
 2. TẠO MÔ TẢ (DESCRIPTION) BIẾN TẤU SÁNG TẠO - TỰ ĐỘNG NỐI LINK KÊNH:
 ========================================================================
-- Dựa trên ${isSingleTrack ? `bài hát "${firstSong}" và thể loại "${genre}"` : `tuyển tập (${highlightSongs})`} để viết đoạn mô tả giàu năng lượng, cuốn hút.
+- Dựa trên ${isSingleTrack ? `bài hát "${firstSong}" và thể loại "${genre}"` : `danh sách (${highlightSongs})`} để viết đoạn mô tả giàu năng lượng, cuốn hút.
 - BẮT BUỘC chèn chính xác link đăng ký kênh (${channelLink}?sub_confirmation=1) và link kênh (${channelLink}) vào đoạn kêu gọi Like/Share/Subscribe.
 - Thêm thông tin: Tên bài, thể loại, thông tin Producer/Kênh (${artist}), hướng dẫn nghe bằng tai nghe/dàn âm thanh chất lượng.
 - Tuyệt đối không dùng dấu định dạng markdown như ** hay * trong mô tả. Chỉ dùng text thuần và emoji.
@@ -978,8 +966,8 @@ Trả về kết quả ĐÚNG ĐỊNH DẠNG JSON sau (không kèm markdown \`\`
   "title3": "Tiêu đề 3 tuân thủ đúng công thức [Từ khóa chính] | [Trend] - [Tên kênh]",
   "title4": "Tiêu đề 4 tuân thủ đúng công thức [Từ khóa chính] | [Trend] - [Tên kênh]",
   "title5": "Tiêu đề 5 tuân thủ đúng công thức [Từ khóa chính] | [Trend] - [Tên kênh]",
-  "title6": "LK Tiêu đề 6 Liên Khúc [Từ khóa chính] | [Trend] - [Tên kênh]",
-  "title7": "BXH Tiêu đề 7 Bảng Xếp Hạng [Từ khóa chính] | [Trend] - [Tên kênh]",
+  "title6": "LK Tiêu đề 6 [Từ khóa chính] | [Trend] - [Tên kênh]",
+  "title7": "BXH Tiêu đề 7 [Từ khóa chính] | [Trend] - [Tên kênh]",
   "description": "Mô tả đầy đủ có nối link kênh...",
   "hashtags": "#hashtag1 #hashtag2 ...",
   "tags": "tag1, tag2, tag3 ..."
