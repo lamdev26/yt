@@ -1,906 +1,1907 @@
 <!DOCTYPE html>
+
 <html lang="vi">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>YouTube Music SEO Tool</title>
+
     <link rel="stylesheet" href="style.css?v=2.2">
+
     <!-- FontAwesome cho icon -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
+
     <div class="container">
+
         <header>
+
             <h1><i class="fab fa-youtube"></i> YouTube Music SEO Tool</h1>
+
             <p>Tạo Tiêu đề SEO Hot, Timestamp, Mô tả, Hashtag & Tag tự động với Gemini AI</p>
+
         </header>
 
+
+
                 <!-- THANH API KEY GỌN GÀNG HIỆN ĐẠI (KEY CHÍNH CHO TAB 1 & TAB 2) -->
+
         <div class="api-key-bar">
+
             <div class="api-bar-label">
+
                 <i class="fas fa-key key-icon"></i>
+
                 <span>Gemini API Key:</span>
+
             </div>
+
             <div class="api-input-pill">
+
                 <i class="fas fa-lock lock-icon"></i>
+
                 <input type="password" id="geminiApiKey" placeholder="Dán Google Gemini API Key vào đây..." autocomplete="off" spellcheck="false">
+
                 <div class="api-btn-group">
+
                     <button type="button" class="btn-api-tool btn-toggle-pwd" id="btnToggleMainKey" data-target="geminiApiKey" onclick="toggleApiKeyVisibility('geminiApiKey', this)" title="Hiện / Ẩn API Key">
+
                         <i class="fas fa-eye"></i>
+
                     </button>
+
                     <button type="button" class="btn-api-tool btn-copy-key" id="btnCopyMainKey" data-target="geminiApiKey" onclick="copyApiKeyToClipboard('geminiApiKey', this)" title="Sao chép API Key">
+
                         <i class="fas fa-copy"></i>
+
                     </button>
+
                 </div>
+
             </div>
+
             <div class="api-bar-extra">
+
                 <span class="api-status-tag" id="apiKeyStatus">
+
                     <i class="fas fa-shield-alt"></i> Tự động lưu
+
                 </span>
+
                 <a href="https://aistudio.google.com/" target="_blank" class="api-link-btn" title="Lấy API Key miễn phí tại Google AI Studio">
+
                     <i class="fas fa-external-link-alt"></i> Lấy Key
+
                 </a>
+
             </div>
+
         </div>
+
+
 
         <!-- THANH CHUYỂN TAB -->
+
         <nav class="nav-tabs">
+
             <button class="tab-btn active" data-tab="tab-youtube">
+
                 <i class="fab fa-youtube"></i> <span>YouTube Music SEO</span>
+
             </button>
+
             <button class="tab-btn" data-tab="tab-suno">
+
                 <i class="fas fa-music"></i> <span>Suno AI Studio (Lời & Prompt)</span>
+
                 <span class="tab-badge">HOT</span>
+
             </button>
+
             <button class="tab-btn" data-tab="tab-lyrics-audit">
+
                 <i class="fas fa-spell-check"></i> <span>Kiểm Tra Lời Chuyên Sâu</span>
+
                 <span class="tab-badge pulse-badge">VIP</span>
+
             </button>
+
         </nav>
 
+
+
         <!-- TAB 1: YOUTUBE MUSIC SEO -->
+
         <div id="tab-youtube" class="tab-pane active">
+
             <div class="main-grid">
+
                 <!-- Cột trái: Đầu vào SEO YouTube -->
+
                 <div class="panel input-panel">
+
                     <!-- Thanh chọn Chế độ: Đăng lẻ 1 bài (Single Track) vs Playlist / Nonstop -->
+
                     <div class="seo-mode-switch">
+
                         <button type="button" class="seo-mode-tab active" data-mode="playlist" id="btnModePlaylist">
+
                             <i class="fas fa-layer-group"></i> <span>Playlist / Nonstop (Nhiều bài)</span>
+
                         </button>
+
                         <button type="button" class="seo-mode-tab" data-mode="single" id="btnModeSingle">
+
                             <i class="fas fa-music"></i> <span>Đăng Lẻ 1 Bài (Single Track)</span>
+
                         </button>
+
                     </div>
+
+
 
                     <!-- KHỐI 1: Chế độ Playlist / Nonstop (Tổng hợp nhiều bài) -->
+
                     <div id="seoPlaylistInputGroup" class="seo-input-group">
+
                         <div class="panel-header">
+
                             <h2><i class="fas fa-list-ol"></i> Danh sách bài hát Playlist</h2>
+
                             <span id="songCount" class="badge">0 bài</span>
+
                         </div>
+
                         <p class="hint">Nhập danh sách: <code>Tên bài hát - 03:45</code> (Tự tính Timestamp & tự trích 2-3 bài hot nhất lên tiêu đề)</p>
+
                         <textarea id="tracklistInput" placeholder="Ví dụ:&#10;Lỡ Yêu Em Mất Rồi - 04:30&#10;Yêu Đi Đừng Sợ - 03:45&#10;Nụ Hôn Ngọt Ngào - 04:15&#10;Thương Em Nhất - 03:50"></textarea>
+
                     </div>
+
+
 
                     <!-- KHỐI 2: Chế độ Đăng Lẻ 1 Bài (Single Track) -->
+
                     <div id="seoSingleInputGroup" class="seo-input-group" style="display: none;">
+
                         <div class="panel-header">
+
                             <h2><i class="fas fa-compact-disc"></i> Thông tin bài hát đăng lẻ</h2>
+
                             <span class="badge badge-single-tag">Single Track</span>
+
                         </div>
+
                         <div class="form-group">
+
                             <label for="singleSongTitle"><i class="fas fa-heading"></i> Tên bài hát (Đặt ngay 3-5 từ đầu tiên của tiêu đề):</label>
+
                             <input type="text" id="singleSongTitle" placeholder="Ví dụ: Lỡ Yêu Em Mất Rồi, Yêu Đi Đừng Sợ, Nụ Hôn Ngọt Ngào...">
+
                         </div>
+
                     </div>
+
+
 
                     <!-- THÔNG TIN PHỤ TRỢ NÂNG CAO CHO CẢ 2 CHẾ ĐỘ -->
+
                     <div class="seo-advanced-row">
+
                         <div class="form-group" style="flex: 1;">
+
                             <label for="seoChannelOrProducer"><i class="fas fa-user-astronaut"></i> Tên Kênh / DJ / Producer:</label>
+
                             <input type="text" id="seoChannelOrProducer" placeholder="Ví dụ: DJ ABC, Remix Channel, Thảo Phạm...">
+
                         </div>
+
                         <div class="form-group" style="flex: 1;">
-                            <label for="seoMusicGenre"><i class="fas fa-sliders-h"></i> Thể loại nhạc:</label>
-                            <input type="text" id="seoMusicGenre" placeholder="Ví dụ: Vinahouse Remix, EDM Dance..." list="seoGenreList">
-                            <datalist id="seoGenreList">
-                                <option value="Vinahouse Remix">
-                                <option value="EDM Dance Remix">
-                                <option value="Nhạc Trẻ Remix">
-                                <option value="Vietnamese Jerk Drill">
-                                <option value="Pop Ballad">
-                                <option value="Rumba Remix">
-                                <option value="Cha Cha Cha Remix">
-                                <option value="Bolero Miền Tây">
-                                <option value="Lofi Chill">
-                            </datalist>
+
+                            <label for="seoChannelLink"><i class="fab fa-youtube" style="color: #ff0000;"></i> Link Kênh YouTube (Tự động nối link):</label>
+
+                            <div class="title-box">
+
+                                <input type="text" id="seoChannelLink" placeholder="https://www.youtube.com/@DJABC" spellcheck="false">
+
+                                <button type="button" class="btn-copy-single" data-target="seoChannelLink" title="Sao chép Link Kênh">
+
+                                    <i class="fas fa-copy"></i>
+
+                                </button>
+
+                            </div>
+
                         </div>
+
                     </div>
+
+
+
+                    <div class="seo-advanced-row">
+
+                        <div class="form-group" style="flex: 1;">
+
+                            <label for="seoMusicGenre"><i class="fas fa-sliders-h"></i> Thể loại nhạc:</label>
+
+                            <input type="text" id="seoMusicGenre" placeholder="Ví dụ: Vinahouse Remix, EDM Dance..." list="seoGenreList">
+
+                            <datalist id="seoGenreList">
+
+                                <option value="Vinahouse Remix">
+
+                                <option value="EDM Dance Remix">
+
+                                <option value="Nhạc Trẻ Remix">
+
+                                <option value="Vietnamese Jerk Drill">
+
+                                <option value="Pop Ballad">
+
+                                <option value="Rumba Remix">
+
+                                <option value="Cha Cha Cha Remix">
+
+                                <option value="Bolero Miền Tây">
+
+                                <option value="Lofi Chill">
+
+                            </datalist>
+
+                        </div>
+
+                    </div>
+
+
 
                     <!-- GỢI Ý CHIP HẬU TỐ HÚT CLICK & TỪ KHÓA TREND -->
+
                     <div class="form-group">
+
                         <label><i class="fas fa-tags"></i> Hậu tố hút click & Từ khóa Trend (Bấm để thêm nhanh):</label>
+
                         <div class="quick-tags seo-quick-tags" id="seoTrendChips">
+
                             <span class="tag-chip seo-trend-chip" data-trend="TikTok Hot Trend 2026">🔥 TikTok Hot Trend 2026</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Nhạc Trẻ Remix Quẩy Cực Sung">⚡ Nhạc Trẻ Remix Quẩy Cực Sung</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Nhạc Bãi Bay Bass Cực Căng">🔊 Nhạc Bãi Bay Bass Cực Căng</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Tuyển Tập Nhạc Club Quẩy Nát Sàn">💃 Tuyển Tập Club Quẩy Nát Sàn</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Bass Boosted">🎧 Bass Boosted</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Nhạc Gây Nghiện">🌟 Nhạc Gây Nghiện</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Official Audio">💎 Official Audio</span>
+
                             <span class="tag-chip seo-trend-chip" data-trend="Lyric Video">📝 Lyric Video</span>
+
                         </div>
+
                     </div>
 
+
+
                     <div class="action-buttons">
+
                         <button id="generateBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Tiêu Đề SEO & Timestamp (AI)</button>
+
                         <button id="calcOnlyBtn" class="btn-secondary"><i class="fas fa-calculator"></i> Tiêu Đề Mẫu Chuẩn (Offline)</button>
+
                     </div>
+
                 </div>
+
+
 
                 <!-- Cột phải: Kết quả -->
+
                 <div class="panel output-panel">
+
                     <div class="panel-header">
+
                         <h2><i class="fas fa-check-circle"></i> Kết quả SEO</h2>
+
                         <div class="export-actions" id="seoExportActions" style="display: none;">
+
                             <button id="copyAllBtn" class="btn-icon" title="Copy Toàn Bộ"><i class="fas fa-copy"></i></button>
+
                             <button id="exportTxtBtn" class="btn-icon" title="Xuất TXT"><i class="fas fa-file-alt"></i></button>
+
                             <button id="exportDocxBtn" class="btn-icon" title="Xuất DOCX"><i class="fas fa-file-word"></i></button>
+
                         </div>
+
                     </div>
+
+
 
                     <div class="loader" id="loader">
+
                         <i class="fas fa-spinner fa-spin"></i> AI đang viết nội dung, vui lòng đợi...
+
                     </div>
+
+
 
                     <div class="empty-state" id="emptyOutput">
+
                         <div class="empty-icon"><i class="fas fa-magic"></i></div>
+
                         <h3>Chưa có kết quả SEO</h3>
+
                         <p>Nhập danh sách bài hát bên trái và bấm <strong>"Tạo Timestamp & SEO (AI)"</strong> hoặc <strong>"Chỉ tính Timestamp"</strong> để tạo nội dung mới.</p>
+
                     </div>
+
+
 
                     <div class="output-content" id="outputContent" style="display: none;">
+
                         <!-- Phần Gợi ý Tiêu đề SEO Hot -->
+
                         <div class="output-section titles-section">
+
                             <div class="section-title-wrap">
-                                <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi Ý 5 Tiêu Đề SEO YouTube Chuẩn Thuật Toán 2026</h3>
+
+                                <h3><i class="fas fa-fire-alt" style="color: #ff4757;"></i> Gợi Ý 7 Tiêu Đề SEO YouTube Chuẩn Thuật Toán 2026</h3>
+
                                 <span class="section-hint" id="seoTitleHint">Tối ưu từ khóa từ trái sang phải • Độ dài vàng 60-70 ký tự (Không bị cắt dấu ... trên điện thoại)</span>
+
                             </div>
+
+
 
                             <!-- Thanh Quy Tắc Vàng Tối Ưu Tiêu Đề -->
+
                             <div class="seo-golden-rule-bar">
+
                                 <div class="rule-item"><i class="fas fa-mobile-alt"></i> <span><strong>Độ dài vàng 60-70 ký tự:</strong> Hiện trọn vẹn trên Mobile</span></div>
-                                <div class="rule-item"><i class="fas fa-sort-amount-down"></i> <span><strong>Thứ tự từ trái sang phải:</strong> [Từ khóa chính] ➔ [Tên kênh/Producer] ➔ [Trend/Hút click]</span></div>
+
+                                <div class="rule-item"><i class="fas fa-sort-amount-down"></i> <span><strong>Thứ tự từ trái sang phải:</strong> [Từ khóa chính] ➔ [Trend/Hút click] ➔ [Tên kênh/Producer]</span></div>
+
                                 <div class="rule-item"><i class="fas fa-shield-alt"></i> <span><strong>Chống spam:</strong> Phân cách bằng |, -, [] và không lặp từ quá 3 lần</span></div>
+
                             </div>
+
+
 
                             <div class="titles-grid">
+
                                 <!-- Tiêu đề 1 -->
+
                                 <div class="title-card" data-title-index="1">
+
                                     <div class="title-card-header">
+
                                         <span class="badge-title badge-rec" id="badgeTitle1"><i class="fas fa-compact-disc"></i> Tiêu đề 1: Nonstop / DJ Set (Quẩy Continuous)</span>
+
                                         <span class="char-count" id="countTitle1">0/100 ký tự</span>
+
                                     </div>
+
                                     <div class="title-box">
+
                                         <input type="text" id="outTitle1" placeholder="Nonstop Vinahouse 2026 - Lỡ Yêu Em Mất Rồi x Yêu Đi Đừng Sợ | Nhạc Bãi Bay Bass Cực Căng" spellcheck="false">
+
                                         <button type="button" class="btn-copy-single" data-target="outTitle1" title="Sao chép Tiêu đề 1">
+
                                             <i class="fas fa-copy"></i> <span>Copy</span>
+
                                         </button>
+
                                     </div>
+
                                     <div class="mobile-preview-line">
+
                                         <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
                                         <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
                                     </div>
+
                                 </div>
+
+
 
                                 <!-- Tiêu đề 2 -->
+
                                 <div class="title-card" data-title-index="2">
+
                                     <div class="title-card-header">
+
                                         <span class="badge-title badge-top" id="badgeTitle2"><i class="fas fa-crown"></i> Tiêu đề 2: Top BXH Playlist (CTR Cao Nhất)</span>
+
                                         <span class="char-count" id="countTitle2">0/100 ký tự</span>
+
                                     </div>
+
                                     <div class="title-box">
+
                                         <input type="text" id="outTitle2" placeholder="Top 15 Bài Vinahouse TikTok Hot Trend 2026 - Lỡ Yêu Em Mất Rồi, Thương Em Nhất | Nhạc Trẻ Remix" spellcheck="false">
+
                                         <button type="button" class="btn-copy-single" data-target="outTitle2" title="Sao chép Tiêu đề 2">
+
                                             <i class="fas fa-copy"></i> <span>Copy</span>
+
                                         </button>
+
                                     </div>
+
                                     <div class="mobile-preview-line">
+
                                         <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
                                         <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
                                     </div>
+
                                 </div>
+
+
 
                                 <!-- Tiêu đề 3 -->
+
                                 <div class="title-card" data-title-index="3">
+
                                     <div class="title-card-header">
+
                                         <span class="badge-title badge-trending" id="badgeTitle3"><i class="fas fa-heart"></i> Tiêu đề 3: Playlist Theo Chủ Đề & Tâm Trạng</span>
+
                                         <span class="char-count" id="countTitle3">0/100 ký tự</span>
+
                                     </div>
+
                                     <div class="title-box">
+
                                         <input type="text" id="outTitle3" placeholder="Playlist EDM Dance Tình Yêu Hay Nhất 2026 - Nụ Hôn Ngọt Ngào x Say Ánh Nhìn | Nhạc Gây Nghiện" spellcheck="false">
+
                                         <button type="button" class="btn-copy-single" data-target="outTitle3" title="Sao chép Tiêu đề 3">
+
                                             <i class="fas fa-copy"></i> <span>Copy</span>
+
                                         </button>
+
                                     </div>
+
                                     <div class="mobile-preview-line">
+
                                         <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
                                         <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
                                     </div>
+
                                 </div>
+
+
 
                                 <!-- Tiêu đề 4 -->
+
                                 <div class="title-card" data-title-index="4">
+
                                     <div class="title-card-header">
+
                                         <span class="badge-title badge-ctr" id="badgeTitle4"><i class="fas fa-fire"></i> Tiêu đề 4: Tuyển Tập Triệu View TikTok</span>
+
                                         <span class="char-count" id="countTitle4">0/100 ký tự</span>
+
                                     </div>
+
                                     <div class="title-box">
+
                                         <input type="text" id="outTitle4" placeholder="Tuyển Tập Nhạc Trẻ Remix TikTok Hot Trend 2026 - Lỡ Yêu Em Mất Rồi | Nhạc Quẩy Cực Căng" spellcheck="false">
+
                                         <button type="button" class="btn-copy-single" data-target="outTitle4" title="Sao chép Tiêu đề 4">
+
                                             <i class="fas fa-copy"></i> <span>Copy</span>
+
                                         </button>
+
                                     </div>
+
                                     <div class="mobile-preview-line">
+
                                         <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
                                         <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
                                     </div>
+
                                 </div>
+
+
 
                                 <!-- Tiêu đề 5 -->
+
                                 <div class="title-card" data-title-index="5">
+
                                     <div class="title-card-header">
+
                                         <span class="badge-title badge-remix" id="badgeTitle5"><i class="fas fa-bolt"></i> Tiêu đề 5: Nonstop Quẩy Club Bùng Nổ</span>
+
                                         <span class="char-count" id="countTitle5">0/100 ký tự</span>
+
                                     </div>
+
                                     <div class="title-box">
+
                                         <input type="text" id="outTitle5" placeholder="Nonstop Vinahouse 2026 - Lỡ Yêu Em Mất Rồi x Yêu Đi Đừng Sợ | Tuyển Tập Nhạc Club Quẩy Nát Sàn" spellcheck="false">
+
                                         <button type="button" class="btn-copy-single" data-target="outTitle5" title="Sao chép Tiêu đề 5">
+
                                             <i class="fas fa-copy"></i> <span>Copy</span>
+
                                         </button>
+
                                     </div>
+
                                     <div class="mobile-preview-line">
+
                                         <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
                                         <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
                                     </div>
+
                                 </div>
+
+
+
+                                <!-- Tiêu đề 6 (LK) -->
+
+                                <div class="title-card" data-title-index="6">
+
+                                    <div class="title-card-header">
+
+                                        <span class="badge-title badge-lk" id="badgeTitle6"><i class="fas fa-layer-group"></i> Tiêu đề 6: LK (Liên Khúc Hot Trend)</span>
+
+                                        <span class="char-count" id="countTitle6">0/100 ký tự</span>
+
+                                    </div>
+
+                                    <div class="title-box">
+
+                                        <input type="text" id="outTitle6" placeholder="LK Lỡ Yêu Em Mất Rồi (Vinahouse Remix) | Tuyển Tập Nhạc Trẻ Triệu View 2026 - DJ ABC" spellcheck="false">
+
+                                        <button type="button" class="btn-copy-single" data-target="outTitle6" title="Sao chép Tiêu đề 6">
+
+                                            <i class="fas fa-copy"></i> <span>Copy</span>
+
+                                        </button>
+
+                                    </div>
+
+                                    <div class="mobile-preview-line">
+
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- Tiêu đề 7 (BXH) -->
+
+                                <div class="title-card" data-title-index="7">
+
+                                    <div class="title-card-header">
+
+                                        <span class="badge-title badge-bxh" id="badgeTitle7"><i class="fas fa-trophy"></i> Tiêu đề 7: BXH (Bảng Xếp Hạng Bùng Nổ)</span>
+
+                                        <span class="char-count" id="countTitle7">0/100 ký tự</span>
+
+                                    </div>
+
+                                    <div class="title-box">
+
+                                        <input type="text" id="outTitle7" placeholder="BXH Lỡ Yêu Em Mất Rồi (Vinahouse Remix) | Top Nhạc Remix Thịnh Hành TikTok Quẩy Cực Căng 2026 - DJ ABC" spellcheck="false">
+
+                                        <button type="button" class="btn-copy-single" data-target="outTitle7" title="Sao chép Tiêu đề 7">
+
+                                            <i class="fas fa-copy"></i> <span>Copy</span>
+
+                                        </button>
+
+                                    </div>
+
+                                    <div class="mobile-preview-line">
+
+                                        <i class="fas fa-mobile-screen"></i> <span>Mobile (60 ký tự đầu):</span>
+
+                                        <strong class="mobile-snippet">Chưa có tiêu đề...</strong>
+
+                                    </div>
+
+                                </div>
+
                             </div>
+
                         </div>
 
+
+
                         <div class="output-section">
+
                             <div class="section-header-row">
+
                                 <h3><i class="fas fa-align-left"></i> Mô tả (Description)</h3>
+
                                 <button type="button" class="btn-copy-section" data-target="outDescription" title="Sao chép Mô tả">
+
                                     <i class="fas fa-copy"></i> <span>Copy</span>
+
                                 </button>
+
                             </div>
+
                             <textarea id="outDescription" readonly placeholder="Mô tả AI sẽ xuất hiện ở đây..."></textarea>
+
                         </div>
 
+
+
                         <div class="output-section">
+
                             <div class="section-header-row">
+
                                 <h3><i class="fas fa-clock"></i> Timestamps (Tổng: <span id="totalDuration">00:00</span>)</h3>
+
                                 <button type="button" class="btn-copy-section" data-target="outTimestamps" title="Sao chép Timestamps">
+
                                     <i class="fas fa-copy"></i> <span>Copy</span>
+
                                 </button>
+
                             </div>
+
                             <textarea id="outTimestamps" readonly placeholder="00:00 Bài hát 1..."></textarea>
+
                         </div>
 
+
+
                         <div class="output-section">
+
                             <div class="section-header-row">
+
                                 <div class="section-title-with-count">
+
                                     <h3><i class="fas fa-hashtag"></i> Hashtags</h3>
+
                                     <span id="hashtagsCount" class="char-count">0 hashtags</span>
+
                                 </div>
+
                                 <button type="button" class="btn-copy-section" data-target="outHashtags" title="Sao chép Hashtags">
+
                                     <i class="fas fa-copy"></i> <span>Copy</span>
+
                                 </button>
+
                             </div>
+
                             <textarea id="outHashtags" placeholder="#remix #nhactreremix #nhacremix #nhachaymoingay #nhactinhyeu #NhacTre..."></textarea>
+
                         </div>
 
+
+
                         <div class="output-section">
+
                             <div class="section-header-row">
+
                                 <div class="section-title-with-count">
+
                                     <h3><i class="fas fa-tags"></i> Tags (YouTube)</h3>
+
                                     <span id="tagsCount" class="char-count">0/450 ký tự</span>
+
                                 </div>
+
                                 <button type="button" class="btn-copy-section" data-target="outTags" title="Sao chép Tags">
+
                                     <i class="fas fa-copy"></i> <span>Copy</span>
+
                                 </button>
+
                             </div>
+
                             <textarea id="outTags" maxlength="450" placeholder="nhạc trẻ, top trending, bài hát hay nhất..."></textarea>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
+
 
         <!-- TAB 2: SUNO AI STUDIO (TẠO LỜI & PROMPT) -->
+
         <div id="tab-suno" class="tab-pane">
+
             <div class="main-grid">
+
                 <!-- Cột trái: Thiết lập & Ý tưởng -->
+
                 <div class="panel input-panel">
+
                     <div class="panel-header">
+
                         <h2><i class="fas fa-sliders-h"></i> Thiết lập Suno AI</h2>
+
                         <span class="badge">Suno v3.5 / v4 Ready</span>
+
                     </div>
+
+
 
                     <!-- Lựa chọn 8 thể loại gợi ý -->
+
                     <label class="section-label"><i class="fas fa-compact-disc"></i> Chọn 1 trong 8 thể loại gợi ý:</label>
+
                     <div class="style-selector">
+
                         <!-- Style 1 -->
+
                         <div class="style-card" data-style="1">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-bolt"></i> Thể loại 1: Rap Pop x Jersey Club x Afrobeat</span>
+
                                 <div class="bpm-stepper" data-style="1">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="128" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Jersey bounce nẩy, Afrobeat groove, beat drops chuyển đoạn bùng nổ, funky bass, duet nam-nữ ngọt ngào hoặc melodic rap.</p>
+
                         </div>
+
+
 
                         <!-- Style 2 -->
+
                         <div class="style-card selected" data-style="2">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-fire"></i> Thể loại 2: Vinahouse x Big Room EDM</span>
+
                                 <div class="bpm-stepper" data-style="2">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="140" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Peak-time festival, vocal nam ấm khàn sâu sắc, 3 drops bass cuộn cực căng, hook đắt giá bùng nổ cảm xúc.</p>
+
                         </div>
+
+
 
                         <!-- Style 3 -->
+
                         <div class="style-card" data-style="3">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-heart"></i> Thể loại 3: Emotional Pop Ballad x Orchestral</span>
+
                                 <div class="bpm-stepper" data-style="3">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="82" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Piano da diết, dàn dây strings cao trào, ca từ sâu sắc chạm đáy tâm can, day dứt, chân thành và nghẹn ngào.</p>
+
                         </div>
+
+
 
                         <!-- Style 4 -->
+
                         <div class="style-card" data-style="4">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-drum"></i> Thể loại 4: Vietnamese Jerk Drill x Lo-Fi</span>
+
                                 <div class="bpm-stepper" data-style="4">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="122" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">808 saturated nảy gai góc, piano lo-fi da diết, claps lệch nhịp, duet call-and-response nam trầm x nữ soprano lả lướt, viral TikTok drop.</p>
+
                         </div>
+
+
 
                         <!-- Style 5 -->
+
                         <div class="style-card" data-style="5">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-guitar"></i> Thể loại 5: Vietnamese Rumba x Latin Acoustic</span>
+
                                 <div class="bpm-stepper" data-style="5">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="100" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Guitar nylon Tây Ban Nha trữ tình, nhịp rumba lắc conga mộc mạc hoài niệm, ca từ tự sự sâu lắng chạm đáy tâm can.</p>
+
                         </div>
+
+
 
                         <!-- Style 6 -->
+
                         <div class="style-card" data-style="6">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-cocktail"></i> Thể loại 6: Vietnamese Cha Cha Cha x Latin Big Band</span>
+
                                 <div class="bpm-stepper" data-style="6">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="128" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Kèn đồng Big Band tưng bừng, cowbell và timbales rộn rã, vũ điệu khiêu vũ Latin sang trọng cuốn hút, tràn đầy sức sống.</p>
+
                         </div>
+
+
 
                         <!-- Style 7: Bolero Miền Tây Sông Nước -->
+
                         <div class="style-card" data-style="7">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-water"></i> Thể loại 7: Bolero Miền Tây Việt Nam (Sông Nước Nam Bộ)</span>
+
                                 <div class="bpm-stepper" data-style="7">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="78" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Đậm chất miền Tây Nam Bộ: guitar phím lõm luyến láy, đàn sến, đàn kìm, nhịp bolero êm đềm, câu hò điệu lý da diết, mộc mạc tình quê phù sa.</p>
+
                         </div>
+
+
 
                         <!-- Style 8: Ballad Hiện Đại x Đàn Tranh & Đàn Bầu -->
+
                         <div class="style-card" data-style="8">
+
                             <div class="style-card-header">
+
                                 <span class="style-title"><i class="fas fa-spa"></i> Thể loại 8: Ballad Hiện Đại x Đàn Tranh & Bầu</span>
+
                                 <div class="bpm-stepper" data-style="8">
+
                                     <button type="button" class="btn-bpm-step btn-bpm-minus" title="Giảm BPM"><i class="fas fa-minus"></i></button>
+
                                     <div class="bpm-value-display">
+
                                         <input type="number" class="bpm-input" value="105" min="40" max="240" step="1" title="Nhấp để nhập BPM tùy chỉnh">
+
                                         <span class="bpm-unit">BPM</span>
+
                                     </div>
+
                                     <button type="button" class="btn-bpm-step btn-bpm-plus" title="Tăng BPM"><i class="fas fa-plus"></i></button>
+
                                 </div>
+
                             </div>
+
                             <p class="style-summary">Ballad hiện đại nhịp nhanh cuốn hút, đàn tranh luyến láy, đàn bầu ngân rung, vocal luyến láy ngân dài, cao trào mở rộng bùng nổ, plate reverb sáng vang mượt.</p>
+
                         </div>
+
                     </div>
+
+
 
                     <!-- Ô nhập Tiêu đề / Tên bài hát -->
+
                     <div class="form-group">
+
                         <label for="sunoInputTitle"><i class="fas fa-heading"></i> Tiêu đề bài hát (Để lời bài hát bám sát cốt truyện & từ khóa):</label>
+
                         <input type="text" id="sunoInputTitle" placeholder="Ví dụ: Chẳng Đổi Thay, Sau Lời Từ Khước, Cắt Đôi Nỗi Sầu... (để trống nếu muốn AI tự đặt)">
+
                     </div>
+
+
 
                     <!-- Gợi ý nhanh tiêu đề -->
+
                     <div class="quick-tags title-quick-tags">
+
                         <span class="tag-chip title-chip" data-title="Chẳng Đổi Thay">🎵 Chẳng Đổi Thay</span>
+
                         <span class="tag-chip title-chip" data-title="Sau Lời Từ Khước">💔 Sau Lời Từ Khước</span>
+
                         <span class="tag-chip title-chip" data-title="Cắt Đôi Nỗi Sầu">🔥 Cắt Đôi Nỗi Sầu</span>
+
                         <span class="tag-chip title-chip" data-title="Khiêu Vũ Dưới Ngàn Sao">✨ Khiêu Vũ Dưới Ngàn Sao</span>
+
                         <span class="tag-chip title-chip" data-title="Nếu Có Kiếp Sau">❄️ Nếu Có Kiếp Sau</span>
+
                         <span class="tag-chip title-chip" data-title="Lạc Lối Đêm Phố Thị">🏙️ Lạc Lối Đêm Phố Thị</span>
+
                         <span class="tag-chip title-chip" data-title="Đêm Mưa Nhớ Người">🌧️ Đêm Mưa Nhớ Người</span>
+
                         <span class="tag-chip title-chip" data-title="Vũ Điệu Say Tình">💃 Vũ Điệu Say Tình</span>
+
                         <span class="tag-chip title-chip" data-title="Thương Em Con Nước Vơi Đầy">🌾 Thương Em Con Nước Vơi Đầy</span>
+
                         <span class="tag-chip title-chip" data-title="Bến Trăng Vọng Nguyệt">🎋 Bến Trăng Vọng Nguyệt</span>
+
                     </div>
+
+
 
                     <!-- Ô nhập Chủ đề / Cảm xúc -->
+
                     <div class="form-group">
+
                         <label for="sunoTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc bài hát (Sâu sắc, không hời hợt):</label>
+
                         <textarea id="sunoTopic" placeholder="Ví dụ: Tình yêu chân thành bền bỉ bất chấp năm tháng đổi thay, dù xa cách hay giông bão vẫn một lòng hướng về nhau..."></textarea>
+
                     </div>
+
+
 
                     <!-- Gợi ý nhanh chủ đề (36 chủ đề cảm xúc sâu sắc toàn diện) -->
+
                     <div class="quick-tags">
+
                         <!-- Nhóm 1: Tình yêu & Hạnh phúc -->
+
                         <span class="tag-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
+
                         <span class="tag-chip" data-topic="Cảm xúc say đắm khi mới yêu, từng ánh mắt cử chỉ đều đong đầy mật ngọt hạnh phúc">🍯 Ngọt ngào say đắm</span>
+
                         <span class="tag-chip" data-topic="Giây phút trao nhẫn cưới thiêng liêng, lời thề nguyện cùng nhau già đi đến đầu bạc răng long">💍 Lời thề trăm năm</span>
+
                         <span class="tag-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
+
                         <span class="tag-chip" data-topic="Sức sống mãnh liệt của hy vọng, niềm tin vào ngày mai tươi sáng tựa chồi non đón nắng xuân">🌸 Hy vọng mùa xuân</span>
+
                         <span class="tag-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
 
+
+
                         <!-- Nhóm 2: Nỗi đau chia ly & Tổn thương -->
+
                         <span class="tag-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
+
                         <span class="tag-chip" data-topic="Nỗi đau bị phản bội dối lừa, niềm tin vụn vỡ sau bao hy sinh chân thành">🖤 Bị phản bội & Dối lừa</span>
+
                         <span class="tag-chip" data-topic="Gặp đúng người nhưng sai thời điểm, duyên phận dở dang ôm nỗi tiếc thương trọn đời">⏳ Đúng người sai thời điểm</span>
+
                         <span class="tag-chip" data-topic="Mối tình tay ba éo le giằng xé, người đến sau ngậm ngùi buông tay trong xót xa">🥀 Tình tay ba ngang trái</span>
+
                         <span class="tag-chip" data-topic="Giá như ngày ấy biết trân trọng hơn, giờ đây chỉ còn nỗi ân hận muộn màng khôn nguôi">🌧️ Hối hận muộn màng</span>
+
                         <span class="tag-chip" data-topic="Sự im lặng đáng sợ, những khoảng cách vô hình và hoài nghi bào mòn tình yêu từng ngày">❄️ Rạn nứt âm thầm</span>
 
+
+
                         <!-- Nhóm 3: Nỗi nhớ, Hoài niệm & Đơn phương -->
+
                         <span class="tag-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
+
                         <span class="tag-chip" data-topic="Tình cảm thầm kín không dám ngỏ, niềm vui nhỏ nhoi khi được dõi theo ai đó từ xa">💌 Yêu đơn phương</span>
+
                         <span class="tag-chip" data-topic="Mắc kẹt ở ranh giới tình bạn và tình yêu, sợ tỏ tình sẽ đánh mất nhau mãi mãi">👥 Ranh giới Friendzone</span>
+
                         <span class="tag-chip" data-topic="Tình yêu xa cách nghìn trùng địa lý, gửi gắm nỗi nhớ qua màn hình và lời hẹn ước ngày về">✈️ Tình yêu xa cách</span>
+
                         <span class="tag-chip" data-topic="Kỷ niệm tuổi học trò thơ ngây, mối tình đầu trong sáng vương vấn cả một thời áo trắng">🎒 Mối tình đầu thanh xuân</span>
+
                         <span class="tag-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
 
+
+
                         <!-- Nhóm 4: Tâm trạng đêm muộn & Cô đơn -->
+
                         <span class="tag-chip" data-topic="Mượn chén rượu cay trút cạn nỗi sầu, say trong ảo mộng để quên đi vết thương lòng">🍷 Mượn rượu giải sầu</span>
+
                         <span class="tag-chip" data-topic="Cảm giác lạc lõng, cô đơn giữa phố thị ồn ào và khao khát được thấu hiểu">🥀 Nỗi buồn cô đơn</span>
+
                         <span class="tag-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
+
                         <span class="tag-chip" data-topic="Đêm tĩnh lặng dưới ánh trăng mờ, tự đối thoại với chính mình và những suy tư sâu kín">🌙 Đêm trăng tự sự</span>
 
+
+
                         <!-- Nhóm 5: Ý chí, Bản lĩnh & Chữa lành -->
+
                         <span class="tag-chip" data-topic="Hết duyên buông tay trong thanh thản, không oán trách, cảm ơn vì đã từng là một phần tươi đẹp">🕊️ Buông tay nhẹ nhàng</span>
+
                         <span class="tag-chip" data-topic="Hành trình tự chữa lành những tổn thương, tìm về sự bình yên trong tâm hồn">🌿 Chữa lành tâm hồn</span>
+
                         <span class="tag-chip" data-topic="Dũng cảm buông bỏ quá khứ đau buồn, mỉm cười đón nhận một khởi đầu mới">🌅 Khởi đầu mới</span>
+
                         <span class="tag-chip" data-topic="Không bi lụy sau tổn thương, đứng dậy mạnh mẽ kiêu hãnh và bất cần trước mọi lọc lừa">🦅 Kiêu hãnh bất cần</span>
+
                         <span class="tag-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
+
                         <span class="tag-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
+
                         <span class="tag-chip" data-topic="Hành trình nỗ lực theo đuổi đam mê, không bao giờ bỏ cuộc trước thất bại">🌟 Theo đuổi đam mê</span>
+
                         <span class="tag-chip" data-topic="Áp lực cơm áo gạo tiền, những giọt mồ hôi mặn chát và sự kiên trì mưu sinh nơi xứ người">💼 Gánh nặng mưu sinh</span>
+
                         <span class="tag-chip" data-topic="Tạm gác lại âu lo phố thị xô bồ, rong ruổi trên cung đường phượt tìm về với thiên nhiên tự do">🛵 Rong ruổi tự do</span>
 
+
+
                         <!-- Nhóm 6: Gia đình, Quê hương & Tình thâm -->
+
                         <span class="tag-chip" data-topic="Tình mẫu tử thiêng liêng, bao la như biển cả và sự hy sinh thầm lặng của mẹ">👩‍👧 Tình mẹ bao la</span>
+
                         <span class="tag-chip" data-topic="Bóng lưng gầy lặng lẽ của cha, tình thương thầm lặng tựa núi cao chở che con suốt cuộc đời">👨‍👦 Tình cha trầm lặng</span>
+
                         <span class="tag-chip" data-topic="Bữa cơm gia đình ấm cúng, chốn bình yên duy nhất dang tay đón con trở về sau giông bão">🍲 Mái ấm gia đình</span>
+
                         <span class="tag-chip" data-topic="Nỗi nhớ quê hương da diết, những hoài niệm mộc mạc về tuổi thơ yên bình">🏡 Nhớ về quê hương</span>
+
                         <span class="tag-chip" data-topic="Tình bạn tri kỷ, luôn sát cánh đồng hành qua mọi thăng trầm của cuộc sống">🤝 Tình bạn tri kỷ</span>
+
                     </div>
+
+
 
                     <!-- Ô nhập Hook chính -->
+
                     <div class="form-group">
+
                         <label for="sunoHook"><i class="fas fa-quote-left"></i> Câu Hook cốt lõi / Điểm nhấn (Tùy chọn):</label>
+
                         <input type="text" id="sunoHook" placeholder="Ví dụ: Ngoài kia mọi thứ đổi thay, riêng tình anh chẳng đổi thay.">
+
                     </div>
+
+
 
                     <!-- Tiêu chuẩn sáng tác ca từ cao cấp: Chạm sâu tâm trạng & Gieo vần chuẩn xác -->
+
                     <div class="lyric-craft-box">
+
                         <div class="craft-box-header">
+
                             <span><i class="fas fa-feather-pointed"></i> Tiêu chuẩn ca từ cao cấp:</span>
+
                             <span class="craft-badge-active"><i class="fas fa-check-circle"></i> Đang kích hoạt</span>
+
                         </div>
+
                         <div class="craft-tags-list">
+
                             <span class="craft-pill active" title="Ca từ thấm đẫm cảm xúc, tả cảnh ngụ tình, đào sâu góc khuất tâm trạng"><i class="fas fa-heart-crack"></i> Chạm sâu tâm trạng</span>
+
                             <span class="craft-pill active" title="Gieo vần chân khít khao AABB / ABAB, vần lưng liền mạch, vần đôi đa âm tiết"><i class="fas fa-link"></i> Gieo vần chuẩn xác</span>
+
                             <span class="craft-pill active" title="Phối thanh điệu Bằng (ngang/huyền) buông cuối câu da diết, thanh Trắc kịch tính"><i class="fas fa-feather"></i> Bằng - Trắc hài hòa</span>
+
                             <span class="craft-pill active" title="Số từ cân đối nhịp nhàng, tối ưu vocal luyến láy tự nhiên cho Suno AI"><i class="fas fa-music"></i> Nhịp điệu giàu nhạc tính</span>
+
                         </div>
+
                     </div>
 
+
+
                     <div class="action-buttons">
+
                         <button id="generateSunoBtn" class="btn-primary"><i class="fas fa-magic"></i> Tạo Lời & Prompt Suno (AI)</button>
+
                         <button id="sampleSunoBtn" class="btn-secondary"><i class="fas fa-lightbulb"></i> Mẫu Chuẩn Sẵn</button>
+
                     </div>
+
                 </div>
+
+
 
                 <!-- Cột phải: Kết quả Lời & Prompt -->
+
                 <div class="panel output-panel">
+
                     <div class="panel-header">
+
                         <h2><i class="fas fa-music"></i> Kết quả Suno AI</h2>
+
                         <div class="export-actions" id="sunoExportActions" style="display: none;">
+
                             <button id="copyAllSunoBtn" class="btn-icon" title="Sao chép toàn bộ (Prompt + Lời)"><i class="fas fa-copy"></i></button>
+
                             <button id="exportSunoTxtBtn" class="btn-icon" title="Xuất file TXT"><i class="fas fa-file-alt"></i></button>
+
                         </div>
+
                     </div>
+
+
 
                     <div class="loader" id="sunoLoader">
+
                         <i class="fas fa-spinner fa-spin"></i> AI đang sáng tác ca từ sâu sắc và tối ưu prompt Suno...
+
                     </div>
+
+
 
                     <div class="empty-state" id="sunoEmptyOutput">
+
                         <div class="empty-icon suno-icon"><i class="fas fa-compact-disc"></i></div>
+
                         <h3>Chưa có kết quả Suno AI</h3>
+
                         <p>Chọn thể loại, nhập chủ đề bên trái và bấm <strong>"Tạo Lời & Prompt Suno (AI)"</strong> hoặc <strong>"Mẫu Chuẩn Sẵn"</strong> để tạo bài mới.</p>
+
                     </div>
+
+
 
                     <div class="output-content" id="sunoOutputContent" style="display: none;">
+
                         <!-- Tên bài hát đề xuất -->
+
                         <div class="output-section">
+
                             <div class="title-card-header">
+
                                 <span class="badge-title badge-ctr"><i class="fas fa-tag"></i> Tên bài hát</span>
+
                             </div>
+
                             <div class="title-box">
+
                                 <input type="text" id="outSunoTitle" placeholder="Tên bài hát sẽ xuất hiện ở đây...">
+
                                 <button type="button" class="btn-copy-single" data-target="outSunoTitle" title="Sao chép tên bài hát">
+
                                     <i class="fas fa-copy"></i> <span>Copy</span>
+
                                 </button>
+
                             </div>
+
                         </div>
+
+
 
                         <!-- Ô Prompt Style (800 - 920 ký tự) -->
+
                         <div class="output-section">
+
                             <div class="style-header-wrap">
+
                                 <h3><i class="fas fa-sliders-h"></i> Style of Music (Prompt Suno AI)</h3>
+
                                 <span id="styleCharCount" class="char-count char-status valid">0 / 920 ký tự (Chuẩn: 800 - 920)</span>
+
                             </div>
+
                             <div class="output-box-wrap">
+
                                 <textarea id="outSunoStyle" placeholder="Prompt phong cách âm nhạc (800 - 920 ký tự) sẽ hiển thị ở đây..."></textarea>
+
                                 <button type="button" class="btn-copy-box" data-target="outSunoStyle">
+
                                     <i class="fas fa-copy"></i> <span>Sao chép Prompt Style</span>
+
                                 </button>
+
                             </div>
+
                         </div>
+
+
 
                         <!-- Ô Lyrics (Lời bài hát có chiều sâu) -->
+
                         <div class="output-section">
+
                             <div class="style-header-wrap">
+
                                 <h3><i class="fas fa-align-left"></i> Lyrics (Lời bài hát sâu sắc, đúng cấu trúc Suno)</h3>
+
                                 <span class="badge"><i class="fas fa-check"></i> Đầy đủ [Verse], [Chorus], [Drop]</span>
+
                             </div>
+
                             <div class="output-box-wrap">
+
                                 <textarea id="outSunoLyrics" placeholder="Lời bài hát sâu sắc đúng tâm trạng sẽ hiển thị ở đây..."></textarea>
+
                                 <button type="button" class="btn-copy-box" data-target="outSunoLyrics">
+
                                     <i class="fas fa-copy"></i> <span>Sao chép Lời Nhạc</span>
+
                                 </button>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
+
 
         <!-- TAB 3: KIỂM TRA LỜI CHUYÊN SÂU (LYRIC DEEP AUDIT & ENHANCE) -->
+
         <div id="tab-lyrics-audit" class="tab-pane">
+
             <div class="main-grid">
+
                 <!-- Cột trái: Đầu vào kiểm tra -->
+
                 <div class="panel input-panel">
+
                     <div class="panel-header">
+
                         <h2><i class="fas fa-microscope"></i> Thẩm Định Lời Nhạc Chuyên Sâu</h2>
+
                         <span class="badge">AI Lyric Master</span>
+
                     </div>
+
+
 
                                         <!-- Ô API Key trong Tab 3 (Độc lập, không liên quan API Key chính) -->
+
                     <div class="form-group inline-api-box">
+
                         <div class="inline-api-header">
+
                             <label for="auditApiKey"><i class="fas fa-key"></i> Gemini API Key Thẩm Định (Key độc lập Tab 3):</label>
+
                             <span class="api-sync-badge independent-badge" id="auditKeyStatus"><i class="fas fa-shield-alt"></i> Key riêng Tab 3</span>
+
                         </div>
+
                         <div class="api-input-pill mini">
+
                             <i class="fas fa-lock lock-icon"></i>
+
                             <input type="password" id="auditApiKey" placeholder="Dán Gemini API Key riêng cho Tab Thẩm Định vào đây..." autocomplete="off" spellcheck="false">
+
                             <div class="api-btn-group">
+
                                 <button type="button" class="btn-api-tool btn-toggle-pwd" id="btnToggleAuditKey" data-target="auditApiKey" onclick="toggleApiKeyVisibility('auditApiKey', this)" title="Hiện / Ẩn API Key Thẩm Định">
+
                                     <i class="fas fa-eye"></i>
+
                                 </button>
+
                                 <button type="button" class="btn-api-tool btn-copy-key" id="btnCopyAuditKey" data-target="auditApiKey" onclick="copyApiKeyToClipboard('auditApiKey', this)" title="Sao chép API Key Thẩm Định">
+
                                     <i class="fas fa-copy"></i>
+
                                 </button>
+
                             </div>
+
                         </div>
+
                     </div>
+
+
 
                     <!-- Chọn thể loại âm nhạc cần thẩm định -->
+
                     <div class="form-group">
+
                         <label for="auditGenreSelect"><i class="fas fa-compact-disc"></i> Thể loại âm nhạc thẩm định:</label>
+
                         <select id="auditGenreSelect" class="form-select">
+
                             <option value="vinahouse" selected>🔥 Vietnamese Vinahouse x Big Room EDM (140 BPM)</option>
+
                             <option value="ballad">💔 Emotional Pop Ballad x Orchestral (82 BPM)</option>
+
                             <option value="jerk_drill">⚡ Vietnamese Jerk Drill x Melodic Lo-Fi (122 BPM)</option>
+
                             <option value="rumba">🌧️ Vietnamese Rumba x Latin Acoustic Ballad (100 BPM)</option>
+
                             <option value="chacha">💃 Vietnamese Cha Cha Cha x Latin Big Band (128 BPM)</option>
+
                             <option value="rap_jersey">🎤 Rap Pop x Jersey Club x Afrobeat (128 BPM)</option>
+
                             <option value="bolero_mientay">🌾 Bolero Miền Tây Sông Nước Nam Bộ (78 BPM)</option>
+
                             <option value="ballad_dantoc">🎋 Ballad Hiện Đại x Đàn Tranh & Đàn Bầu (105 BPM)</option>
+
                             <option value="nhactre">🌟 Nhạc Trẻ Hot Trend / TikTok Viral</option>
+
                             <option value="rnb">🌙 Modern R&B / Soul / Lofi Chill</option>
+
                             <option value="bolero">🍂 Bolero Trữ Tình Quê Hương</option>
+
                         </select>
+
                     </div>
+
+
 
                     <!-- Gợi ý chip thể loại nhanh -->
+
                     <div class="quick-tags genre-quick-tags">
+
                         <span class="tag-chip audit-genre-chip" data-genre="vinahouse">🔥 Vinahouse</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="ballad">💔 Pop Ballad</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="jerk_drill">⚡ Jerk Drill</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="rumba">🌧️ Rumba</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="chacha">💃 Cha Cha Cha</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="rap_jersey">🎤 Rap/Jersey</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="bolero_mientay">🌾 Bolero Miền Tây</span>
+
                         <span class="tag-chip audit-genre-chip" data-genre="ballad_dantoc">🎋 Ballad Đàn Tranh/Bầu</span>
+
                     </div>
+
+
 
                     <!-- Tiêu đề bài hát -->
+
                     <div class="form-group">
+
                         <label for="auditSongTitle"><i class="fas fa-heading"></i> Tiêu đề bài hát (Để đối chiếu tính bám sát chủ đề):</label>
+
                         <input type="text" id="auditSongTitle" placeholder="Ví dụ: Chẳng Đổi Thay, Đêm Mưa Nhớ Người, Lạc Lối Đêm Phố Thị...">
+
                     </div>
+
+
 
                     <!-- Chủ đề & Cốt truyện cảm xúc (Đồng bộ với Tab Suno) -->
+
                     <div class="form-group">
+
                         <div class="textarea-header-row">
+
                             <label for="auditTopic"><i class="fas fa-feather-alt"></i> Chủ đề & Cảm xúc bài hát (Đồng bộ với Tab Suno):</label>
+
                             <button type="button" id="btnSyncTopicFromSuno" class="btn-quick-sync" title="Đồng bộ ngay chủ đề đang chọn từ Tab Suno AI Studio">
+
                                 <i class="fas fa-sync-alt"></i> Đồng bộ từ Tab Suno
+
                             </button>
+
                         </div>
+
                         <textarea id="auditTopic" rows="3" placeholder="Tự động đồng bộ với chủ đề đã chọn ở Tab Suno AI Studio (hoặc chọn thêm ở các chip bên dưới)..."></textarea>
+
                     </div>
+
+
 
                     <!-- Gợi ý nhanh chủ đề (36 chủ đề cảm xúc sâu sắc đồng bộ với Tab Suno) -->
+
                     <div class="quick-tags audit-topic-tags">
+
                         <!-- Nhóm 1: Tình yêu & Hạnh phúc -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tình yêu thủy chung, bền chặt bất chấp năm tháng và mọi đổi thay cuộc đời">❤️ Tình yêu thủy chung</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Cảm xúc say đắm khi mới yêu, từng ánh mắt cử chỉ đều đong đầy mật ngọt hạnh phúc">🍯 Ngọt ngào say đắm</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Giây phút trao nhẫn cưới thiêng liêng, lời thề nguyện cùng nhau già đi đến đầu bạc răng long">💍 Lời thề trăm năm</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Trân trọng phút giây hiện tại, tìm thấy hạnh phúc từ những điều vô cùng giản dị">☕ Niềm vui giản dị</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Sức sống mãnh liệt của hy vọng, niềm tin vào ngày mai tươi sáng tựa chồi non đón nắng xuân">🌸 Hy vọng mùa xuân</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Vũ điệu Cha Cha Cha khiêu vũ rộn rã, say đắm men tình và năng lượng tích cực">💃 Nhịp bước khiêu vũ</span>
 
+
+
                         <!-- Nhóm 2: Nỗi đau chia ly & Tổn thương -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Chia tay nuối tiếc, nỗi đau giấu kín sau nụ cười, chúc người hạnh phúc">💔 Chia tay nuối tiếc</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Nỗi đau bị phản bội dối lừa, niềm tin vụn vỡ sau bao hy sinh chân thành">🖤 Bị phản bội & Dối lừa</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Gặp đúng người nhưng sai thời điểm, duyên phận dở dang ôm nỗi tiếc thương trọn đời">⏳ Đúng người sai thời điểm</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Mối tình tay ba éo le giằng xé, người đến sau ngậm ngùi buông tay trong xót xa">🥀 Tình tay ba ngang trái</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Giá như ngày ấy biết trân trọng hơn, giờ đây chỉ còn nỗi ân hận muộn màng khôn nguôi">🌧️ Hối hận muộn màng</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Sự im lặng đáng sợ, những khoảng cách vô hình và hoài nghi bào mòn tình yêu từng ngày">❄️ Rạn nứt âm thầm</span>
 
+
+
                         <!-- Nhóm 3: Nỗi nhớ, Hoài niệm & Đơn phương -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ da diết giữa phố đêm mùa đông, hoài niệm về người xưa">❄️ Nỗi nhớ đêm đông</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tình cảm thầm kín không dám ngỏ, niềm vui nhỏ nhoi khi được dõi theo ai đó từ xa">💌 Yêu đơn phương</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Mắc kẹt ở ranh giới tình bạn và tình yêu, sợ tỏ tình sẽ đánh mất nhau mãi mãi">👥 Ranh giới Friendzone</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tình yêu xa cách nghìn trùng địa lý, gửi gắm nỗi nhớ qua màn hình và lời hẹn ước ngày về">✈️ Tình yêu xa cách</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Kỷ niệm tuổi học trò thơ ngây, mối tình đầu trong sáng vương vấn cả một thời áo trắng">🎒 Mối tình đầu thanh xuân</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Giai điệu Rumba trữ tình hoài niệm, đêm mưa lạnh nhớ người tình xưa trong niềm xót xa">🌧️ Đêm rumba hoài niệm</span>
 
+
+
                         <!-- Nhóm 4: Tâm trạng đêm muộn & Cô đơn -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Mượn chén rượu cay trút cạn nỗi sầu, say trong ảo mộng để quên đi vết thương lòng">🍷 Mượn rượu giải sầu</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Cảm giác lạc lõng, cô đơn giữa phố thị ồn ào và khao khát được thấu hiểu">🥀 Nỗi buồn cô đơn</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Góc khuất phố thị đêm mờ, nỗi cô đơn sau hào nhoáng và sự đồng điệu giữa hai tâm hồn lạc lối">🏙️ Góc khuất phố thị</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Đêm tĩnh lặng dưới ánh trăng mờ, tự đối thoại với chính mình và những suy tư sâu kín">🌙 Đêm trăng tự sự</span>
 
+
+
                         <!-- Nhóm 5: Ý chí, Bản lĩnh & Chữa lành -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Hết duyên buông tay trong thanh thản, không oán trách, cảm ơn vì đã từng là một phần tươi đẹp">🕊️ Buông tay nhẹ nhàng</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Hành trình tự chữa lành những tổn thương, tìm về sự bình yên trong tâm hồn">🌿 Chữa lành tâm hồn</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Dũng cảm buông bỏ quá khứ đau buồn, mỉm cười đón nhận một khởi đầu mới">🌅 Khởi đầu mới</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Không bi lụy sau tổn thương, đứng dậy mạnh mẽ kiêu hãnh và bất cần trước mọi lọc lừa">🦅 Kiêu hãnh bất cần</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tuổi trẻ nhiệt huyết, khát vọng vươn lên vượt qua mọi định kiến xã hội">🔥 Khát vọng tuổi trẻ</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Bản lĩnh kiên cường, vượt qua giông bão cuộc đời tìm lại chính mình">⚡ Bản lĩnh kiên cường</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Hành trình nỗ lực theo đuổi đam mê, không bao giờ bỏ cuộc trước thất bại">🌟 Theo đuổi đam mê</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Áp lực cơm áo gạo tiền, những giọt mồ hôi mặn chát và sự kiên trì mưu sinh nơi xứ người">💼 Gánh nặng mưu sinh</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tạm gác lại âu lo phố thị xô bồ, rong ruổi trên cung đường phượt tìm về với thiên nhiên tự do">🛵 Rong ruổi tự do</span>
 
+
+
                         <!-- Nhóm 6: Gia đình, Quê hương & Tình thâm -->
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tình mẫu tử thiêng liêng, bao la như biển cả và sự hy sinh thầm lặng của mẹ">👩‍👧 Tình mẹ bao la</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Bóng lưng gầy lặng lẽ của cha, tình thương thầm lặng tựa núi cao chở che con suốt cuộc đời">👨‍👦 Tình cha trầm lặng</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Bữa cơm gia đình ấm cúng, chốn bình yên duy nhất dang tay đón con trở về sau giông bão">🍲 Mái ấm gia đình</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Nỗi nhớ quê hương da diết, những hoài niệm mộc mạc về tuổi thơ yên bình">🏡 Nhớ về quê hương</span>
+
                         <span class="tag-chip audit-topic-chip" data-topic="Tình bạn tri kỷ, luôn sát cánh đồng hành qua mọi thăng trầm của cuộc sống">🤝 Tình bạn tri kỷ</span>
+
                     </div>
+
+
 
                     <!-- Lời bài hát cần kiểm tra -->
+
                     <div class="form-group">
+
                         <div class="textarea-header-row">
+
                             <label for="auditLyricsInput"><i class="fas fa-file-alt"></i> Lời bài hát cần kiểm tra & nâng cấp:</label>
+
                             <span id="auditLyricsCount" class="char-count">0 từ • 0 dòng</span>
+
                         </div>
+
                         <div class="quick-action-bar">
+
                             <button type="button" id="btnPasteFromSuno" class="btn-quick-tool" title="Đồng bộ toàn bộ Lời bài hát, Chủ đề, Thể loại và Tiêu đề từ Tab Suno AI Studio">
+
                                 <i class="fas fa-sync-alt"></i> Đồng bộ Lời & Chủ đề từ Tab Suno
+
                             </button>
+
                             <button type="button" id="btnSampleAuditLyrics" class="btn-quick-tool" title="Nạp bài hát mẫu để kiểm tra thử nghiệm">
+
                                 <i class="fas fa-lightbulb"></i> Nạp lời mẫu thử
+
                             </button>
+
                         </div>
+
                         <textarea id="auditLyricsInput" rows="10" placeholder="Dán toàn bộ lời bài hát vào đây (bao gồm các đoạn [Intro], [Verse 1], [Chorus], [Bridge]...).&#10;&#10;Hệ thống sẽ thẩm định từng câu chữ, vần điệu, độ sáo rỗng và nâng cấp thành phiên bản chạm sâu vào cảm xúc người nghe!"></textarea>
+
                     </div>
+
+
 
                     <div class="action-buttons">
+
                         <button id="btnRunAudit" class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Thẩm Định & Nâng Cấp Lời (AI)</button>
+
                         <button id="btnResetAudit" class="btn-secondary"><i class="fas fa-trash-alt"></i> Xóa & Làm Mới</button>
+
                     </div>
+
                 </div>
+
+
 
                 <!-- Cột phải: Kết quả thẩm định & Phiên bản nâng cấp -->
+
                 <div class="panel output-panel">
+
                     <div class="panel-header">
+
                         <h2><i class="fas fa-clipboard-check"></i> Kết quả Thẩm Định & Lời Nâng Cấp</h2>
+
                         <div class="export-actions" id="auditExportActions" style="display: none;">
+
                             <button id="btnSendAuditToSuno" class="btn-icon" title="Chuyển lời đã nâng cấp sang Tab Suno để tạo nhạc"><i class="fas fa-paper-plane"></i></button>
+
                             <button id="btnCopyAuditLyrics" class="btn-icon" title="Sao chép toàn bộ lời đã nâng cấp"><i class="fas fa-copy"></i></button>
+
                             <button id="btnExportAuditTxt" class="btn-icon" title="Xuất báo cáo thẩm định TXT"><i class="fas fa-file-alt"></i></button>
+
                         </div>
+
                     </div>
+
+
 
                     <div class="loader" id="auditLoader">
+
                         <i class="fas fa-spinner fa-spin"></i> AI Master Lyricist đang thẩm định ca từ, soi lỗi vần điệu và trau chuốt câu từ chạm sâu...
+
                     </div>
+
+
 
                     <div class="empty-state" id="auditEmptyOutput">
+
                         <div class="empty-icon"><i class="fas fa-spell-check"></i></div>
+
                         <h3>Chưa có dữ liệu thẩm định</h3>
+
                         <p>Dán lời bài hát vào ô bên trái hoặc bấm <strong>"Lấy lời từ Tab Suno"</strong>, sau đó bấm <strong>"Thẩm Định & Nâng Cấp Lời (AI)"</strong> để bắt đầu phân tích chuyên sâu.</p>
+
                     </div>
+
+
 
                     <div class="output-content" id="auditOutputContent" style="display: none;">
+
                         <!-- 1. BẢNG ĐIỂM TỔNG QUAN -->
+
                         <div class="audit-scorecard">
+
                             <div class="scorecard-main">
+
                                 <div class="score-badge-circle">
+
                                     <span class="score-num" id="auditOverallScore">9.0</span>
+
                                     <span class="score-max">/10</span>
+
                                 </div>
+
                                 <div class="score-info">
+
                                     <h3 id="auditScoreRating">Cảm Xúc Sâu Sắc & Chạm Đáy Tâm Can</h3>
+
                                     <p id="auditGeneralReview">Lời bài hát có cấu trúc tốt, ca từ giàu chất thơ và hình ảnh gợi cảm.</p>
+
                                 </div>
+
                             </div>
+
+
 
                             <!-- 4 Chỉ số chi tiết -->
+
                             <div class="score-breakdown-grid">
+
                                 <div class="score-item">
+
                                     <div class="score-item-header">
+
                                         <span><i class="fas fa-heart"></i> Độ chạm cảm xúc</span>
+
                                         <strong id="scoreEmotional">9.0/10</strong>
+
                                     </div>
+
                                     <div class="progress-track"><div class="progress-fill" id="barEmotional" style="width: 90%;"></div></div>
+
                                 </div>
+
                                 <div class="score-item">
+
                                     <div class="score-item-header">
+
                                         <span><i class="fas fa-link"></i> Vần điệu & Bằng trắc</span>
+
                                         <strong id="scoreRhyme">8.5/10</strong>
+
                                     </div>
+
                                     <div class="progress-track"><div class="progress-fill" id="barRhyme" style="width: 85%;"></div></div>
+
                                 </div>
+
                                 <div class="score-item">
+
                                     <div class="score-item-header">
+
                                         <span><i class="fas fa-drum"></i> Nhịp điệu & Độ khít Beat</span>
+
                                         <strong id="scoreGenre">9.5/10</strong>
+
                                     </div>
+
                                     <div class="progress-track"><div class="progress-fill" id="barGenre" style="width: 95%;"></div></div>
+
                                 </div>
+
                                 <div class="score-item">
+
                                     <div class="score-item-header">
+
                                         <span><i class="fas fa-gem"></i> Tính độc đáo & Triết lý</span>
+
                                         <strong id="scoreImagery">8.8/10</strong>
+
                                     </div>
+
                                     <div class="progress-track"><div class="progress-fill" id="barImagery" style="width: 88%;"></div></div>
+
                                 </div>
+
                             </div>
+
                         </div>
+
+
 
                         <!-- 2. BẮT BỆNH CA TỪ & ĐIỂM SÁNG -->
+
                         <div class="audit-critique-grid">
+
                             <div class="critique-card weak-card">
+
                                 <h4><i class="fas fa-exclamation-triangle"></i> Ca từ cần khắc phục (Hời hợt / Sáo rỗng)</h4>
+
                                 <ul id="auditWeakList" class="critique-list">
+
                                     <!-- Liệt kê các câu hời hợt -->
+
                                 </ul>
+
                             </div>
+
                             <div class="critique-card strong-card">
+
                                 <h4><i class="fas fa-star"></i> Điểm sáng ca từ (Đắt giá & Tự nhiên)</h4>
+
                                 <ul id="auditStrongList" class="critique-list">
+
                                     <!-- Liệt kê điểm mạnh -->
+
                                 </ul>
+
                             </div>
+
                         </div>
+
+
 
                         <!-- 3. BẢNG SO SÁNH & GỢI Ý NÂNG CẤP TỪNG ĐOẠN -->
+
                         <div class="output-section">
+
                             <div class="style-header-wrap">
+
                                 <h3><i class="fas fa-exchange-alt"></i> So sánh Câu gốc & Câu Nâng Cấp Chạm Sâu</h3>
+
                                 <span class="badge"><i class="fas fa-magic"></i> Tối ưu độ chạm</span>
+
                             </div>
+
                             <div id="auditImprovementsList" class="improvements-container">
+
                                 <!-- Render danh sách so sánh -->
+
                             </div>
+
                         </div>
 
+
+
                         <!-- 4. TOÀN BỘ BẢN LỜI HOÀN CHỈNH ĐÃ ĐƯỢC NÂNG CẤP -->
+
                         <div class="output-section">
+
                             <div class="style-header-wrap">
+
                                 <h3><i class="fas fa-crown" style="color: #ffa502;"></i> Toàn bộ Lời Bài Hát Sau Khi Đã Nâng Cấp Sâu Sắc</h3>
+
                                 <span id="auditPolishedCount" class="badge"><i class="fas fa-check-circle"></i> Chuẩn cấu trúc Suno AI</span>
+
                             </div>
+
                             <div class="output-box-wrap">
+
                                 <textarea id="auditPolishedLyrics" rows="12" placeholder="Bản lời bài hát hoàn chỉnh sau khi nâng cấp sẽ hiển thị tại đây..."></textarea>
+
                                 <div class="audit-bottom-actions">
+
                                     <button type="button" id="btnCopyPolishedLyrics" class="btn-copy-box">
+
                                         <i class="fas fa-copy"></i> <span>Sao chép Lời Đã Nâng Cấp</span>
+
                                     </button>
+
                                     <button type="button" id="btnSendToSunoBottom" class="btn-send-suno">
+
                                         <i class="fas fa-paper-plane"></i> <span>Chuyển sang Tab Suno tạo nhạc</span>
+
                                     </button>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     
+
     <script src="script.js?v=2.2"></script>
+
 </body>
+
 </html>
